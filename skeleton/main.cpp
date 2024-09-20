@@ -53,8 +53,20 @@ void initPhysics(bool interactive)
 	sceneDesc.cpuDispatcher = gDispatcher;
 	sceneDesc.filterShader = contactReportFilterShader;
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
+
+
 	gScene = gPhysics->createScene(sceneDesc);
-	}
+
+	//PxSphereGeometry sphere = PxSphereGeometry(1);
+ 	PxShape* shape =  CreateShape(PxSphereGeometry(1));
+
+	PxTransform* transform = new PxTransform(PxVec3(0, 0, 0));
+
+	RenderItem* sphereItem = new RenderItem(shape,transform,PxVec4(1,1,1,1));
+
+
+
+}
 
 
 // Function to configure what happens in each step of physics
