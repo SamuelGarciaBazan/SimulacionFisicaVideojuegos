@@ -32,8 +32,6 @@ private:
 
 public:
 
-
-
 	Axis(int radiusAxis = 10,int radiusPoints = 1) {
 
 
@@ -45,10 +43,16 @@ public:
 			shapes.push_back(CreateShape(PxSphereGeometry(radiusPoints)));
 		}
 
-		transforms.push_back(new PxTransform(PxVec3(0, 0, 0)));
-		transforms.push_back(new PxTransform(PxVec3(radiusAxis, 0, 0)));
-		transforms.push_back(new PxTransform(PxVec3(0, radiusAxis, 0)));
-		transforms.push_back(new PxTransform(PxVec3(0, 0, radiusAxis)));
+		Vector3D zero(0,0,0);
+		Vector3D x(radiusAxis,0,0);
+		Vector3D y(0,radiusAxis,0);
+		Vector3D z(0,0,radiusAxis);
+
+
+		transforms.push_back(new PxTransform(PxVec3(zero.x, zero.y, zero.z)));
+		transforms.push_back(new PxTransform(PxVec3(x.x, x.y, x.z)));
+		transforms.push_back(new PxTransform(PxVec3(y.x, y.y, y.z)));
+		transforms.push_back(new PxTransform(PxVec3(z.x, z.y, z.z)));
 
 		colors.push_back(PxVec4(1,1,1,1));
 		colors.push_back(PxVec4(1,0,0,1));
@@ -62,7 +66,6 @@ public:
 
 	}
 
-
 	~Axis() {
 
 		for (int i = 0; i < nSpheres; i++) {
@@ -70,10 +73,7 @@ public:
 			DeregisterRenderItem(renderItems[i]);
 		}
 
-	}
-		
-
-
+	}	
 };
 
 Axis* axis;
@@ -122,7 +122,7 @@ void initPhysics(bool interactive)
 
 	gScene = gPhysics->createScene(sceneDesc);
 
-	axis = new Axis(20,5);
+	axis = new Axis(20,2);
 }
 
 
