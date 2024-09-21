@@ -12,6 +12,8 @@
 
 std::string display_text = "This is a test";
 
+#include "Vector3D.h"
+
 using namespace physx;
 
 
@@ -33,6 +35,7 @@ public:
 
 
 	Axis(int radiusAxis = 10,int radiusPoints = 1) {
+
 
 		shapes.reserve(nSpheres);
 		transforms.reserve(nSpheres);
