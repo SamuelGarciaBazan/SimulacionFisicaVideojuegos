@@ -78,11 +78,19 @@ public:
 
 Axis* axis;
 
-
+//clase(interfaz) necesaria para el almacenamiento de memoria de physX, 
+//esta clase viene con la SDK para facilitar el uso rapido de la API
+//se puede crear otra a gusto del usuario
 PxDefaultAllocator		gAllocator;
+
+//clase(interfaz) necesaria para la gestion y manejo de errores de physX, 
+//esta clase viene con la SDK para facilitar el uso rapido de la API
+//se puede crear otra a gusto del usuario
 PxDefaultErrorCallback	gErrorCallback;
 
+//Every PhysX module requires a PxFoundation instance to be available
 PxFoundation*			gFoundation = NULL;
+
 PxPhysics*				gPhysics	= NULL;
 
 
@@ -103,6 +111,7 @@ void initPhysics(bool interactive)
 
 	gFoundation = PxCreateFoundation(PX_FOUNDATION_VERSION, gAllocator, gErrorCallback);
 
+	//physX visual debugger creation
 	gPvd = PxCreatePvd(*gFoundation);
 	PxPvdTransport* transport = PxDefaultPvdSocketTransportCreate(PVD_HOST, 5425, 10);
 	gPvd->connect(*transport,PxPvdInstrumentationFlag::eALL);
@@ -131,6 +140,7 @@ void initPhysics(bool interactive)
 // t: time passed since last call in milliseconds
 void stepPhysics(bool interactive, double t)
 {
+	//no compilador queja 
 	PX_UNUSED(interactive);
 
 	gScene->simulate(t);
