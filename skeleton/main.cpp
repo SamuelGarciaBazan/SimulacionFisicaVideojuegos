@@ -136,7 +136,7 @@ void initPhysics(bool interactive)
 	axis = new Axis(20,2);
 
 
-	 p = new  Particle(PxVec3(1, 1, 1), PxVec3(3, 3, 0));
+	 p = new  Particle(PxVec3(1, 1, 1), PxVec3(3, 3, 0),PxVec3(0,0,0));
 }
 
 
