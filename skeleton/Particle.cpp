@@ -3,16 +3,47 @@
 
 using namespace physx;
 
-Particle::Particle(physx::PxVec3 pos, physx::PxVec3 vel, physx::PxVec3 acel)
-	:transform(pos),vel(vel),acel(acel)
+
+
+
+
+Particle::Particle(physx::PxVec3 pos, physx::PxVec3 vel, physx::PxVec3 acel,
+	PxGeometryType::Enum type )
+	:transform(pos), vel(vel), acel(acel)
 {
+
+	PxGeometry* g ;
+	PxShape* shape;
 	
-	PxShape* shape = CreateShape(PxSphereGeometry(1));
+	switch (type)
+	{
+	case physx::PxGeometryType::eSPHERE:
+		g = new PxSphereGeometry(1);
+		break;
+	case physx::PxGeometryType::eCAPSULE:
+		g = new PxCapsuleGeometry(1,2);
+		break;
+	case physx::PxGeometryType::eBOX:
+		g = new PxBoxGeometry(1, 1, 1);
+		break;
+
+	default:
+		g = new PxSphereGeometry(1);
+		break;
+	}
+	
+	shape = CreateShape(*g);
+	
 	PxVec4 color{ 1,1,1,1 };
 
-	renderItem = new RenderItem(shape,&transform,color);
+	renderItem = new RenderItem(shape, &transform, color);
+
+	delete g;
 
 }
+
+
+
 
 Particle::~Particle()
 {

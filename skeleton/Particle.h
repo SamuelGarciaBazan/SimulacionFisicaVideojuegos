@@ -10,7 +10,8 @@
 class Particle
 {
 public:
-	Particle(physx::PxVec3 pos, physx::PxVec3 vel, physx::PxVec3 acel);
+	Particle(physx::PxVec3 pos, physx::PxVec3 vel, physx::PxVec3 acel,
+		physx::PxGeometryType::Enum type = physx::PxGeometryType::Enum::eSPHERE);
 	~Particle();
 
 	void integrate(double t);
