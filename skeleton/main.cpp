@@ -13,6 +13,7 @@
 std::string display_text = "This is a test";
 
 #include "Vector3D.h"
+#include "Particle.h"
 
 using namespace physx;
 
@@ -77,6 +78,7 @@ public:
 };
 
 Axis* axis;
+Particle* p;
 
 //clase(interfaz) necesaria para el almacenamiento de memoria de physX, 
 //esta clase viene con la SDK para facilitar el uso rapido de la API
@@ -132,6 +134,9 @@ void initPhysics(bool interactive)
 	gScene = gPhysics->createScene(sceneDesc);
 
 	axis = new Axis(20,2);
+
+
+	 p = new  Particle(PxVec3(1, 1, 1), PxVec3(3, 3, 0));
 }
 
 
@@ -144,6 +149,7 @@ void stepPhysics(bool interactive, double t)
 	PX_UNUSED(interactive);
 
 	gScene->simulate(t);
+	p->integrate(t);
 	gScene->fetchResults(true);
 }
 
@@ -154,6 +160,7 @@ void cleanupPhysics(bool interactive)
 	PX_UNUSED(interactive);
 
 	delete axis;
+	delete p;
 
 
 	// Rigid Body ++++++++++++++++++++++++++++++++++++++++++
