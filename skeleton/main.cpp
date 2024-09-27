@@ -136,7 +136,7 @@ void initPhysics(bool interactive)
 	axis = new Axis(20,2);
 
 
-	 p = new Particle(PxVec3(1, 1, 1), PxVec3(0, 0, 0),PxVec3(1,1, 0), PxGeometryType::Enum::eSPHERE);
+	 p = new Particle(PxVec3(1, 1, 1), PxVec3(0, 0, 0),PxVec3(3,3, 0), 0.7,PxGeometryType::Enum::eSPHERE);
 }
 
 
@@ -148,8 +148,9 @@ void stepPhysics(bool interactive, double t)
 	//no compilador queja 
 	PX_UNUSED(interactive);
 
-	gScene->simulate(t);
 	p->integrate(t);
+
+	gScene->simulate(t);
 	gScene->fetchResults(true);
 }
 

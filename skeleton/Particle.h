@@ -10,7 +10,7 @@
 class Particle
 {
 public:
-	Particle(physx::PxVec3 pos, physx::PxVec3 vel, physx::PxVec3 acel,double damping = 1,
+	Particle(physx::PxVec3 pos, physx::PxVec3 vel, physx::PxVec3 acel,double damping = 1.0,
 		physx::PxGeometryType::Enum type = physx::PxGeometryType::Enum::eSPHERE);
 	~Particle();
 
