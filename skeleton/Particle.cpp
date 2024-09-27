@@ -1,5 +1,6 @@
 #include "Particle.h"
 
+#include <cmath>
 
 using namespace physx;
 
@@ -7,9 +8,9 @@ using namespace physx;
 
 
 
-Particle::Particle(physx::PxVec3 pos, physx::PxVec3 vel, physx::PxVec3 acel,
+Particle::Particle(physx::PxVec3 pos, physx::PxVec3 vel, physx::PxVec3 acel,double damping,
 	PxGeometryType::Enum type )
-	:transform(pos), vel(vel), acel(acel)
+	:transform(pos), vel(vel), acel(acel),damping(damping)
 {
 
 	PxGeometry* g ;
@@ -52,6 +53,8 @@ Particle::~Particle()
 
 void Particle::integrate(double t)
 {
+	//vel = vel * std::pow(damping, t);
+	vel += acel * t;
 	transform.p += vel * t;
 	
 }
