@@ -79,6 +79,7 @@ public:
 
 Axis* axis;
 Particle* p;
+std::vector<Particle*> particles;
 
 //clase(interfaz) necesaria para el almacenamiento de memoria de physX, 
 //esta clase viene con la SDK para facilitar el uso rapido de la API
@@ -136,7 +137,11 @@ void initPhysics(bool interactive)
 	axis = new Axis(20,2);
 
 
-	 p = new Particle(PxVec3(1, 1, 1), PxVec3(0, 0, 0),PxVec3(3,3, 0), 0.7,PxGeometryType::Enum::eSPHERE);
+	p = new Particle(PxVec3(0, 10, 0), PxVec3(250, 0, 0),PxVec3(0,0, 0), 1,PxGeometryType::Enum::eSPHERE);
+
+	
+
+	p->scaleObject(250, 0.180, 0.1);
 }
 
 
@@ -149,6 +154,8 @@ void stepPhysics(bool interactive, double t)
 	PX_UNUSED(interactive);
 
 	p->integrate(t);
+
+	for (auto& par : particles) par->integrate(t);
 
 	gScene->simulate(t);
 	gScene->fetchResults(true);
@@ -191,8 +198,15 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	{
 	//case 'B': break;
 	//case ' ':	break;
-	case ' ':
+	case 'C':
 	{
+		auto a = new Particle(PxVec3(0, 10, 0), PxVec3(250, 0, 0), PxVec3(0, 0, 0), 1, PxGeometryType::Enum::eSPHERE);
+
+		a->scaleObject(250, 0.180, 0.1);
+		a->setFromCamera();
+
+		particles.push_back(a);
+
 		break;
 	}
 	default:

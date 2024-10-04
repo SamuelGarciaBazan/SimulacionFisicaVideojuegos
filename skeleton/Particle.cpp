@@ -6,6 +6,7 @@
 using namespace physx;
 
 
+const double Particle::defaultGravityY = -99.8;
 
 
 
@@ -40,6 +41,7 @@ Particle::Particle(physx::PxVec3 pos, physx::PxVec3 vel, physx::PxVec3 acel,doub
 
 	renderItem = new RenderItem(shape, &transform, color);
 
+
 	delete g;
 
 }
@@ -56,9 +58,37 @@ void Particle::integrate(double t)
 {
 	//std::cout << damping << std::endl;
 	//std::cout << std::pow(damping, t) << std::endl;
-	
+	//std::cout << (acel * t).x << std::endl;
+
 	vel = vel * std::pow(damping, t);
-	vel += acel * t;
+	vel += acel * t + Vector3(0,1,0)*gravityY*t;
 	transform.p += vel * t;
 	
+}
+
+void Particle::scaleObject(double realVel, double realMas, double scaleFactor)
+{
+
+	double newVel;
+
+	newVel = realVel * scaleFactor;
+
+	double realVelSquare = std::pow(realVel, 2);
+	double newVelSquare = std::pow(newVel, 2);
+	
+
+	mass = realVelSquare / newVelSquare * realMas;
+
+
+	gravityY = defaultGravityY * newVelSquare / realVelSquare;
+	
+	
+	vel*= scaleFactor;
+
+}
+
+void Particle::setFromCamera()
+{
+	this->transform.p = GetCamera()->getTransform().p;
+	this->vel = GetCamera()->getDir() * this->vel.magnitude();
 }

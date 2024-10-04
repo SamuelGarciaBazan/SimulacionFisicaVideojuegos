@@ -17,6 +17,12 @@ public:
 	void integrate(double t);
 
 
+	void scaleObject(double realVel, double realMas, double scaleFactor);
+
+
+	void setFromCamera();
+
+	static const double defaultGravityY;
 
 private:
 
@@ -27,6 +33,12 @@ private:
 	RenderItem* renderItem;
 
 	double damping;
+
+
+
+	double mass;
+	double gravityY =defaultGravityY;
+
 
 };
 
