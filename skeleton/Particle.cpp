@@ -73,8 +73,8 @@ void Particle::scaleObject(double realVel, double realMas, double scaleFactor)
 
 	newVel = realVel * scaleFactor;
 
-	double realVelSquare = std::pow(realVel, 2);
-	double newVelSquare = std::pow(newVel, 2);
+	const double realVelSquare = std::pow(realVel, 2);
+	const double newVelSquare = std::pow(newVel, 2);
 	
 
 	mass = realVelSquare / newVelSquare * realMas;
