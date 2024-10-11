@@ -20,6 +20,11 @@ private:
 
 	std::vector<Particle*> particles;
 
+	int maxParticles;
+
+	double creationRate;
+
+
 	double startLifeTimeMinRange;
 	double startLifeTimeMaxRange;
 
