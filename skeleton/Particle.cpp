@@ -6,7 +6,7 @@
 using namespace physx;
 
 
-const double Particle::defaultGravityY = -99.8;
+const double Particle::defaultGravityY = -9.8;
 
 
 
@@ -60,8 +60,13 @@ void Particle::integrate(double t)
 	//std::cout << std::pow(damping, t) << std::endl;
 	//std::cout << (acel * t).x << std::endl;
 
+	std::cout << "Initial vel: " << vel.y << std::endl;
 	vel = vel * std::pow(damping, t);
-	vel += acel * t + Vector3(0,1,0)*gravityY*t;
+	vel += (acel * t) + (Vector3(0,1,0) * gravityY * t);
+
+	std::cout << "Final vel: " << vel.y << std::endl;
+
+
 	transform.p += vel * t;
 	
 }
@@ -69,7 +74,9 @@ void Particle::integrate(double t)
 void Particle::scaleObject(double realVel, double realMas, double scaleFactor)
 {
 
+	//modulo de la velocidad
 	double newVel;
+
 
 	newVel = realVel * scaleFactor;
 
@@ -77,10 +84,10 @@ void Particle::scaleObject(double realVel, double realMas, double scaleFactor)
 	const double newVelSquare = std::pow(newVel, 2);
 	
 
-	mass = realVelSquare / newVelSquare * realMas;
+	mass = (realVelSquare / newVelSquare) * realMas;
 
 
-	gravityY = defaultGravityY * newVelSquare / realVelSquare;
+	gravityY = defaultGravityY * (newVelSquare / realVelSquare);
 	
 	
 	vel*= scaleFactor;

@@ -136,7 +136,7 @@ void initPhysics(bool interactive)
 
 
 	axis = new Axis(20,2);
-	p = new Particle(PxVec3(0, 10, 0), PxVec3(250, 0, 0),PxVec3(0,0, 0), 1,PxGeometryType::Enum::eSPHERE);
+	p = new Particle(PxVec3(0, 50, 0), PxVec3(250, 0, 0),PxVec3(0,0,0), 1,PxGeometryType::Enum::eSPHERE);
 	p->scaleObject(250, 0.180, 0.1);
 }
 
