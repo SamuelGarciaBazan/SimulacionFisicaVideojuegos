@@ -34,6 +34,7 @@ private:
 	int maxParticles;
 
 	double creationRate;
+	double currentCreationTimer;
 
 
 	double startLifeTimeMinRange;
@@ -61,9 +62,12 @@ private:
 
 	void deleteParticles(double d);
 
+	bool mustDie(ParticleData p);
+
+
 	void createNewParticles(double d);
 
-	bool mustDie(ParticleData p);
+	void createParticle();
 
 };
 

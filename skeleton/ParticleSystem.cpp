@@ -36,10 +36,6 @@ void ParticleSystem::deleteParticles(double d)
 
 }
 
-void ParticleSystem::createNewParticles(double d)
-{
-}
-
 bool ParticleSystem::mustDie(ParticleData p)
 {
 	if (p.currentLifeTime < 0) {
@@ -56,5 +52,24 @@ bool ParticleSystem::mustDie(ParticleData p)
 		}
 		return false;
 	}
+
+}
+
+
+
+void ParticleSystem::createNewParticles(double d)
+{
+	currentCreationTimer += d;
+
+	while (currentCreationTimer > creationRate) {
+		currentCreationTimer -= creationRate;
+
+		createParticle();
+	}
+}
+
+void ParticleSystem::createParticle()
+{
+
 
 }
