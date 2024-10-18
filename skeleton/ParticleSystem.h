@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <list>
 #include "Particle.h"
 
 class ParticleSystem
@@ -14,11 +14,22 @@ public:
 		UNIFORM,NORMAL
 	};
 
+
+	void update(double d);
+
 private:
+
+	struct ParticleData
+	{
+		//la posicion la sacamos de la particula
+		Particle* particle;
+		//tiempo de vida de la particula
+		double currentLifeTime;
+	};
 
 	Particle* model;
 
-	std::vector<Particle*> particles;
+	std::list<ParticleData> particles;
 
 	int maxParticles;
 
@@ -34,10 +45,25 @@ private:
 	physx::PxVec3 velMinRange;
 	physx::PxVec3 velMaxRange;
 
-	physx::PxVec3 posMinRange;
-	physx::PxVec3 posMaxRange;
+	physx::PxVec3 startPosMinRange;
+	physx::PxVec3 startPosMaxRange;
 
 	RandomMode randomMode;
+
+	bool loop;
+	double duration;
+	double delay;
+
+
+
+
+
+
+	void deleteParticles(double d);
+
+	void createNewParticles(double d);
+
+	bool mustDie(ParticleData p);
 
 };
 

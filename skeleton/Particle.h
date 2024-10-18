@@ -24,6 +24,8 @@ public:
 
 	static const double defaultGravityY;
 
+	physx::PxVec3 getPos() const { return transform.p; }
+
 private:
 
 	physx::PxVec3 vel;
@@ -37,7 +39,7 @@ private:
 
 
 	double mass;
-	double gravityY =defaultGravityY;
+	double gravityY = defaultGravityY;
 
 
 };
