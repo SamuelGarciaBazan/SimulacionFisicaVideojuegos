@@ -96,18 +96,22 @@ void ParticleSystem::createParticle()
 	PxVec3 acel = getRandomVec3(acelMinRange, acelMaxRange);
 
 	double startLifetime = random.getRandomRange(startLifeTimeMinRange, startLifeTimeMaxRange);
+	double scale = random.getRandomRange(minScale, maxScale);
 
 	//valores leidos del modelo
 	double damping = model->getDamping();
 	double mass = model->getMass();
 	PxGeometryType::Enum type = model->getGeometryType();
 	PxVec4 color = model->getColor();
+	PxQuat quat = model->getQuat();
 
-	Particle* newParticle = new Particle(pos,vel,acel,damping,mass,type,color);
+
+	Particle* newParticle = new Particle(pos,quat,vel,acel,scale,damping,mass,type,color);
 
 	ParticleData data;
 	data.particle = newParticle;
 	data.currentLifeTime = startLifetime;
+
 
 	particles.push_back(data);
 }

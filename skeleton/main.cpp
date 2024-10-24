@@ -82,7 +82,13 @@ Axis* axis;
 Particle* p;
 std::vector<Particle*> particles;
 
-ParticleSystem* particleSystem;
+std::vector<ParticleSystem*> particlesSystems;
+
+ParticleSystem* particleSystemSnow;
+Particle* snowModel;
+
+ParticleSystem* particleSystemRain;
+Particle* rainModel;
 
 //clase(interfaz) necesaria para el almacenamiento de memoria de physX, 
 //esta clase viene con la SDK para facilitar el uso rapido de la API
@@ -107,6 +113,11 @@ PxPvd*                  gPvd        = NULL;
 PxDefaultCpuDispatcher*	gDispatcher = NULL;
 PxScene*				gScene      = NULL;
 ContactReportCallback gContactReportCallback;
+
+
+//forward declaration
+void createSnowSystem();
+void createRainSystem();
 
 
 
@@ -139,39 +150,15 @@ void initPhysics(bool interactive)
 
 
 	axis = new Axis(20,2);
-	p = new Particle(PxVec3(0, 50, 0), PxVec3(250, 0, 0),PxVec3(0,0,0), 1,PxGeometryType::Enum::eSPHERE);
+	p = new Particle(PxVec3(0, 50, 0),PxQuat(), PxVec3(250, 0, 0), PxVec3(0, 0, 0), 1, PxGeometryType::Enum::eSPHERE);
 
 
 	p->scaleObject(250, 0.180, 0.1);
 
-	particleSystem = new ParticleSystem();
-
-	particleSystem->currentCreationTimer = 0;
-	particleSystem->creationRate = 0.1f;
-	particleSystem->acelMinRange = { 0,0,0 };
-	particleSystem->acelMaxRange = { 0,0,0 };
-
-	//particleSystem->lifePosMinRange = { 0,0,0 };
-	//particleSystem->lifePosMaxRange = { 0,0,0 };
-
-	particleSystem->maxParticles = 1000;
-	particleSystem->startLifeTimeMinRange = 3.0f;
-	particleSystem->startLifeTimeMaxRange = 3.0f;
-
-	particleSystem->startPosMinRange = { 0,0,0 };
-	particleSystem->startPosMaxRange = { 10,10,10 };
-
-	particleSystem->velMinRange = { 0,0,0 };
-	particleSystem->velMaxRange = { 0,0,0 };
-
-	particleSystem->diePos = false;
-	particleSystem->dieTime = true;
 
 
-	auto model = new Particle(PxVec3(0, 30, 0), PxVec3(250, 0, 0), PxVec3(0, 0, 0), 1, PxGeometryType::Enum::eSPHERE);
-
-
-	particleSystem->model = model;
+	//createSnowSystem();
+	createRainSystem();
 }
 
 
@@ -184,7 +171,9 @@ void stepPhysics(bool interactive, double t)
 	PX_UNUSED(interactive);
 
 	p->integrate(t);
-	particleSystem->update(t);
+
+	for (auto& sys : particlesSystems) sys->update(t);
+
 
 	for (auto& par : particles) par->integrate(t);
 
@@ -231,7 +220,7 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	//case ' ':	break;
 	case 'C':
 	{
-		auto a = new Particle(PxVec3(0, 10, 0), PxVec3(250, 0, 0), PxVec3(0, 0, 0), 1, PxGeometryType::Enum::eSPHERE);
+		auto a = new Particle(PxVec3(0, 10, 0),PxQuat(), PxVec3(250, 0, 0), PxVec3(0, 0, 0), 1, PxGeometryType::Enum::eSPHERE);
 
 		a->scaleObject(250, 0.180, 0.1);
 		a->setFromCamera();
@@ -269,3 +258,86 @@ int main(int, const char*const*)
 }
 
 
+
+void createSnowSystem() {
+
+
+	particleSystemSnow = new ParticleSystem(MyRandom::RandomMode::UNIFORM);
+
+	particleSystemSnow->currentCreationTimer = 0;
+	particleSystemSnow->creationRate = 0.1f;
+	particleSystemSnow->acelMinRange = { 0,0,0 };
+	particleSystemSnow->acelMaxRange = { 0,0,0 };
+
+	particleSystemSnow->lifePosMinRange = { -50,0,-50 };
+	particleSystemSnow->lifePosMaxRange = { 50,50,50 };
+
+	particleSystemSnow->maxParticles = 1000;
+	particleSystemSnow->startLifeTimeMinRange = 5.0f;
+	particleSystemSnow->startLifeTimeMaxRange = 8.0f;
+
+	particleSystemSnow->startPosMinRange = { -50,50,-50 };
+	particleSystemSnow->startPosMaxRange = { 50,50,50 };
+
+	particleSystemSnow->velMinRange = { -1,-10,-1 };
+	particleSystemSnow->velMaxRange = { 1,-10,1 };
+
+	particleSystemSnow->minScale = 1;
+	particleSystemSnow->maxScale = 5;
+
+	particleSystemSnow->diePos = true;
+	particleSystemSnow->dieTime = false;
+
+
+	PxQuat quat = PxQuat(0, 0, 0, 1);
+
+	snowModel = new Particle(PxVec3(0, 30, 0),quat, PxVec3(250, 0, 0), PxVec3(0, 0, 0), 1,1,1, PxGeometryType::Enum::eSPHERE);
+
+
+	particleSystemSnow->model = snowModel;
+
+	particlesSystems.push_back(particleSystemSnow);
+}
+
+void createRainSystem() {
+
+
+	particleSystemRain = new ParticleSystem(MyRandom::RandomMode::UNIFORM);
+
+	particleSystemRain->currentCreationTimer = 0;
+	particleSystemRain->creationRate = 0.01f;
+	particleSystemRain->acelMinRange = { 0,0,0 };
+	particleSystemRain->acelMaxRange = { 0,0,0 };
+
+	particleSystemRain->lifePosMinRange = { -50,0,-50 };
+	particleSystemRain->lifePosMaxRange = { 50,50,50 };
+
+	particleSystemRain->maxParticles = 10000;
+	particleSystemRain->startLifeTimeMinRange = 5.0f;
+	particleSystemRain->startLifeTimeMaxRange = 8.0f;
+
+	particleSystemRain->startPosMinRange = { -100,50,-100 };
+	particleSystemRain->startPosMaxRange = { 100,50,100 };
+
+	particleSystemRain->velMinRange = { 10,-40,-10 };
+	particleSystemRain->velMaxRange = { 10,-80,-10 };
+
+	particleSystemRain->minScale = 2;
+	particleSystemRain->maxScale = 3;
+
+	particleSystemRain->diePos = false;
+	particleSystemRain->dieTime = false;
+
+
+	PxQuat quat = PxQuat(0, 0, 0, 1);
+
+
+	rainModel = new Particle(PxVec3(0, 30, 0), quat,PxVec3(250, 0, 0), PxVec3(0, 0, 0),
+		1, 1, 1, PxGeometryType::Enum::eCAPSULE,PxVec4(0,0,1,1));
+
+
+
+	particleSystemRain->model = rainModel;
+
+	particlesSystems.push_back(particleSystemRain);
+}

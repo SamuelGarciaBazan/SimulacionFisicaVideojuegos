@@ -11,13 +11,18 @@ const double Particle::defaultGravityY = -9.8;
 
 
 Particle::Particle(
-	physx::PxVec3 pos, physx::PxVec3 vel, physx::PxVec3 acel,
+	physx::PxVec3 pos,
+	physx::PxQuat quat,
+	physx::PxVec3 vel, physx::PxVec3 acel,
+	double scale,
 	double damping ,
 	double mass,
 	PxGeometryType::Enum type,
 	physx::PxVec4 color)
 
-	:transform(pos), vel(vel), acel(acel), //inicializacion de parametros
+	:transform(pos),
+	vel(vel), acel(acel), //inicializacion de parametros
+	scale(scale),
 	damping(damping),
 	mass(mass),
 	geometryType(type),
@@ -27,17 +32,18 @@ Particle::Particle(
 	PxGeometry* geo;
 	PxShape* shape;
 	
+
 	//creacion de la geometria dependiendo del tipo
 	switch (type)
 	{
 	case physx::PxGeometryType::eSPHERE:
-		geo = new PxSphereGeometry(1);
+		geo = new PxSphereGeometry(scale);
 		break;
 	case physx::PxGeometryType::eCAPSULE:
-		geo = new PxCapsuleGeometry(1,2);
+		geo = new PxCapsuleGeometry(scale,2* scale);
 		break;
 	case physx::PxGeometryType::eBOX:
-		geo = new PxBoxGeometry(1, 1, 1);
+		geo = new PxBoxGeometry(scale, scale, scale);
 		break;
 
 	default:
@@ -47,9 +53,14 @@ Particle::Particle(
 	
 	//creacion del shape
 	shape = CreateShape(*geo);
+	
+	//transform.q = PxQuat(1, 0, 1, 1);
 
+	//transform.q.rotate(PxVec3(10,90,90));
 	//creacion del renderItem
 	renderItem = new RenderItem(shape, &transform, color);
+
+	transform.q = quat;
 
 	delete geo;
 

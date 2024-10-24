@@ -75,7 +75,53 @@ class ParticleSystem
 {
 public:
 
-	ParticleSystem() { random.setRandomMode(MyRandom::RandomMode::UNIFORM); };
+	struct ParticleSystemCreateInfo {
+
+		int maxParticles;
+
+		double creationRate;
+		double currentCreationTimer;
+
+		double startLifeTimeMinRange;
+		double startLifeTimeMaxRange;
+
+		double minScale;
+		double maxScale;
+
+		physx::PxVec3 lifePosMinRange;
+		physx::PxVec3 lifePosMaxRange;
+
+		physx::PxVec3 velMinRange;
+		physx::PxVec3 velMaxRange;
+
+		physx::PxVec3 acelMinRange;
+		physx::PxVec3 acelMaxRange;
+
+		physx::PxVec3 startPosMinRange;
+		physx::PxVec3 startPosMaxRange;
+
+
+		bool loop;
+		double duration;
+		double delay;
+
+		bool diePos;
+		bool dieTime;
+
+
+		//modelo de particula
+		Particle* model;
+
+		MyRandom::RandomMode randomMode;
+
+	};
+
+
+	ParticleSystem(MyRandom::RandomMode randomMode) : randomMode(randomMode) {
+
+		random.setRandomMode(randomMode);
+
+	};
 	~ParticleSystem() {};
 
 	void update(double d);
@@ -87,6 +133,9 @@ public:
 
 	double startLifeTimeMinRange;
 	double startLifeTimeMaxRange;
+
+	double minScale;
+	double maxScale;
 
 	physx::PxVec3 lifePosMinRange;
 	physx::PxVec3 lifePosMaxRange;
@@ -112,6 +161,7 @@ public:
 	//modelo de particula
 	Particle* model;
 
+	MyRandom::RandomMode randomMode;
 
 private:
 

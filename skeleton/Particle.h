@@ -11,7 +11,10 @@ class Particle
 {
 public:
 	Particle(
-		physx::PxVec3 pos, physx::PxVec3 vel, physx::PxVec3 acel,
+		physx::PxVec3 pos,
+		physx::PxQuat quat,
+		physx::PxVec3 vel, physx::PxVec3 acel,
+		double scale = 1.0,
 		double damping = 1.0, 
 		double mass = 1,
 		physx::PxGeometryType::Enum type = physx::PxGeometryType::Enum::eSPHERE, 
@@ -34,6 +37,8 @@ public:
 	physx::PxGeometryType::Enum getGeometryType() const { return geometryType; }
 	physx::PxVec4 getColor() const { return color; }
 
+	physx::PxQuat getQuat() const { return transform.q; }
+
 private:
 
 	physx::PxVec3 vel;
@@ -49,6 +54,8 @@ private:
 	physx::PxGeometryType::Enum geometryType;
 
 	physx::PxVec4 color;
+
+	double scale;
 
 	RenderItem* renderItem;
 
