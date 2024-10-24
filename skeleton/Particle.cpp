@@ -80,11 +80,11 @@ void Particle::integrate(double t)
 	//std::cout << std::pow(damping, t) << std::endl;
 	//std::cout << (acel * t).x << std::endl;
 
-	/*std::cout << "Initial vel: " << vel.y << std::endl;
+	//std::cout << "Initial vel: " << vel.y << std::endl;
 	vel = vel * std::pow(damping, t);
 	vel += (acel * t) + (Vector3(0,1,0) * gravityY * t);
 
-	std::cout << "Final vel: " << vel.y << std::endl;*/
+	//std::cout << "Final vel: " << vel.y << std::endl;
 
 
 	transform.p += vel * t;

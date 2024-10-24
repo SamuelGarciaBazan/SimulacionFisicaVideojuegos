@@ -157,8 +157,8 @@ void initPhysics(bool interactive)
 
 
 
-	//createSnowSystem();
-	createRainSystem();
+	createSnowSystem();
+	//createRainSystem();
 }
 
 
@@ -313,23 +313,32 @@ void createRainSystem() {
 	particleSystemRain->lifePosMaxRange = { 50,50,50 };
 
 	particleSystemRain->maxParticles = 10000;
-	particleSystemRain->startLifeTimeMinRange = 5.0f;
-	particleSystemRain->startLifeTimeMaxRange = 8.0f;
+	particleSystemRain->startLifeTimeMinRange = 4.0f;
+	particleSystemRain->startLifeTimeMaxRange = 6.0f;
 
 	particleSystemRain->startPosMinRange = { -100,50,-100 };
 	particleSystemRain->startPosMaxRange = { 100,50,100 };
 
-	particleSystemRain->velMinRange = { 10,-40,-10 };
-	particleSystemRain->velMaxRange = { 10,-80,-10 };
+	particleSystemRain->velMinRange = { 0,-60,-0 };
+	particleSystemRain->velMaxRange = { 0,-200,-0 };
 
 	particleSystemRain->minScale = 2;
 	particleSystemRain->maxScale = 3;
 
 	particleSystemRain->diePos = false;
-	particleSystemRain->dieTime = false;
+	particleSystemRain->dieTime = true;
 
 
 	PxQuat quat = PxQuat(0, 0, 0, 1);
+
+
+	float angleRadians = -PxPiDivTwo;  
+	PxVec3 rotationAxis(0.0f, 0.0f, 1.0f);  
+
+	// Crear cuaternión a partir del ángulo y el eje
+	PxQuat rotationQuat(angleRadians, rotationAxis);
+
+	quat = quat * rotationQuat;
 
 
 	rainModel = new Particle(PxVec3(0, 30, 0), quat,PxVec3(250, 0, 0), PxVec3(0, 0, 0),
