@@ -6,6 +6,10 @@ using namespace physx;
 
 void ParticleSystem::update(double d)
 {
+	for (auto& pData : particles) {
+		pData.particle->integrate(d);
+	}
+
 
 	//eliminar particulas correspondientes
 	//actualizar vida de las particulas y  ver si han salido del area
@@ -15,18 +19,21 @@ void ParticleSystem::update(double d)
 	createNewParticles(d);
 }
 
+#pragma region Delete Particles
 
 void ParticleSystem::deleteParticles(double d)
 {
 	auto it = particles.begin();
 
+	//recorrido de particulas
 	while (it != particles.end()) {
 
 		auto& p = (*it);
 
+		//actualizamos el tiempo de vida
 		p.currentLifeTime -= d;
 
-
+		//si debe morir, la eliminamos
 		if (mustDie(p)) {
 			delete p.particle;
 			it = particles.erase(it);
@@ -38,29 +45,42 @@ void ParticleSystem::deleteParticles(double d)
 
 bool ParticleSystem::mustDie(ParticleData p)
 {
-	if (p.currentLifeTime < 0) {
+	//muerte por tiempo
+	if (dieTime && p.currentLifeTime < 0) {
 		return true;
 	}
 	else {
 
-		const PxVec3 pos = p.particle->getPos();
+		//muerte por posicion
+		if (diePos) {
 
-		if (pos.x < lifePosMinRange.x || pos.x > lifePosMaxRange.x ||
-			pos.y < lifePosMinRange.y || pos.y > lifePosMaxRange.y ||
-			pos.z < lifePosMinRange.z || pos.z > lifePosMaxRange.z) {
-			return true;
+			const PxVec3 pos = p.particle->getPos();
+
+			if (pos.x < lifePosMinRange.x || pos.x > lifePosMaxRange.x ||
+				pos.y < lifePosMinRange.y || pos.y > lifePosMaxRange.y ||
+				pos.z < lifePosMinRange.z || pos.z > lifePosMaxRange.z) {
+				return true;
+			}
 		}
+		
+		//ninguna muerte
 		return false;
 	}
 
 }
 
 
+#pragma endregion
+
+
+#pragma region Create particles
 
 void ParticleSystem::createNewParticles(double d)
 {
+	//actualizar el timer
 	currentCreationTimer += d;
 
+	//crear la cantidad de particulas que haga falta
 	while (currentCreationTimer > creationRate) {
 		currentCreationTimer -= creationRate;
 
@@ -70,6 +90,37 @@ void ParticleSystem::createNewParticles(double d)
 
 void ParticleSystem::createParticle()
 {
+	//valores aleatorios en los rangos
+	PxVec3 pos = getRandomVec3(startPosMinRange, startPosMaxRange);
+	PxVec3 vel = getRandomVec3(velMinRange, velMaxRange);
+	PxVec3 acel = getRandomVec3(acelMinRange, acelMaxRange);
 
+	double startLifetime = random.getRandomRange(startLifeTimeMinRange, startLifeTimeMaxRange);
 
+	//valores leidos del modelo
+	double damping = model->getDamping();
+	double mass = model->getMass();
+	PxGeometryType::Enum type = model->getGeometryType();
+	PxVec4 color = model->getColor();
+
+	Particle* newParticle = new Particle(pos,vel,acel,damping,mass,type,color);
+
+	ParticleData data;
+	data.particle = newParticle;
+	data.currentLifeTime = startLifetime;
+
+	particles.push_back(data);
 }
+
+
+
+#pragma endregion
+
+physx::PxVec3 ParticleSystem::getRandomVec3(physx::PxVec3 min, physx::PxVec3 max)
+{
+	return physx::PxVec3(random.getRandomRange(min.x, max.x),
+		random.getRandomRange(min.y, max.y),
+		random.getRandomRange(min.z, max.z));
+}
+
+

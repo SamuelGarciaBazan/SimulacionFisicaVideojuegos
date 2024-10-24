@@ -14,6 +14,7 @@ std::string display_text = "This is a test";
 
 #include "Vector3D.h"
 #include "Particle.h"
+#include "ParticleSystem.h"
 
 using namespace physx;
 
@@ -81,6 +82,8 @@ Axis* axis;
 Particle* p;
 std::vector<Particle*> particles;
 
+ParticleSystem* particleSystem;
+
 //clase(interfaz) necesaria para el almacenamiento de memoria de physX, 
 //esta clase viene con la SDK para facilitar el uso rapido de la API
 //se puede crear otra a gusto del usuario
@@ -137,7 +140,38 @@ void initPhysics(bool interactive)
 
 	axis = new Axis(20,2);
 	p = new Particle(PxVec3(0, 50, 0), PxVec3(250, 0, 0),PxVec3(0,0,0), 1,PxGeometryType::Enum::eSPHERE);
+
+
 	p->scaleObject(250, 0.180, 0.1);
+
+	particleSystem = new ParticleSystem();
+
+	particleSystem->currentCreationTimer = 0;
+	particleSystem->creationRate = 0.1f;
+	particleSystem->acelMinRange = { 0,0,0 };
+	particleSystem->acelMaxRange = { 0,0,0 };
+
+	//particleSystem->lifePosMinRange = { 0,0,0 };
+	//particleSystem->lifePosMaxRange = { 0,0,0 };
+
+	particleSystem->maxParticles = 1000;
+	particleSystem->startLifeTimeMinRange = 3.0f;
+	particleSystem->startLifeTimeMaxRange = 3.0f;
+
+	particleSystem->startPosMinRange = { 0,0,0 };
+	particleSystem->startPosMaxRange = { 10,10,10 };
+
+	particleSystem->velMinRange = { 0,0,0 };
+	particleSystem->velMaxRange = { 0,0,0 };
+
+	particleSystem->diePos = false;
+	particleSystem->dieTime = true;
+
+
+	auto model = new Particle(PxVec3(0, 30, 0), PxVec3(250, 0, 0), PxVec3(0, 0, 0), 1, PxGeometryType::Enum::eSPHERE);
+
+
+	particleSystem->model = model;
 }
 
 
@@ -150,6 +184,7 @@ void stepPhysics(bool interactive, double t)
 	PX_UNUSED(interactive);
 
 	p->integrate(t);
+	particleSystem->update(t);
 
 	for (auto& par : particles) par->integrate(t);
 

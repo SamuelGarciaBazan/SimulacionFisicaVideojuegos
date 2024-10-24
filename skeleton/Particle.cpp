@@ -10,39 +10,48 @@ const double Particle::defaultGravityY = -9.8;
 
 
 
-Particle::Particle(physx::PxVec3 pos, physx::PxVec3 vel, physx::PxVec3 acel,double damping ,
-	PxGeometryType::Enum type )
-	:transform(pos), vel(vel), acel(acel),damping(damping)
-{
+Particle::Particle(
+	physx::PxVec3 pos, physx::PxVec3 vel, physx::PxVec3 acel,
+	double damping ,
+	double mass,
+	PxGeometryType::Enum type,
+	physx::PxVec4 color)
 
-	PxGeometry* g ;
+	:transform(pos), vel(vel), acel(acel), //inicializacion de parametros
+	damping(damping),
+	mass(mass),
+	geometryType(type),
+	color(color)
+{
+	//geometry y shape
+	PxGeometry* geo;
 	PxShape* shape;
 	
+	//creacion de la geometria dependiendo del tipo
 	switch (type)
 	{
 	case physx::PxGeometryType::eSPHERE:
-		g = new PxSphereGeometry(1);
+		geo = new PxSphereGeometry(1);
 		break;
 	case physx::PxGeometryType::eCAPSULE:
-		g = new PxCapsuleGeometry(1,2);
+		geo = new PxCapsuleGeometry(1,2);
 		break;
 	case physx::PxGeometryType::eBOX:
-		g = new PxBoxGeometry(1, 1, 1);
+		geo = new PxBoxGeometry(1, 1, 1);
 		break;
 
 	default:
-		g = new PxSphereGeometry(1);
+		geo = new PxSphereGeometry(1);
 		break;
 	}
 	
-	shape = CreateShape(*g);
-	
-	PxVec4 color{ 1,1,1,1 };
+	//creacion del shape
+	shape = CreateShape(*geo);
 
+	//creacion del renderItem
 	renderItem = new RenderItem(shape, &transform, color);
 
-
-	delete g;
+	delete geo;
 
 }
 
@@ -60,11 +69,11 @@ void Particle::integrate(double t)
 	//std::cout << std::pow(damping, t) << std::endl;
 	//std::cout << (acel * t).x << std::endl;
 
-	std::cout << "Initial vel: " << vel.y << std::endl;
+	/*std::cout << "Initial vel: " << vel.y << std::endl;
 	vel = vel * std::pow(damping, t);
 	vel += (acel * t) + (Vector3(0,1,0) * gravityY * t);
 
-	std::cout << "Final vel: " << vel.y << std::endl;
+	std::cout << "Final vel: " << vel.y << std::endl;*/
 
 
 	transform.p += vel * t;
@@ -91,7 +100,6 @@ void Particle::scaleObject(double realVel, double realMas, double scaleFactor)
 	
 	
 	vel*= scaleFactor;
-
 }
 
 void Particle::setFromCamera()

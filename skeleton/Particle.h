@@ -10,15 +10,17 @@
 class Particle
 {
 public:
-	Particle(physx::PxVec3 pos, physx::PxVec3 vel, physx::PxVec3 acel,double damping = 1.0,
-		physx::PxGeometryType::Enum type = physx::PxGeometryType::Enum::eSPHERE);
+	Particle(
+		physx::PxVec3 pos, physx::PxVec3 vel, physx::PxVec3 acel,
+		double damping = 1.0, 
+		double mass = 1,
+		physx::PxGeometryType::Enum type = physx::PxGeometryType::Enum::eSPHERE, 
+		physx::PxVec4 color = physx::PxVec4(1,1,1,1));
 	~Particle();
 
 	void integrate(double t);
 
-
 	void scaleObject(double realVel, double realMas, double scaleFactor);
-
 
 	void setFromCamera();
 
@@ -26,20 +28,29 @@ public:
 
 	physx::PxVec3 getPos() const { return transform.p; }
 
+	double getDamping() const noexcept { return damping; }
+	double getMass() const noexcept { return mass; }
+
+	physx::PxGeometryType::Enum getGeometryType() const { return geometryType; }
+	physx::PxVec4 getColor() const { return color; }
+
 private:
 
 	physx::PxVec3 vel;
 	physx::PxVec3 acel;
 	physx::PxTransform transform;
 
-	RenderItem* renderItem;
-
 	double damping;
-
-
-
+	
 	double mass;
+	
 	double gravityY = defaultGravityY;
+
+	physx::PxGeometryType::Enum geometryType;
+
+	physx::PxVec4 color;
+
+	RenderItem* renderItem;
 
 
 };
