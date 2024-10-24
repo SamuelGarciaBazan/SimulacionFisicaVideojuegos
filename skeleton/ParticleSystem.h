@@ -163,6 +163,9 @@ public:
 
 	MyRandom::RandomMode randomMode;
 
+	physx::PxTransform transform;
+
+
 private:
 
 	struct ParticleData

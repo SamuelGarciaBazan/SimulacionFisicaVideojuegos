@@ -105,6 +105,10 @@ void ParticleSystem::createParticle()
 	PxVec4 color = model->getColor();
 	PxQuat quat = model->getQuat();
 
+	//aplicar el transform del particle system a la nueva particula
+	pos += transform.p;
+	vel = transform.q.rotate(vel);
+	acel = transform.q.rotate(acel);
 
 	Particle* newParticle = new Particle(pos,quat,vel,acel,scale,damping,mass,type,color);
 

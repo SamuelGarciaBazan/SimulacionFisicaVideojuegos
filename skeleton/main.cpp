@@ -90,6 +90,9 @@ Particle* snowModel;
 ParticleSystem* particleSystemRain;
 Particle* rainModel;
 
+ParticleSystem* particleSystemWaterJet;
+Particle* waterJetModel;
+
 //clase(interfaz) necesaria para el almacenamiento de memoria de physX, 
 //esta clase viene con la SDK para facilitar el uso rapido de la API
 //se puede crear otra a gusto del usuario
@@ -118,6 +121,7 @@ ContactReportCallback gContactReportCallback;
 //forward declaration
 void createSnowSystem();
 void createRainSystem();
+void createWaterJetSystem();
 
 
 
@@ -157,8 +161,9 @@ void initPhysics(bool interactive)
 
 
 
-	createSnowSystem();
+	//createSnowSystem();
 	//createRainSystem();
+	createWaterJetSystem();
 }
 
 
@@ -288,6 +293,10 @@ void createSnowSystem() {
 	particleSystemSnow->diePos = true;
 	particleSystemSnow->dieTime = false;
 
+	particleSystemSnow->transform = PxTransform();
+
+	particleSystemSnow->transform.p = physx::PxVec3(0, 0, 0);
+	particleSystemSnow->transform.q = physx::PxQuat(0, 0, 0, 1);
 
 	PxQuat quat = PxQuat(0, 0, 0, 1);
 
@@ -328,6 +337,10 @@ void createRainSystem() {
 	particleSystemRain->diePos = false;
 	particleSystemRain->dieTime = true;
 
+	particleSystemRain->transform = PxTransform();
+
+	particleSystemRain->transform.p = physx::PxVec3(0, 0, 0);
+	particleSystemRain->transform.q = physx::PxQuat(0, 0, 0, 1);
 
 	PxQuat quat = PxQuat(0, 0, 0, 1);
 
@@ -349,4 +362,58 @@ void createRainSystem() {
 	particleSystemRain->model = rainModel;
 
 	particlesSystems.push_back(particleSystemRain);
+}
+
+void createWaterJetSystem() {
+
+
+	particleSystemWaterJet = new ParticleSystem(MyRandom::RandomMode::UNIFORM);
+
+	particleSystemWaterJet->currentCreationTimer = 0;
+	particleSystemWaterJet->creationRate = 0.05f;
+	particleSystemWaterJet->acelMinRange = { 0,0,0 };
+	particleSystemWaterJet->acelMaxRange = { 0,0,0 };
+
+	//particleSystemWaterJet->lifePosMinRange = { -50,0,-50 };
+	//particleSystemWaterJet->lifePosMaxRange = { 50,50,50 };
+
+	particleSystemWaterJet->maxParticles = 10000;
+	particleSystemWaterJet->startLifeTimeMinRange = 4.0f;
+	particleSystemWaterJet->startLifeTimeMaxRange = 6.0f;
+
+	particleSystemWaterJet->startPosMinRange = { -2,0,-2 };
+	particleSystemWaterJet->startPosMaxRange = { 2,0,2 };
+
+	particleSystemWaterJet->velMinRange = { -5,60,-5 };
+	particleSystemWaterJet->velMaxRange = { 5,80,5 };
+
+	particleSystemWaterJet->minScale = 2;
+	particleSystemWaterJet->maxScale = 3;
+
+	particleSystemWaterJet->diePos = false;
+	particleSystemWaterJet->dieTime = true;
+
+	particleSystemWaterJet->transform = PxTransform();
+
+	particleSystemWaterJet->transform.p = physx::PxVec3(0, 0, 0);
+	particleSystemWaterJet->transform.q = physx::PxQuat(0, 0, 0, 1);
+
+	float angleRadians = -PxPiDivTwo;
+	PxVec3 rotationAxis(0.0f, 0.0f, 1.0f);
+
+	// Crear cuaternión a partir del ángulo y el eje
+	PxQuat rotationQuat(angleRadians, rotationAxis);
+
+	particleSystemWaterJet->transform.q = particleSystemWaterJet->transform.q * rotationQuat;
+
+
+	PxQuat quat = PxQuat(0, 0, 0, 1);
+
+	waterJetModel = new Particle(PxVec3(0, 30, 0), quat, PxVec3(250, 0, 0), PxVec3(0, 0, 0),
+		1, 1, 1, PxGeometryType::Enum::eSPHERE, PxVec4(0, 0, 1, 1));
+
+
+	particleSystemWaterJet->model = waterJetModel;
+
+	particlesSystems.push_back(particleSystemWaterJet);
 }
