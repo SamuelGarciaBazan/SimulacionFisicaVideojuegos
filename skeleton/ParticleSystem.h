@@ -117,7 +117,8 @@ public:
 	};
 
 
-	ParticleSystem(MyRandom::RandomMode randomMode) : randomMode(randomMode) {
+	ParticleSystem(std::list<Particle*>& allParticles ,MyRandom::RandomMode randomMode) : randomMode(randomMode),
+	allParticles(allParticles){
 
 		random.setRandomMode(randomMode);
 
@@ -195,6 +196,8 @@ private:
 
 	physx::PxVec3 getRandomVec3(physx::PxVec3 min, physx::PxVec3 max);
 
+
+	std::list<Particle*>& allParticles;
 
 };
 

@@ -3,17 +3,18 @@
 #include <PxPhysicsAPI.h>
 
 #include "RenderUtils.hpp"
-#include "Vector3D.h"
 
+#include <list>
 
 
 class Particle
 {
 public:
 	Particle(
+		std::list<Particle*>& allParticles,
 		physx::PxVec3 pos,
 		physx::PxQuat quat,
-		physx::PxVec3 vel, physx::PxVec3 acel,
+		physx::PxVec3 vel, 
 		double scale = 1.0,
 		double damping = 1.0, 
 		double mass = 1,
@@ -59,6 +60,6 @@ private:
 
 	RenderItem* renderItem;
 
-
+	std::list<Particle*>& allParticles;
 };
 

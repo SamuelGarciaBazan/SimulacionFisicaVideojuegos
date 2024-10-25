@@ -11,17 +11,20 @@ const double Particle::defaultGravityY = -9.8;
 
 
 Particle::Particle(
+	std::list<Particle*>& allParticles,
 	physx::PxVec3 pos,
 	physx::PxQuat quat,
-	physx::PxVec3 vel, physx::PxVec3 acel,
+	physx::PxVec3 vel, 
 	double scale,
 	double damping ,
 	double mass,
 	PxGeometryType::Enum type,
 	physx::PxVec4 color)
 
-	:transform(pos),
-	vel(vel), acel(acel), //inicializacion de parametros
+	:
+	allParticles(allParticles),
+	transform(pos),
+	vel(vel),acel(PxVec3(0,0,0)),  //inicializacion de parametros
 	scale(scale),
 	damping(damping),
 	mass(mass),

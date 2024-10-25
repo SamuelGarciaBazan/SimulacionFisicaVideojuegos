@@ -93,6 +93,11 @@ Particle* rainModel;
 ParticleSystem* particleSystemWaterJet;
 Particle* waterJetModel;
 
+
+std::list<Particle*> allParticles;
+
+
+
 //clase(interfaz) necesaria para el almacenamiento de memoria de physX, 
 //esta clase viene con la SDK para facilitar el uso rapido de la API
 //se puede crear otra a gusto del usuario
@@ -154,15 +159,15 @@ void initPhysics(bool interactive)
 
 
 	axis = new Axis(20,2);
-	p = new Particle(PxVec3(0, 50, 0),PxQuat(), PxVec3(250, 0, 0), PxVec3(0, 0, 0), 1, PxGeometryType::Enum::eSPHERE);
+	p = new Particle(allParticles, PxVec3(0, 50, 0),PxQuat(), PxVec3(250, 0, 0), 1, PxGeometryType::Enum::eSPHERE);
 
 
 	p->scaleObject(250, 0.180, 0.1);
 
 
 
-	//createSnowSystem();
-	//createRainSystem();
+	createSnowSystem();
+	createRainSystem();
 	createWaterJetSystem();
 }
 
@@ -225,7 +230,7 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	//case ' ':	break;
 	case 'C':
 	{
-		auto a = new Particle(PxVec3(0, 10, 0),PxQuat(), PxVec3(250, 0, 0), PxVec3(0, 0, 0), 1, PxGeometryType::Enum::eSPHERE);
+		auto a = new Particle(allParticles, PxVec3(0, 10, 0),PxQuat(), PxVec3(250, 0, 0), 1, PxGeometryType::Enum::eSPHERE);
 
 		a->scaleObject(250, 0.180, 0.1);
 		a->setFromCamera();
@@ -267,7 +272,7 @@ int main(int, const char*const*)
 void createSnowSystem() {
 
 
-	particleSystemSnow = new ParticleSystem(MyRandom::RandomMode::UNIFORM);
+	particleSystemSnow = new ParticleSystem(allParticles, MyRandom::RandomMode::UNIFORM);
 
 	particleSystemSnow->currentCreationTimer = 0;
 	particleSystemSnow->creationRate = 0.1f;
@@ -300,7 +305,7 @@ void createSnowSystem() {
 
 	PxQuat quat = PxQuat(0, 0, 0, 1);
 
-	snowModel = new Particle(PxVec3(0, 30, 0),quat, PxVec3(250, 0, 0), PxVec3(0, 0, 0), 1,1,1, PxGeometryType::Enum::eSPHERE);
+	snowModel = new Particle(allParticles, PxVec3(0, 30, 0),quat, PxVec3(250, 0, 0), 1,1,1, PxGeometryType::Enum::eSPHERE);
 
 
 	particleSystemSnow->model = snowModel;
@@ -311,7 +316,7 @@ void createSnowSystem() {
 void createRainSystem() {
 
 
-	particleSystemRain = new ParticleSystem(MyRandom::RandomMode::UNIFORM);
+	particleSystemRain = new ParticleSystem(allParticles, MyRandom::RandomMode::UNIFORM);
 
 	particleSystemRain->currentCreationTimer = 0;
 	particleSystemRain->creationRate = 0.01f;
@@ -354,7 +359,7 @@ void createRainSystem() {
 	quat = quat * rotationQuat;
 
 
-	rainModel = new Particle(PxVec3(0, 30, 0), quat,PxVec3(250, 0, 0), PxVec3(0, 0, 0),
+	rainModel = new Particle(allParticles, PxVec3(0, 30, 0), quat,PxVec3(250, 0, 0), 
 		1, 1, 1, PxGeometryType::Enum::eCAPSULE,PxVec4(0,0,1,1));
 
 
@@ -367,7 +372,7 @@ void createRainSystem() {
 void createWaterJetSystem() {
 
 
-	particleSystemWaterJet = new ParticleSystem(MyRandom::RandomMode::UNIFORM);
+	particleSystemWaterJet = new ParticleSystem(allParticles, MyRandom::RandomMode::UNIFORM);
 
 	particleSystemWaterJet->currentCreationTimer = 0;
 	particleSystemWaterJet->creationRate = 0.05f;
@@ -409,7 +414,7 @@ void createWaterJetSystem() {
 
 	PxQuat quat = PxQuat(0, 0, 0, 1);
 
-	waterJetModel = new Particle(PxVec3(0, 30, 0), quat, PxVec3(250, 0, 0), PxVec3(0, 0, 0),
+	waterJetModel = new Particle(allParticles, PxVec3(0, 30, 0), quat, PxVec3(250, 0, 0),
 		1, 1, 1, PxGeometryType::Enum::eSPHERE, PxVec4(0, 0, 1, 1));
 
 

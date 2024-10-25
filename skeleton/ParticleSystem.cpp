@@ -110,7 +110,7 @@ void ParticleSystem::createParticle()
 	vel = transform.q.rotate(vel);
 	acel = transform.q.rotate(acel);
 
-	Particle* newParticle = new Particle(pos,quat,vel,acel,scale,damping,mass,type,color);
+	Particle* newParticle = new Particle(allParticles,pos,quat,vel,scale,damping,mass,type,color);
 
 	ParticleData data;
 	data.particle = newParticle;
