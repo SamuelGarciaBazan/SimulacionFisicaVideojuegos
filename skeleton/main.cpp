@@ -19,8 +19,6 @@ std::string display_text = "This is a test";
 using namespace physx;
 
 
-
-
 class Axis {
 
 private:
@@ -78,6 +76,10 @@ public:
 	}	
 };
 
+#pragma region Practicas variables
+
+
+
 Axis* axis;
 Particle* p;
 std::vector<Particle*> particles;
@@ -96,6 +98,10 @@ Particle* waterJetModel;
 
 std::list<Particle*> allParticles;
 
+
+#pragma endregion
+
+#pragma region Application variables
 
 
 //clase(interfaz) necesaria para el almacenamiento de memoria de physX, 
@@ -123,7 +129,12 @@ PxScene*				gScene      = NULL;
 ContactReportCallback gContactReportCallback;
 
 
+#pragma endregion
+
+
 //forward declaration
+
+
 void createSnowSystem();
 void createRainSystem();
 void createWaterJetSystem();
@@ -167,8 +178,8 @@ void initPhysics(bool interactive)
 
 
 	createSnowSystem();
-	createRainSystem();
-	createWaterJetSystem();
+	//createRainSystem();
+	//createWaterJetSystem();
 }
 
 
@@ -189,6 +200,9 @@ void stepPhysics(bool interactive, double t)
 
 	gScene->simulate(t);
 	gScene->fetchResults(true);
+
+
+	
 }
 
 // Function to clean data
@@ -289,8 +303,13 @@ void createSnowSystem() {
 	particleSystemSnow->startPosMinRange = { -50,50,-50 };
 	particleSystemSnow->startPosMaxRange = { 50,50,50 };
 
-	particleSystemSnow->velMinRange = { -1,-10,-1 };
-	particleSystemSnow->velMaxRange = { 1,-10,1 };
+	//particleSystemSnow->velMinRange = { -1,-10,-1 };
+	//particleSystemSnow->velMaxRange = { 1,-10,1 };
+
+	particleSystemSnow->velMinRange = { 0,0,0 };
+	particleSystemSnow->velMaxRange = { 0,0,0 };
+
+
 
 	particleSystemSnow->minScale = 1;
 	particleSystemSnow->maxScale = 5;

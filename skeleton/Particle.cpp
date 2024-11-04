@@ -67,6 +67,8 @@ Particle::Particle(
 
 	delete geo;
 
+
+	myIt = allParticles.insert(allParticles.end(),this);
 }
 
 
@@ -74,6 +76,8 @@ Particle::Particle(
 
 Particle::~Particle()
 {
+	allParticles.erase(myIt);
+
 	DeregisterRenderItem(renderItem);
 }
 

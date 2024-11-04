@@ -61,5 +61,6 @@ private:
 	RenderItem* renderItem;
 
 	std::list<Particle*>& allParticles;
+	std::list<Particle*>::iterator myIt;
 };
 
