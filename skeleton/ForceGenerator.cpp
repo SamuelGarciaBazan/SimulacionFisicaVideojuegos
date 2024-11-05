@@ -1,5 +1,6 @@
 #include "ForceGenerator.h"
 
+#include <iostream>
 
 
 ForceGenerator::ForceGenerator(Particle* afectedParticle, bool check)
@@ -55,19 +56,19 @@ void ForceGenerator::update()
 	if (!checkIndependent) {
 		if (afectedParticlesRef != nullptr) {
 			for (auto e : *afectedParticlesRef) {
-				e->addForce(forceCalculation(e));
+				e->addForce(forceCalculation(e) );
 			}
 		}
 
 		for (auto e : afectedParticlesLocal) {
-			e->addForce(forceCalculation(e));
+			e->addForce(forceCalculation(e) );
 
 		}
 
 		for (auto s : afectedSystems) {
 			for (auto d : s->getParticlesData()) {
 				auto e = d.particle;
-				e->addForce(forceCalculation(e));
+				e->addForce(forceCalculation(e) );
 			}
 		}
 	}
@@ -76,13 +77,13 @@ void ForceGenerator::update()
 		if (afectedParticlesRef != nullptr) {
 			for (auto e : *afectedParticlesRef) {
 				if(!e->getForceIndependent())
-					e->addForce(forceCalculation(e));
+					e->addForce(forceCalculation(e) );
 			}
 		}
 
 		for (auto e : afectedParticlesLocal) {
 			if (!e->getForceIndependent())
-				e->addForce(forceCalculation(e));
+				e->addForce(forceCalculation(e) );
 
 		}
 
@@ -90,7 +91,7 @@ void ForceGenerator::update()
 			for (auto d : s->getParticlesData()) {
 				auto e = d.particle;
 				if (!e->getForceIndependent())
-					e->addForce(forceCalculation(e));
+					e->addForce(forceCalculation(e) );
 			}
 		}
 	}

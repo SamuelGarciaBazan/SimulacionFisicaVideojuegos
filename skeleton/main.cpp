@@ -15,6 +15,7 @@ std::string display_text = "This is a test";
 #include "Vector3D.h"
 #include "Particle.h"
 #include "ParticleSystem.h"
+#include "GravityForceGenerator.h"
 
 using namespace physx;
 
@@ -98,6 +99,8 @@ Particle* waterJetModel;
 
 std::list<Particle*> allParticles;
 
+GravityForceGenerator* gravityGen;
+
 
 #pragma endregion
 
@@ -175,7 +178,7 @@ void initPhysics(bool interactive)
 
 	p->scaleObject(250, 0.180, 0.1);
 
-
+	gravityGen = new GravityForceGenerator(allParticles);
 
 	createSnowSystem();
 	//createRainSystem();
@@ -193,9 +196,9 @@ void stepPhysics(bool interactive, double t)
 
 	p->integrate(t);
 
+
+	gravityGen->update();
 	for (auto& sys : particlesSystems) sys->update(t);
-
-
 	for (auto& par : particles) par->integrate(t);
 
 	gScene->simulate(t);
@@ -213,6 +216,7 @@ void cleanupPhysics(bool interactive)
 
 	delete axis;
 	delete p;
+	delete gravityGen;
 
 
 	// Rigid Body ++++++++++++++++++++++++++++++++++++++++++

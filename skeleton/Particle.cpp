@@ -6,7 +6,7 @@
 using namespace physx;
 
 
-const double Particle::defaultGravityY = -9.8;
+const double Particle::defaultGravityY =-9.8;
 
 
 
@@ -88,13 +88,21 @@ void Particle::integrate(double t)
 	//std::cout << (acel * t).x << std::endl;
 
 	//std::cout << "Initial vel: " << vel.y << std::endl;
-	vel = vel * std::pow(damping, t);
-	vel += (acel * t) + (Vector3(0,1,0) * gravityY * t);
+
 
 	//std::cout << "Final vel: " << vel.y << std::endl;
-
-
+	
+	/*vel = vel * std::pow(damping, t);
+	vel += (acel * t) + (Vector3(0, 1, 0) * gravityY * t);
+	transform.p += vel * t;*/
+	acel = force / mass;
+	vel += acel * t;
 	transform.p += vel * t;
+
+	//std::cout << "desplazamiento :"<<vel.y * t << std::endl;
+
+
+	force = Vector3(0, 0, 0);
 	
 }
 

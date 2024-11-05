@@ -7,7 +7,7 @@ class GravityForceGenerator :
     public ForceGenerator
 {
 public:
-    GravityForceGenerator(std::list<ParticleSystem*>& particleSystemList, bool check = false);
+    GravityForceGenerator(std::list<Particle*>& particlesList, bool check = false);
 
     virtual ~GravityForceGenerator();
 
