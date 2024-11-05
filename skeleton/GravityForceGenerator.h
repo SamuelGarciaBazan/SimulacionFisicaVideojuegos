@@ -22,9 +22,9 @@ public:
 
 protected:
 
-    virtual double forceCalculation(Particle* target);
+    virtual physx::PxVec3 forceCalculation(Particle* target);
     
-    double aceleration = 9.8;//default = 9.8
+    double aceleration = -9.8;//default = -9.8
 
 };
 

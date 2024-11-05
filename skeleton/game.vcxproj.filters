@@ -25,6 +25,9 @@
     <ClCompile Include="RenderUtils.cpp">
       <Filter>Default</Filter>
     </ClCompile>
+    <ClCompile Include="GravityForceGenerator.cpp">
+      <Filter>My Classes\ForceGenerators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Camera.h">
@@ -53,6 +56,9 @@
     </ClInclude>
     <ClInclude Include="RenderUtils.hpp">
       <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityForceGenerator.h">
+      <Filter>My Classes\ForceGenerators</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

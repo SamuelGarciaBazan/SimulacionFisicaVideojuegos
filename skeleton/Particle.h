@@ -40,7 +40,9 @@ public:
 
 	physx::PxQuat getQuat() const { return transform.q; }
 
-	void addForce(double force);
+	void addForce(physx::PxVec3 force) {
+		this->force += force;
+	}
 
 	bool getForceIndependent() {
 		return forceIndependent;
@@ -69,6 +71,8 @@ private:
 	std::list<Particle*>& allParticles;
 	std::list<Particle*>::iterator myIt;
 
+
+	physx::PxVec3 force;
 	//si es true , significa que no le aplicaran las fuerzas globales,
 	//solo las de fuerzas que apliquen a ciertas particulas
 	bool forceIndependent ;

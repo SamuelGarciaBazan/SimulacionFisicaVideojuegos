@@ -9,7 +9,7 @@ GravityForceGenerator::~GravityForceGenerator()
 {
 }
 
-double GravityForceGenerator::forceCalculation(Particle* target)
+physx::PxVec3 GravityForceGenerator::forceCalculation(Particle* target)
 {
-	return target->getMass() * aceleration;
+	return physx::PxVec3(0, target->getMass() * aceleration,0); 
 }

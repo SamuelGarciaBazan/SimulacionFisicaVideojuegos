@@ -4,6 +4,26 @@
 #include "ParticleSystem.h"
 
 
+/*
+EXPLICACION SISTEMAS DE FUERZAS
+
+Los generadores, reciben una particula/lista o un sistema/sistemas de particulas
+
+Cada clase que herede de ForceGenerator debera implementar el metodo forceCalculation, donde 
+estara la logica de generacion de fuerzas de cada generador
+
+Las particulas tienen un bool forceIndependent
+Los generadores tienen un bool checkIndependent
+
+En funcion estos booleanos, aplicaran o no la fuerza que tengan que aplicar sobre la particula
+Con diferentes combinaciones podemos conseguir diferentes efectos: 
+	Sistemas de particulas independientes a otros generadores,generadores que afecten a todo, generadores
+	que afecten a todo menos lo independiente ...
+
+
+*/
+
+
 
 //Clase abstracta que representa un generador de fuerzas
 class ForceGenerator {
@@ -18,7 +38,7 @@ public:
 	ForceGenerator(std::list<ParticleSystem*>& particleSystemList, bool check = false);
 
 	//destructor virtual
-	virtual ~ForceGenerator() = 0;
+	virtual ~ForceGenerator() {};
 
 	//recorre todos los elementos afectados y les aplica la fuerza
 	void update();
@@ -35,7 +55,7 @@ public:
 protected:
 
 	//este metodo es el que se sobreescribe en las clases hijas, con el calculo adecuado para cada sistema
-	virtual double forceCalculation(Particle* target) = 0;
+	virtual physx::PxVec3 forceCalculation(Particle* target) = 0;
 
 	//listas de elementos afectados 
 
