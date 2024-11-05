@@ -73,6 +73,15 @@ private:
 
 class ParticleSystem
 {
+private:
+
+	struct ParticleData
+	{
+		//la posicion la sacamos de la particula
+		Particle* particle;
+		//tiempo de vida de la particula
+		double currentLifeTime;
+	};
 public:
 
 	struct ParticleSystemCreateInfo {
@@ -166,16 +175,11 @@ public:
 
 	physx::PxTransform transform;
 
+	std::list<ParticleData> const& getParticlesData() {
+		return particles;
+	}
 
 private:
-
-	struct ParticleData
-	{
-		//la posicion la sacamos de la particula
-		Particle* particle;
-		//tiempo de vida de la particula
-		double currentLifeTime;
-	};
 
 	//lista de particulas
 	std::list<ParticleData> particles;

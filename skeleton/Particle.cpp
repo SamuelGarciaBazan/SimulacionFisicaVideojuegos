@@ -125,3 +125,7 @@ void Particle::setFromCamera()
 	this->transform.p = GetCamera()->getTransform().p;
 	this->vel = GetCamera()->getDir() * this->vel.magnitude();
 }
+
+void Particle::addForce(double force)
+{
+}
