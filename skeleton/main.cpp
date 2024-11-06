@@ -18,6 +18,7 @@ std::string display_text = "This is a test";
 #include "GravityForceGenerator.h"
 #include "WindForceGenerator.h"
 #include "TornadoForceGenerator.h"
+#include "ExplosionForceGenerator.h"
 
 
 using namespace physx;
@@ -105,6 +106,7 @@ std::list<Particle*> allParticles;
 GravityForceGenerator* gravityGen;
 WindForceGenerator* windGen;
 TornadoForceGenerator* tornadoGen;
+ExplosionForceGenerator* explosionGen;
 
 
 #pragma endregion
@@ -218,6 +220,12 @@ void stepPhysics(bool interactive, double t)
 	//windGen->update();
 	//tornadoGen->update();
 
+	if (explosionGen != nullptr) {
+		explosionGen->update();
+		explosionGen->updateTime(t);
+	}
+
+
 	for (auto& sys : particlesSystems) sys->update(t);
 	for (auto& par : particles) par->integrate(t);
 
@@ -237,7 +245,7 @@ void cleanupPhysics(bool interactive)
 	delete axis;
 	delete p;
 	delete gravityGen;
-
+	delete explosionGen;
 
 	// Rigid Body ++++++++++++++++++++++++++++++++++++++++++
 	gScene->release();
@@ -274,6 +282,14 @@ void keyPress(unsigned char key, const PxTransform& camera)
 		a->setFromCamera();
 
 		particles.push_back(a);
+
+		break;
+	}
+	case 'E':
+	{
+		//creacion de la explosion
+
+
 
 		break;
 	}
