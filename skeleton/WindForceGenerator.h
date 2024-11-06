@@ -36,13 +36,13 @@ public:
     const physx::PxVec3& getMinRange() const noexcept {
         return minRange;
     }
-    void setMinRange(const physx::PxVec3& point) {
+    virtual void setMinRange(const physx::PxVec3& point) {
         minRange = point;
     }
     const physx::PxVec3& getMaxRange() const noexcept {
         return maxRange;
     }
-    void setMaxRange(const physx::PxVec3& point) {
+    virtual void setMaxRange(const physx::PxVec3& point) {
         maxRange = point;
     }
 
