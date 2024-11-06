@@ -19,13 +19,20 @@ void TornadoForceGenerator::updateCenter()
 
 physx::PxVec3 TornadoForceGenerator::forceCalculation(Particle* target)
 {
+	//actualizacion de la velocidad del tornado en la posicion de la particula
 	auto tPos = target->getPos();
 
 	velocity =
 	{
-
-
+		-(tPos.z - center.z),
+		-(tPos.y - center.y),
+		  tPos.x - center.x
 	};
 
-	return physx::PxVec3();
+	velocity.normalizeSafe();
+	
+	velocity *= k;
+
+
+	return WindForceGenerator::forceCalculation(target);
 }

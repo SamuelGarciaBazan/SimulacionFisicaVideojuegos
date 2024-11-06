@@ -32,5 +32,7 @@ protected:
 
     physx::PxVec3 center;
 
+    double k;//constante de fuerza del tornado
+
 };
 
