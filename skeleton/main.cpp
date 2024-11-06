@@ -16,6 +16,7 @@ std::string display_text = "This is a test";
 #include "Particle.h"
 #include "ParticleSystem.h"
 #include "GravityForceGenerator.h"
+#include "WindForceGenerator.h"
 
 using namespace physx;
 
@@ -100,6 +101,7 @@ Particle* waterJetModel;
 std::list<Particle*> allParticles;
 
 GravityForceGenerator* gravityGen;
+WindForceGenerator* windGen;
 
 
 #pragma endregion
@@ -178,7 +180,13 @@ void initPhysics(bool interactive)
 
 	p->scaleObject(250, 0.180, 0.1);
 
-	gravityGen = new GravityForceGenerator(allParticles);
+	gravityGen = new GravityForceGenerator(allParticles); 
+	windGen = new WindForceGenerator(allParticles);
+
+	windGen->setVelocity({ -20,0,0 });
+
+	windGen->setMinRange({ -50,-0,-50    });
+	windGen->setMaxRange({  50,50, 50 });
 
 	createSnowSystem();
 	//createRainSystem();
@@ -198,6 +206,8 @@ void stepPhysics(bool interactive, double t)
 
 
 	gravityGen->update();
+	windGen->update();
+
 	for (auto& sys : particlesSystems) sys->update(t);
 	for (auto& par : particles) par->integrate(t);
 

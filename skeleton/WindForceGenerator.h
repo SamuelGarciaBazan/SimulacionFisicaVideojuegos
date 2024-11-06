@@ -10,6 +10,8 @@ public:
 
     virtual ~WindForceGenerator();
 
+#pragma region Getters y setters
+
     const physx::PxVec3& getVelocity() const noexcept {
         return velocity;
     }
@@ -43,6 +45,9 @@ public:
     void setMaxRange(const physx::PxVec3& point) {
         maxRange = point;
     }
+
+#pragma endregion
+
 
 protected:
 

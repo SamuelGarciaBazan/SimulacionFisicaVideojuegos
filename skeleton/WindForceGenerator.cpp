@@ -1,5 +1,7 @@
 #include "WindForceGenerator.h"
 
+#include <iostream>
+
 WindForceGenerator::WindForceGenerator(std::list<Particle*>& particlesList, bool check)
 	:ForceGenerator(particlesList,check)
 {
