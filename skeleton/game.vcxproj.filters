@@ -2,95 +2,125 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Render\Camera.cpp">
-      <Filter>Default\Render</Filter>
+      <Filter>Source\Default\Render</Filter>
     </ClCompile>
     <ClCompile Include="Render\Render.cpp">
-      <Filter>Default\Render</Filter>
+      <Filter>Source\Default\Render</Filter>
     </ClCompile>
     <ClCompile Include="ParticleSystem.cpp">
-      <Filter>My Classes\Particle Systems</Filter>
+      <Filter>Source\My Classes\Particle Systems</Filter>
     </ClCompile>
     <ClCompile Include="ForceGenerator.cpp">
-      <Filter>My Classes\ForceGenerators</Filter>
+      <Filter>Source\My Classes\ForceGenerators</Filter>
     </ClCompile>
     <ClCompile Include="Particle.cpp">
-      <Filter>My Classes\Particle</Filter>
+      <Filter>Source\My Classes\Particle</Filter>
     </ClCompile>
     <ClCompile Include="callbacks.cpp">
-      <Filter>Default</Filter>
+      <Filter>Source\Default</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Default</Filter>
+      <Filter>Source\Default</Filter>
     </ClCompile>
     <ClCompile Include="RenderUtils.cpp">
-      <Filter>Default</Filter>
+      <Filter>Source\Default</Filter>
     </ClCompile>
     <ClCompile Include="GravityForceGenerator.cpp">
-      <Filter>My Classes\ForceGenerators</Filter>
+      <Filter>Source\My Classes\ForceGenerators</Filter>
     </ClCompile>
     <ClCompile Include="WindForceGenerator.cpp">
-      <Filter>My Classes\ForceGenerators</Filter>
+      <Filter>Source\My Classes\ForceGenerators</Filter>
     </ClCompile>
     <ClCompile Include="TornadoForceGenerator.cpp">
-      <Filter>My Classes\ForceGenerators</Filter>
+      <Filter>Source\My Classes\ForceGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosionForceGenerator.cpp">
+      <Filter>Source\My Classes\ForceGenerators</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Render\Camera.h">
-      <Filter>Default\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Render\Render.h">
-      <Filter>Default\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleSystem.h">
-      <Filter>My Classes\Particle Systems</Filter>
-    </ClInclude>
-    <ClInclude Include="ForceGenerator.h">
-      <Filter>My Classes\ForceGenerators</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle.h">
-      <Filter>My Classes\Particle</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3D.h">
-      <Filter>My Classes</Filter>
-    </ClInclude>
     <ClInclude Include="callbacks.hpp">
-      <Filter>Default</Filter>
+      <Filter>Header\Default</Filter>
     </ClInclude>
     <ClInclude Include="core.hpp">
-      <Filter>Default</Filter>
+      <Filter>Header\Default</Filter>
     </ClInclude>
     <ClInclude Include="RenderUtils.hpp">
-      <Filter>Default</Filter>
+      <Filter>Header\Default</Filter>
     </ClInclude>
-    <ClInclude Include="GravityForceGenerator.h">
-      <Filter>My Classes\ForceGenerators</Filter>
+    <ClInclude Include="Render\Camera.h">
+      <Filter>Header\Default\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\Render.h">
+      <Filter>Header\Default\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3D.h">
+      <Filter>Header\My Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Header\My Classes\Particle Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Header\My Classes\Particle</Filter>
     </ClInclude>
     <ClInclude Include="WindForceGenerator.h">
-      <Filter>My Classes\ForceGenerators</Filter>
+      <Filter>Header\My Classes\ForceGenerators</Filter>
     </ClInclude>
     <ClInclude Include="TornadoForceGenerator.h">
-      <Filter>My Classes\ForceGenerators</Filter>
+      <Filter>Header\My Classes\ForceGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityForceGenerator.h">
+      <Filter>Header\My Classes\ForceGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="ForceGenerator.h">
+      <Filter>Header\My Classes\ForceGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionForceGenerator.h">
+      <Filter>Header\My Classes\ForceGenerators</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="My Classes">
-      <UniqueIdentifier>{b0245ec2-52e6-40e2-b89a-3cddf58876fc}</UniqueIdentifier>
+    <Filter Include="Header">
+      <UniqueIdentifier>{f56f1ee3-d545-428d-b388-555c4fce0d13}</UniqueIdentifier>
     </Filter>
-    <Filter Include="My Classes\ForceGenerators">
-      <UniqueIdentifier>{038be043-8c16-4d37-b4fb-1ae654aaa304}</UniqueIdentifier>
+    <Filter Include="Source">
+      <UniqueIdentifier>{221a1136-299a-4eac-b4d4-087649ec00ed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="My Classes\Particle">
-      <UniqueIdentifier>{785c3fe0-4f8c-40a2-b29c-e63468eb9df6}</UniqueIdentifier>
+    <Filter Include="Header\Default">
+      <UniqueIdentifier>{d9db5aa3-088e-490e-ac29-5419cea97e23}</UniqueIdentifier>
     </Filter>
-    <Filter Include="My Classes\Particle Systems">
-      <UniqueIdentifier>{ddea66a0-eaa8-4d9e-9b3a-c85cbef2876f}</UniqueIdentifier>
+    <Filter Include="Header\Default\Render">
+      <UniqueIdentifier>{0f0dea5d-9a18-4962-888d-12b05f7b26ca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Default">
+    <Filter Include="Source\Default">
       <UniqueIdentifier>{6068b7de-8108-43c5-b6b6-7de17075bc2e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Default\Render">
+    <Filter Include="Source\Default\Render">
       <UniqueIdentifier>{d04b4f9f-5a69-465e-8070-25c6d0bcd3c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\My Classes">
+      <UniqueIdentifier>{4e3c88e8-d251-4c76-a28a-17464f3aba0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\My Classes\ForceGenerators">
+      <UniqueIdentifier>{21c04198-05e9-4fc3-8a51-b696d901f876}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\My Classes\Particle">
+      <UniqueIdentifier>{f779b615-f10e-4431-a159-21793396b282}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\My Classes\Particle Systems">
+      <UniqueIdentifier>{68853d43-c45f-4384-a8df-b80a887d4680}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\My Classes">
+      <UniqueIdentifier>{b0245ec2-52e6-40e2-b89a-3cddf58876fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\My Classes\ForceGenerators">
+      <UniqueIdentifier>{038be043-8c16-4d37-b4fb-1ae654aaa304}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\My Classes\Particle">
+      <UniqueIdentifier>{785c3fe0-4f8c-40a2-b29c-e63468eb9df6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\My Classes\Particle Systems">
+      <UniqueIdentifier>{ddea66a0-eaa8-4d9e-9b3a-c85cbef2876f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
