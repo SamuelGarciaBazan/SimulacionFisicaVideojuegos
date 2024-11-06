@@ -216,7 +216,7 @@ void stepPhysics(bool interactive, double t)
 
 	//gravityGen->update();
 	//windGen->update();
-	tornadoGen->update();
+	//tornadoGen->update();
 
 	for (auto& sys : particlesSystems) sys->update(t);
 	for (auto& par : particles) par->integrate(t);
@@ -338,7 +338,7 @@ void createSnowSystem() {
 	particleSystemSnow->minScale = 1;
 	particleSystemSnow->maxScale = 5;
 
-	particleSystemSnow->diePos = false;
+	particleSystemSnow->diePos = true;
 	particleSystemSnow->dieTime = false;
 
 	particleSystemSnow->transform = PxTransform();
