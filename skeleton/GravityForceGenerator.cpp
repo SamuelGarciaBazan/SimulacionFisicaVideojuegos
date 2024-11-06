@@ -13,3 +13,8 @@ physx::PxVec3 GravityForceGenerator::forceCalculation(Particle* target)
 {
 	return physx::PxVec3(0, target->getMass() * aceleration ,0); 
 }
+
+bool GravityForceGenerator::afectCondition(Particle* target)
+{
+	return true;
+}

@@ -54,21 +54,21 @@ ForceGenerator::ForceGenerator(std::list<ParticleSystem*>& particleSystems, bool
 void ForceGenerator::update()
 {
 	if (!checkIndependent) {
+
 		if (afectedParticlesRef != nullptr) {
 			for (auto e : *afectedParticlesRef) {
-				e->addForce(forceCalculation(e) );
+				updateParticle(e);
 			}
 		}
 
 		for (auto e : afectedParticlesLocal) {
-			e->addForce(forceCalculation(e) );
-
+			updateParticle(e);
 		}
 
 		for (auto s : afectedSystems) {
 			for (auto d : s->getParticlesData()) {
 				auto e = d.particle;
-				e->addForce(forceCalculation(e) );
+				updateParticle(e);
 			}
 		}
 	}
@@ -77,23 +77,28 @@ void ForceGenerator::update()
 		if (afectedParticlesRef != nullptr) {
 			for (auto e : *afectedParticlesRef) {
 				if(!e->getForceIndependent())
-					e->addForce(forceCalculation(e) );
+					updateParticle(e);
 			}
 		}
 
 		for (auto e : afectedParticlesLocal) {
 			if (!e->getForceIndependent())
-				e->addForce(forceCalculation(e) );
-
+				updateParticle(e);
 		}
 
 		for (auto s : afectedSystems) {
 			for (auto d : s->getParticlesData()) {
 				auto e = d.particle;
 				if (!e->getForceIndependent())
-					e->addForce(forceCalculation(e) );
+					updateParticle(e);
 			}
 		}
 	}
 	
+}
+
+void ForceGenerator::updateParticle(Particle* target)
+{
+	if (afectCondition(target))
+		target->addForce(forceCalculation(target));
 }

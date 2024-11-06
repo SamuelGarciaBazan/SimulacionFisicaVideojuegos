@@ -23,6 +23,8 @@ public:
 protected:
 
     virtual physx::PxVec3 forceCalculation(Particle* target);
+    virtual bool afectCondition(Particle* target);
+
     
     double aceleration = -9.8;//default = -9.8
 

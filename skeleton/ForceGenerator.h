@@ -9,8 +9,10 @@ EXPLICACION SISTEMAS DE FUERZAS
 
 Los generadores, reciben una particula/lista o un sistema/sistemas de particulas
 
-Cada clase que herede de ForceGenerator debera implementar el metodo forceCalculation, donde 
-estara la logica de generacion de fuerzas de cada generador
+Cada clase que herede de ForceGenerator debera implementar los metodos:
+	-forceCalculation, donde estara la logica de generacion de fuerzas de cada generador
+	-afectCondition, donde estara la logica de la condicion que debe cumplir la particula para que sea afectada 
+	por ejemplo un area
 
 Las particulas tienen un bool forceIndependent
 Los generadores tienen un bool checkIndependent
@@ -45,17 +47,25 @@ public:
 
 
 	//get/set checkIndependent
-	inline bool getCheckIndependent() noexcept {
+	inline bool getCheckIndependent() const noexcept {
 		return checkIndependent;
 	}
 	inline void setCheckIndependent(bool b) noexcept {
 		checkIndependent = b;
 	}
 
+private:
+
+	void updateParticle(Particle* target);
+
+
 protected:
 
 	//este metodo es el que se sobreescribe en las clases hijas, con el calculo adecuado para cada sistema
 	virtual physx::PxVec3 forceCalculation(Particle* target) = 0;
+
+	//este metodo es el que se sobreescribe en las clases hijas, con el calculo adecuado para cada sistema
+	virtual bool afectCondition(Particle* target) = 0;
 
 	//listas de elementos afectados 
 

@@ -44,8 +44,12 @@ public:
 		this->force += force;
 	}
 
-	bool getForceIndependent() {
+	bool getForceIndependent() const noexcept{
 		return forceIndependent;
+	}
+
+	const physx::PxVec3 getVelocity() const {
+		return vel;
 	}
 
 private:
