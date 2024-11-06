@@ -103,10 +103,10 @@ Particle* waterJetModel;
 
 std::list<Particle*> allParticles;
 
-GravityForceGenerator* gravityGen;
-WindForceGenerator* windGen;
-TornadoForceGenerator* tornadoGen;
-ExplosionForceGenerator* explosionGen;
+GravityForceGenerator* gravityGen = nullptr;
+WindForceGenerator* windGen = nullptr;
+TornadoForceGenerator* tornadoGen = nullptr;
+ExplosionForceGenerator* explosionGen = nullptr;
 
 
 #pragma endregion
