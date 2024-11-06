@@ -29,6 +29,8 @@ physx::PxVec3 TornadoForceGenerator::forceCalculation(Particle* target)
 		  tPos.x - center.x
 	};
 
+	velocity += forceOffset;
+
 	velocity.normalizeSafe();
 	
 	velocity *= k;

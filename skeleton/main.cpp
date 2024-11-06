@@ -17,6 +17,8 @@ std::string display_text = "This is a test";
 #include "ParticleSystem.h"
 #include "GravityForceGenerator.h"
 #include "WindForceGenerator.h"
+#include "TornadoForceGenerator.h"
+
 
 using namespace physx;
 
@@ -102,6 +104,7 @@ std::list<Particle*> allParticles;
 
 GravityForceGenerator* gravityGen;
 WindForceGenerator* windGen;
+TornadoForceGenerator* tornadoGen;
 
 
 #pragma endregion
@@ -182,11 +185,17 @@ void initPhysics(bool interactive)
 
 	gravityGen = new GravityForceGenerator(allParticles); 
 	windGen = new WindForceGenerator(allParticles);
+	tornadoGen = new TornadoForceGenerator(allParticles);
+
 
 	windGen->setVelocity({ -20,0,0 });
-
 	windGen->setMinRange({ -50,-0,-50    });
 	windGen->setMaxRange({  50,50, 50 });
+
+	///tornadoGen->setVelocity({ -20,0,0 });
+	tornadoGen->setMinRange({ -50,-0,-50 });
+	tornadoGen->setMaxRange({ 50,100, 50 });
+
 
 	createSnowSystem();
 	//createRainSystem();
@@ -205,8 +214,9 @@ void stepPhysics(bool interactive, double t)
 	p->integrate(t);
 
 
-	gravityGen->update();
-	windGen->update();
+	//gravityGen->update();
+	//windGen->update();
+	tornadoGen->update();
 
 	for (auto& sys : particlesSystems) sys->update(t);
 	for (auto& par : particles) par->integrate(t);
@@ -328,7 +338,7 @@ void createSnowSystem() {
 	particleSystemSnow->minScale = 1;
 	particleSystemSnow->maxScale = 5;
 
-	particleSystemSnow->diePos = true;
+	particleSystemSnow->diePos = false;
 	particleSystemSnow->dieTime = false;
 
 	particleSystemSnow->transform = PxTransform();

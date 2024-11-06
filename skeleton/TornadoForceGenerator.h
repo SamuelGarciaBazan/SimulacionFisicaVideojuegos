@@ -21,6 +21,22 @@ public:
         updateCenter();
     }
 
+    void setKconstant(double d) {
+        k = d;
+    }
+
+    double getKconstant() {
+        return k;
+    }
+
+    physx::PxVec3 getForceOffset() {
+        return forceOffset;
+    }
+
+    void setForceOffset(physx::PxVec3 offset) {
+        forceOffset = offset;
+    }
+
 private:
 
     //se llama cuando se cambia el rango
@@ -32,7 +48,9 @@ protected:
 
     physx::PxVec3 center;
 
-    double k;//constante de fuerza del tornado
+    physx::PxVec3 forceOffset{0,50,0};
+
+    double k = 40;//constante de fuerza del tornado
 
 };
 

@@ -12,6 +12,7 @@ public:
 
 #pragma region Getters y setters
 
+
     const physx::PxVec3& getVelocity() const noexcept {
         return velocity;
     }
