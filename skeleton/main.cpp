@@ -216,7 +216,7 @@ void stepPhysics(bool interactive, double t)
 	p->integrate(t);
 
 
-	//gravityGen->update();
+	gravityGen->update();
 	//windGen->update();
 	//tornadoGen->update();
 
@@ -288,7 +288,12 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	case 'E':
 	{
 		//creacion de la explosion
+		explosionGen = new ExplosionForceGenerator(allParticles);
 
+		explosionGen->setRadius(1000);
+		explosionGen->setCenter({0,50,0});
+		explosionGen->setK(50000);
+		
 
 
 		break;
@@ -354,7 +359,7 @@ void createSnowSystem() {
 	particleSystemSnow->minScale = 1;
 	particleSystemSnow->maxScale = 5;
 
-	particleSystemSnow->diePos = true;
+	particleSystemSnow->diePos = false;
 	particleSystemSnow->dieTime = false;
 
 	particleSystemSnow->transform = PxTransform();
