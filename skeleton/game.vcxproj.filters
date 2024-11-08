@@ -40,6 +40,7 @@
     <ClCompile Include="SpringForceGenerator.cpp">
       <Filter>Source\My Classes\ForceGenerators</Filter>
     </ClCompile>
+    <ClCompile Include="BouyancyForceGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp">
@@ -84,6 +85,7 @@
     <ClInclude Include="SpringForceGenerator.h">
       <Filter>Header\My Classes\ForceGenerators</Filter>
     </ClInclude>
+    <ClInclude Include="BouyancyForceGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">

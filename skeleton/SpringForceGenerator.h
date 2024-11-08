@@ -52,7 +52,6 @@ private:
     virtual bool afectCondition(Particle* target);
 
 
-
     double k = 0;           //coeficiente elastico del muelle
 
     double reposeLenght;//longitud de reposo del muelle

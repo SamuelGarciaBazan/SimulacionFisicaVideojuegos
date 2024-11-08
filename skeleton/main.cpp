@@ -19,6 +19,7 @@ std::string display_text = "This is a test";
 #include "WindForceGenerator.h"
 #include "TornadoForceGenerator.h"
 #include "ExplosionForceGenerator.h"
+#include "SpringForceGenerator.h"
 
 
 using namespace physx;
@@ -107,6 +108,7 @@ GravityForceGenerator* gravityGen = nullptr;
 WindForceGenerator* windGen = nullptr;
 TornadoForceGenerator* tornadoGen = nullptr;
 ExplosionForceGenerator* explosionGen = nullptr;
+SpringForceGenerator* staticSpringGen = nullptr;
 
 
 #pragma endregion
@@ -216,9 +218,9 @@ void stepPhysics(bool interactive, double t)
 	p->integrate(t);
 
 
-	gravityGen->update();
+	//gravityGen->update();
 	//windGen->update();
-	//tornadoGen->update();
+	tornadoGen->update();
 
 	if (explosionGen != nullptr) {
 		explosionGen->update();
@@ -334,7 +336,7 @@ void createSnowSystem() {
 	particleSystemSnow = new ParticleSystem(allParticles, MyRandom::RandomMode::UNIFORM);
 
 	particleSystemSnow->currentCreationTimer = 0;
-	particleSystemSnow->creationRate = 0.1f;
+	particleSystemSnow->creationRate = 0.01f;
 	particleSystemSnow->acelMinRange = { 0,0,0 };
 	particleSystemSnow->acelMaxRange = { 0,0,0 };
 

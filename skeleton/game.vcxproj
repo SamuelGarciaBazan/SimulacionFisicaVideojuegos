@@ -254,6 +254,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BouyancyForceGenerator.cpp" />
     <ClCompile Include="callbacks.cpp" />
     <ClCompile Include="ExplosionForceGenerator.cpp" />
     <ClCompile Include="ForceGenerator.cpp" />
@@ -269,6 +270,7 @@
     <ClCompile Include="WindForceGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BouyancyForceGenerator.h" />
     <ClInclude Include="callbacks.hpp" />
     <ClInclude Include="core.hpp" />
     <ClInclude Include="ExplosionForceGenerator.h" />
