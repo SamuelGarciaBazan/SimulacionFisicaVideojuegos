@@ -292,7 +292,7 @@ void keyPress(unsigned char key, const PxTransform& camera)
 
 		explosionGen->setRadius(1000);
 		explosionGen->setCenter({0,50,0});
-		explosionGen->setK(50000);
+		explosionGen->setK(500000);
 		
 
 
@@ -486,3 +486,4 @@ void createWaterJetSystem() {
 
 	particlesSystems.push_back(particleSystemWaterJet);
 }
+
