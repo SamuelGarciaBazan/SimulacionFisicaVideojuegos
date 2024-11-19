@@ -623,7 +623,7 @@ void createDynamicSpringChain()
 	dynamicSpringGenChains.clear();
 	dynamicSpringParticlesChain.clear();
 	
-	float posOffset = 10;
+	float posOffset = 6;
 
 	for (int i = 0; i < n; i++) {
 		  
@@ -650,7 +650,7 @@ void createDynamicSpringChain()
 				dynamicSpringParticlesChain[i],
 				dynamicSpringParticlesChain[i+1]));
 
-		dynamicSpringGenChains[i].setK(1); //para diff entre integracion semi/implc, 5000
+		dynamicSpringGenChains[i].setK(10); //para diff entre integracion semi/implc, 5000
 		dynamicSpringGenChains[i].setReposeLenght(5);
 
 	}
