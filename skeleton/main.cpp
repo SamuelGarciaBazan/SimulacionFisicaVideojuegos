@@ -124,6 +124,11 @@ SpringForceGenerator* staticSpringGen = nullptr;
 Particle* staticSpringParticle = nullptr;
 
 
+SpringForceGenerator* dynamicSpringGenA = nullptr;
+SpringForceGenerator* dynamicSpringGenB = nullptr;
+Particle* dynamicSpringParticleA = nullptr;
+Particle* dynamicSpringParticleB = nullptr;
+
 //solidos rigidos
 
 
@@ -168,9 +173,13 @@ void createSnowSystem();
 void createRainSystem();
 void createWaterJetSystem();
 
-
 void createStaticSpring();
+void createDynamicSpring();
+void createDynamicSpringChain();
 
+void updateStaticSpring(double t);
+void updateDynamicSpring(double t);
+void updateDynamicSpringChain(double t);
 
 
 // Initialize physics engine
@@ -225,8 +234,8 @@ void initPhysics(bool interactive)
 	//createRainSystem();
 	//createWaterJetSystem();
 
-	createStaticSpring();
-
+	//createStaticSpring();
+	createDynamicSpring();
 }
 
 
@@ -243,7 +252,7 @@ void stepPhysics(bool interactive, double t)
 	}
 
 
-	gravityGen->update();
+	//gravityGen->update();
 	//windGen->update();
 	//tornadoGen->update();
 
@@ -252,8 +261,9 @@ void stepPhysics(bool interactive, double t)
 		explosionGen->updateTime(t);
 	}
 
-	staticSpringParticle->integrate(t);
-	staticSpringGen->update();
+	//updateStaticSpring(t);
+	updateDynamicSpring(t);
+
 
 
 	for (auto& sys : particlesSystems) sys->update(t);
@@ -358,7 +368,6 @@ void onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
 	PX_UNUSED(actor2);
 }
 
-
 int main(int, const char*const*)
 {
 #ifndef OFFLINE_EXECUTION 
@@ -376,6 +385,7 @@ int main(int, const char*const*)
 }
 
 
+#pragma region Create particles systems
 
 void createSnowSystem() {
 
@@ -536,7 +546,9 @@ void createWaterJetSystem() {
 	particlesSystems.push_back(particleSystemWaterJet);
 }
 
+#pragma endregion
 
+#pragma region Springs
 
 void createStaticSpring() {
 
@@ -559,3 +571,68 @@ void createStaticSpring() {
 
 
 }
+
+void createDynamicSpring()
+{
+	dynamicSpringParticleA = new Particle(
+		allParticles,
+		{ 0,15,0 }, //pos
+		{ 0,0,0,1 }, //rot
+		{ 0,0,0 }, // vel
+		1, //scale
+		1, //damping
+		1 ,//mass
+		physx::PxGeometryType::eSPHERE,
+		{1,0,0,1} // color
+	);
+
+
+	dynamicSpringParticleB = new Particle(
+		allParticles,
+		{ 0,30,0 }, //pos
+		{ 0,0,0,1 }, //rot
+		{ 0,0,0 }, // vel
+		1, //scale
+		1, //damping
+		1,//mass
+		physx::PxGeometryType::eSPHERE,
+		{ 0,0,1,1 } // color
+	);
+
+	dynamicSpringGenA = new SpringForceGenerator(dynamicSpringParticleA,dynamicSpringParticleB);
+
+	dynamicSpringGenA->setK(5); //para diff entre integracion semi/implc, 5000
+	dynamicSpringGenA->setReposeLenght(10);
+
+	dynamicSpringGenB = new SpringForceGenerator(dynamicSpringParticleB, dynamicSpringParticleA);
+
+	dynamicSpringGenB->setK(5); //para diff entre integracion semi/implc, 5000
+	dynamicSpringGenB->setReposeLenght(10);
+
+}
+
+void createDynamicSpringChain()
+{
+}
+
+void updateStaticSpring(double t)
+{
+	staticSpringParticle->integrate(t);
+	staticSpringGen->update();
+}
+
+void updateDynamicSpring(double t)
+{
+	dynamicSpringGenA->update();
+	dynamicSpringGenB->update();
+
+	dynamicSpringParticleA->integrate(t);
+	dynamicSpringParticleB->integrate(t);
+}
+
+void updateDynamicSpringChain(double t)
+{
+}
+
+#pragma endregion
+
