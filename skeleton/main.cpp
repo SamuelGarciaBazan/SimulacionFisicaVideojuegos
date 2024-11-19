@@ -84,13 +84,22 @@ public:
 
 #pragma region Practicas variables
 
+//lista global de todas las particulas de la escena
+std::list<Particle*> allParticles;
 
 
+//ejes
 Axis* axis;
 Particle* p;
+
+//lista de las particulas que se disparan por teclado
 std::vector<Particle*> particles;
 
+
+//lista de sistemas de particulas
 std::vector<ParticleSystem*> particlesSystems;
+
+//sistemas de particulas y sus modelos
 
 ParticleSystem* particleSystemSnow;
 Particle* snowModel;
@@ -102,13 +111,20 @@ ParticleSystem* particleSystemWaterJet;
 Particle* waterJetModel;
 
 
-std::list<Particle*> allParticles;
 
+//generadores de fuerzas genericos
 GravityForceGenerator* gravityGen = nullptr;
 WindForceGenerator* windGen = nullptr;
 TornadoForceGenerator* tornadoGen = nullptr;
 ExplosionForceGenerator* explosionGen = nullptr;
+
+
+//muelles y flotadores
 SpringForceGenerator* staticSpringGen = nullptr;
+Particle* staticSpringParticle = nullptr;
+
+
+//solidos rigidos
 
 
 #pragma endregion
@@ -141,6 +157,7 @@ PxScene*				gScene      = NULL;
 ContactReportCallback gContactReportCallback;
 
 
+
 #pragma endregion
 
 
@@ -150,6 +167,9 @@ ContactReportCallback gContactReportCallback;
 void createSnowSystem();
 void createRainSystem();
 void createWaterJetSystem();
+
+
+void createStaticSpring();
 
 
 
@@ -182,10 +202,10 @@ void initPhysics(bool interactive)
 
 
 	axis = new Axis(20,2);
-	p = new Particle(allParticles, PxVec3(0, 50, 0),PxQuat(), PxVec3(250, 0, 0), 1, PxGeometryType::Enum::eSPHERE);
+	//p = new Particle(allParticles, PxVec3(0, 50, 0),PxQuat(0,0,0,1), PxVec3(0, 0, 0), 1, PxGeometryType::Enum::eSPHERE);
 
 
-	p->scaleObject(250, 0.180, 0.1);
+	//p->scaleObject(250, 0.180, 0.1);
 
 	gravityGen = new GravityForceGenerator(allParticles); 
 	windGen = new WindForceGenerator(allParticles);
@@ -201,9 +221,12 @@ void initPhysics(bool interactive)
 	tornadoGen->setMaxRange({ 50,100, 50 });
 
 
-	createSnowSystem();
+	//createSnowSystem();
 	//createRainSystem();
 	//createWaterJetSystem();
+
+	createStaticSpring();
+
 }
 
 
@@ -215,17 +238,22 @@ void stepPhysics(bool interactive, double t)
 	//no compilador queja 
 	PX_UNUSED(interactive);
 
-	p->integrate(t);
+	if (p != nullptr) {
+		p->integrate(t);
+	}
 
 
 	//gravityGen->update();
 	//windGen->update();
-	tornadoGen->update();
+	//tornadoGen->update();
 
 	if (explosionGen != nullptr) {
 		explosionGen->update();
 		explosionGen->updateTime(t);
 	}
+
+	staticSpringParticle->integrate(t);
+	staticSpringGen->update();
 
 
 	for (auto& sys : particlesSystems) sys->update(t);
@@ -489,3 +517,26 @@ void createWaterJetSystem() {
 	particlesSystems.push_back(particleSystemWaterJet);
 }
 
+
+
+void createStaticSpring() {
+
+	staticSpringParticle = new Particle(
+		allParticles, 
+		{0,15,0}, //pos
+		{0,0,0,1}, //rot
+		{0,0,0}, // vel
+		1, //scale
+		1, //damping
+		1 //mass
+		);
+
+	staticSpringGen = new SpringForceGenerator(staticSpringParticle);
+
+	staticSpringGen->setPos({0,0,0});
+	staticSpringGen->setK(50);
+	staticSpringGen->setReposeLenght(10);
+
+
+
+}

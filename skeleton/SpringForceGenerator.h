@@ -8,7 +8,7 @@ class SpringForceGenerator :
 {
 public:
 
-    SpringForceGenerator(Particle* afectedParticle, bool check = false);
+    SpringForceGenerator(Particle* afectedParticle,Particle* source = nullptr ,bool check = false);
 
 
 
@@ -54,11 +54,10 @@ private:
 
     double k = 0;           //coeficiente elastico del muelle
 
-    double reposeLenght;//longitud de reposo del muelle
+    double reposeLenght;    //longitud de reposo del muelle
 
-    physx::PxVec3 position{0,0,0};
+    physx::PxVec3 position{0,0,0}; //punto de anclaje del muelle, solo se usa si source == nullptr
 
-    Particle* source = nullptr;
-
+    Particle* source = nullptr; //particula 
 };
 
