@@ -99,7 +99,8 @@ void Particle::integrate(double t)
 	vel += acel * t;
 	transform.p += vel * t;
 
-	//std::cout << "desplazamiento :"<<vel.y * t << std::endl;
+	//std::cout << "vel:" << vel.y << std::endl;
+	std::cout << "desplazamiento :"<<vel.y * t << std::endl;
 
 
 	force = Vector3(0, 0, 0);

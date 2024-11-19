@@ -243,7 +243,7 @@ void stepPhysics(bool interactive, double t)
 	}
 
 
-	//gravityGen->update();
+	gravityGen->update();
 	//windGen->update();
 	//tornadoGen->update();
 
@@ -328,6 +328,25 @@ void keyPress(unsigned char key, const PxTransform& camera)
 
 		break;
 	}
+		
+	case '1': {
+	
+		if (staticSpringParticle != nullptr) {
+			staticSpringParticle->addForce({0,70000,0});	
+		}
+
+		break;
+	}
+	case '2': {
+
+		if (staticSpringGen != nullptr) {
+			staticSpringGen->setK(staticSpringGen->getK() + 10);
+		}
+
+		break;
+	}
+
+
 	default:
 		break;
 	}
@@ -534,7 +553,7 @@ void createStaticSpring() {
 	staticSpringGen = new SpringForceGenerator(staticSpringParticle);
 
 	staticSpringGen->setPos({0,0,0});
-	staticSpringGen->setK(50);
+	staticSpringGen->setK(50); //para diff entre integracion semi/implc, 5000
 	staticSpringGen->setReposeLenght(10);
 
 
