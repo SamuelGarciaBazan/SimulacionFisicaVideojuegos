@@ -25,7 +25,7 @@ std::string display_text = "This is a test";
 #include "Scene.h"
 #include "StaticSpringScene.h"
 #include "DynamicSpringScene.h"
-
+#include "DynamicSpringChainScene.h"
 
 using namespace physx;
 
@@ -118,25 +118,11 @@ ParticleSystem* particleSystemWaterJet;
 Particle* waterJetModel;
 
 
-
 //generadores de fuerzas genericos
 GravityForceGenerator* gravityGen = nullptr;
 WindForceGenerator* windGen = nullptr;
 TornadoForceGenerator* tornadoGen = nullptr;
 ExplosionForceGenerator* explosionGen = nullptr;
-
-
-//muelles y flotadores
-
-
-
-
-std::vector<SpringForceGenerator> dynamicSpringGenChains;
-std::vector<Particle*> dynamicSpringParticlesChain ;
-
-
-//solidos rigidos
-
 
 #pragma endregion
 
@@ -244,7 +230,7 @@ void initPhysics(bool interactive)
 	//createDynamicSpring();
 	//createDynamicSpringChain();
 
-	currentScene = new DynamicSpringScene();
+	currentScene = new DynamicSpringChainScene();
 }
 
 
@@ -350,8 +336,6 @@ void keyPress(unsigned char key, const PxTransform& camera)
 		explosionGen->setRadius(1000);
 		explosionGen->setCenter({0,50,0});
 		explosionGen->setK(500000);
-		
-
 
 		break;
 	}
@@ -546,60 +530,4 @@ void createWaterJetSystem() {
 
 #pragma endregion
 
-#pragma region Springs
-
-
-
-
-void createDynamicSpringChain()
-{
-	int n = 5;
-
-	dynamicSpringGenChains.clear();
-	dynamicSpringParticlesChain.clear();
-	
-	float posOffset = 6;
-
-	for (int i = 0; i < n; i++) {
-		  
-		Particle* p = new Particle(
-			allParticles,
-			{ 0,i * posOffset,0 }, //pos
-			{ 0,0,0,1 }, //rot
-			{ 0,0,0 }, // vel
-			1, //scale
-			1, //damping
-			1,//mass
-			physx::PxGeometryType::eSPHERE,
-			{ 1,0,0,1 } // color
-		);
-
-		dynamicSpringParticlesChain.emplace_back(p);
-	}
-
-	for (int i = 0; i < n -1; i++) {
-
-
-		dynamicSpringGenChains.emplace_back(
-			SpringForceGenerator(
-				dynamicSpringParticlesChain[i],
-				dynamicSpringParticlesChain[i+1]));
-
-		dynamicSpringGenChains[i].setK(5); //para diff entre integracion semi/implc, 5000
-		dynamicSpringGenChains[i].setReposeLenght(5);
-
-	}
-
-}
-
-
-
-
-void updateDynamicSpringChain(double t)
-{
-	for (auto e : dynamicSpringGenChains) e.update();
-	for (auto e : dynamicSpringParticlesChain) e->integrate(t);
-}
-
-#pragma endregion
 
