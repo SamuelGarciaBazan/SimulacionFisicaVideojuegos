@@ -24,6 +24,7 @@ std::string display_text = "This is a test";
 
 #include "Scene.h"
 #include "StaticSpringScene.h"
+#include "DynamicSpringScene.h"
 
 
 using namespace physx;
@@ -243,7 +244,7 @@ void initPhysics(bool interactive)
 	//createDynamicSpring();
 	//createDynamicSpringChain();
 
-	currentScene = new StaticSpringScene();
+	currentScene = new DynamicSpringScene();
 }
 
 

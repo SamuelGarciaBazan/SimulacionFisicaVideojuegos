@@ -29,12 +29,12 @@ DynamicSpringScene::DynamicSpringScene()
 
 	dynamicSpringGenA = new SpringForceGenerator(dynamicSpringParticleA, dynamicSpringParticleB);
 
-	dynamicSpringGenA->setK(5); //para diff entre integracion semi/implc, 5000
+	dynamicSpringGenA->setK(20); //para diff entre integracion semi/implc, 5000
 	dynamicSpringGenA->setReposeLenght(10);
 
 	dynamicSpringGenB = new SpringForceGenerator(dynamicSpringParticleB, dynamicSpringParticleA);
 
-	dynamicSpringGenB->setK(5); //para diff entre integracion semi/implc, 5000
+	dynamicSpringGenB->setK(20); //para diff entre integracion semi/implc, 5000
 	dynamicSpringGenB->setReposeLenght(10);
 }
 

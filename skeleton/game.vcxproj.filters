@@ -43,13 +43,19 @@
     <ClCompile Include="BouyancyForceGenerator.cpp">
       <Filter>Source\My Classes\ForceGenerators</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="StaticSpringScene.cpp" />
-    <ClCompile Include="DynamicSpringScene.cpp" />
     <ClCompile Include="DynamicSpringChainScene.cpp" />
     <ClCompile Include="ExplosionScene.cpp" />
     <ClCompile Include="TornadoScene.cpp" />
     <ClCompile Include="WindScene.cpp" />
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicSpringScene.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticSpringScene.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp">
@@ -97,13 +103,19 @@
     <ClInclude Include="BouyancyForceGenerator.h">
       <Filter>Header\My Classes\ForceGenerators</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="StaticSpringScene.h" />
-    <ClInclude Include="DynamicSpringScene.h" />
     <ClInclude Include="DynamicSpringChainScene.h" />
     <ClInclude Include="ExplosionScene.h" />
     <ClInclude Include="TornadoScene.h" />
     <ClInclude Include="WindScene.h" />
+    <ClInclude Include="Scene.h">
+      <Filter>Header\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticSpringScene.h">
+      <Filter>Header\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicSpringScene.h">
+      <Filter>Header\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
@@ -147,6 +159,12 @@
     </Filter>
     <Filter Include="Source\My Classes\Particle Systems">
       <UniqueIdentifier>{ddea66a0-eaa8-4d9e-9b3a-c85cbef2876f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Scenes">
+      <UniqueIdentifier>{91dd1383-4014-4070-a881-c468872b4465}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Scenes">
+      <UniqueIdentifier>{2ba20046-6453-4e23-99c2-7a5a6238ffea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
