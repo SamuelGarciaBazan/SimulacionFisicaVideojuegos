@@ -45,6 +45,11 @@
     </ClCompile>
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="StaticSpringScene.cpp" />
+    <ClCompile Include="DynamicSpringScene.cpp" />
+    <ClCompile Include="DynamicSpringChainScene.cpp" />
+    <ClCompile Include="ExplosionScene.cpp" />
+    <ClCompile Include="TornadoScene.cpp" />
+    <ClCompile Include="WindScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp">
@@ -94,6 +99,11 @@
     </ClInclude>
     <ClInclude Include="Scene.h" />
     <ClInclude Include="StaticSpringScene.h" />
+    <ClInclude Include="DynamicSpringScene.h" />
+    <ClInclude Include="DynamicSpringChainScene.h" />
+    <ClInclude Include="ExplosionScene.h" />
+    <ClInclude Include="TornadoScene.h" />
+    <ClInclude Include="WindScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">

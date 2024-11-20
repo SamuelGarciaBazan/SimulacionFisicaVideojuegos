@@ -256,7 +256,10 @@
   <ItemGroup>
     <ClCompile Include="BouyancyForceGenerator.cpp" />
     <ClCompile Include="callbacks.cpp" />
+    <ClCompile Include="DynamicSpringChainScene.cpp" />
+    <ClCompile Include="DynamicSpringScene.cpp" />
     <ClCompile Include="ExplosionForceGenerator.cpp" />
+    <ClCompile Include="ExplosionScene.cpp" />
     <ClCompile Include="ForceGenerator.cpp" />
     <ClCompile Include="GravityForceGenerator.cpp" />
     <ClCompile Include="main.cpp" />
@@ -269,13 +272,18 @@
     <ClCompile Include="SpringForceGenerator.cpp" />
     <ClCompile Include="StaticSpringScene.cpp" />
     <ClCompile Include="TornadoForceGenerator.cpp" />
+    <ClCompile Include="TornadoScene.cpp" />
     <ClCompile Include="WindForceGenerator.cpp" />
+    <ClCompile Include="WindScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BouyancyForceGenerator.h" />
     <ClInclude Include="callbacks.hpp" />
     <ClInclude Include="core.hpp" />
+    <ClInclude Include="DynamicSpringChainScene.h" />
+    <ClInclude Include="DynamicSpringScene.h" />
     <ClInclude Include="ExplosionForceGenerator.h" />
+    <ClInclude Include="ExplosionScene.h" />
     <ClInclude Include="ForceGenerator.h" />
     <ClInclude Include="GravityForceGenerator.h" />
     <ClInclude Include="Particle.h" />
@@ -287,8 +295,10 @@
     <ClInclude Include="SpringForceGenerator.h" />
     <ClInclude Include="StaticSpringScene.h" />
     <ClInclude Include="TornadoForceGenerator.h" />
+    <ClInclude Include="TornadoScene.h" />
     <ClInclude Include="Vector3D.h" />
     <ClInclude Include="WindForceGenerator.h" />
+    <ClInclude Include="WindScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
