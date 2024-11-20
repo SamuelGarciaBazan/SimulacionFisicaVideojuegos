@@ -5,7 +5,10 @@ using namespace physx;
 
 ExplosionScene::ExplosionScene()
 {
-	createWaterJetSystem();
+	createSnowSystem();
+	tornadoGen = new TornadoForceGenerator(allParticles);
+	tornadoGen->setMinRange({ -50,-0,-50 });
+	tornadoGen->setMaxRange({ 50,100, 50 });
 }
 
 ExplosionScene::~ExplosionScene()
@@ -14,6 +17,7 @@ ExplosionScene::~ExplosionScene()
 
 void ExplosionScene::update(double t)
 {
+	tornadoGen->update();
 	for (auto e : particlesSystems) e->update(t);
 	if (explosionGen != nullptr) {
 		explosionGen->update();
@@ -43,55 +47,51 @@ void ExplosionScene::keyPressed(unsigned char key, const physx::PxTransform& cam
 
 }
 
-void ExplosionScene::createWaterJetSystem()
+void ExplosionScene::createSnowSystem()
 {
-	particleSystemWaterJet = new ParticleSystem(allParticles, MyRandom::RandomMode::UNIFORM);
+	particleSystemSnow = new ParticleSystem(allParticles, MyRandom::RandomMode::UNIFORM);
 
-	particleSystemWaterJet->currentCreationTimer = 0;
-	particleSystemWaterJet->creationRate = 0.05f;
-	particleSystemWaterJet->acelMinRange = { 0,0,0 };
-	particleSystemWaterJet->acelMaxRange = { 0,0,0 };
+	particleSystemSnow->currentCreationTimer = 0;
+	particleSystemSnow->creationRate = 0.01f;
+	particleSystemSnow->acelMinRange = { 0,0,0 };
+	particleSystemSnow->acelMaxRange = { 0,0,0 };
 
-	//particleSystemWaterJet->lifePosMinRange = { -50,0,-50 };
-	//particleSystemWaterJet->lifePosMaxRange = { 50,50,50 };
+	particleSystemSnow->lifePosMinRange = { -50,0,-50 };
+	particleSystemSnow->lifePosMaxRange = { 50,50,50 };
 
-	particleSystemWaterJet->maxParticles = 10000;
-	particleSystemWaterJet->startLifeTimeMinRange = 4.0f;
-	particleSystemWaterJet->startLifeTimeMaxRange = 6.0f;
+	particleSystemSnow->maxParticles = 1000;
+	particleSystemSnow->startLifeTimeMinRange = 5.0f;
+	particleSystemSnow->startLifeTimeMaxRange = 5.0f;
 
-	particleSystemWaterJet->startPosMinRange = { -2,0,-2 };
-	particleSystemWaterJet->startPosMaxRange = { 2,0,2 };
+	particleSystemSnow->startPosMinRange = { -50,50,-50 };
+	particleSystemSnow->startPosMaxRange = { 50,50,50 };
 
-	particleSystemWaterJet->velMinRange = { -5,60,-5 };
-	particleSystemWaterJet->velMaxRange = { 5,80,5 };
+	//particleSystemSnow->velMinRange = { -1,-10,-1 };
+	//particleSystemSnow->velMaxRange = { 1,-10,1 };
 
-	particleSystemWaterJet->minScale = 2;
-	particleSystemWaterJet->maxScale = 3;
+	particleSystemSnow->velMinRange = { 0,0,0 };
+	particleSystemSnow->velMaxRange = { 0,0,0 };
 
-	particleSystemWaterJet->diePos = false;
-	particleSystemWaterJet->dieTime = true;
 
-	particleSystemWaterJet->transform = PxTransform();
 
-	particleSystemWaterJet->transform.p = physx::PxVec3(0, 0, 0);
-	particleSystemWaterJet->transform.q = physx::PxQuat(0, 0, 0, 1);
+	particleSystemSnow->minScale = 1;
+	particleSystemSnow->maxScale = 5;
 
-	float angleRadians = -PxPiDivTwo;
-	PxVec3 rotationAxis(0.0f, 0.0f, 1.0f);
+	particleSystemSnow->diePos = false;
+	particleSystemSnow->dieTime = true;
 
-	// Crear cuaternión a partir del ángulo y el eje
-	PxQuat rotationQuat(angleRadians, rotationAxis);
+	particleSystemSnow->transform = PxTransform();
 
-	particleSystemWaterJet->transform.q = particleSystemWaterJet->transform.q * rotationQuat;
-
+	particleSystemSnow->transform.p = physx::PxVec3(0, 0, 0);
+	particleSystemSnow->transform.q = physx::PxQuat(0, 0, 0, 1);
 
 	PxQuat quat = PxQuat(0, 0, 0, 1);
 
-	waterJetModel = new Particle(allParticles, PxVec3(0, 30, 0), quat, PxVec3(250, 0, 0),
-		1, 1, 1, PxGeometryType::Enum::eSPHERE, PxVec4(0, 0, 1, 1));
+	snowModel = new Particle(allParticles, PxVec3(0, 30, 0), quat, PxVec3(250, 0, 0), 1, 1, 1, PxGeometryType::Enum::eSPHERE);
 
 
-	particleSystemWaterJet->model = waterJetModel;
+	particleSystemSnow->model = snowModel;
 
-	particlesSystems.push_back(particleSystemWaterJet);
+	particlesSystems.push_back(particleSystemSnow);
 }
+

@@ -2,6 +2,7 @@
 #include "Scene.h"
 
 #include "ExplosionForceGenerator.h"
+#include "TornadoForceGenerator.h"
 
 
 class ExplosionScene :
@@ -17,10 +18,12 @@ public:
 
 private:
 
-    void createWaterJetSystem();
+    void createSnowSystem();
+    
 
     ExplosionForceGenerator* explosionGen = nullptr;
-    ParticleSystem* particleSystemWaterJet = nullptr;
-    Particle* waterJetModel = nullptr;
+    TornadoForceGenerator* tornadoGen = nullptr;
+    ParticleSystem* particleSystemSnow = nullptr;
+    Particle* snowModel = nullptr;
 };
 
