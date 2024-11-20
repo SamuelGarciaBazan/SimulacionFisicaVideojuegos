@@ -43,6 +43,8 @@
     <ClCompile Include="BouyancyForceGenerator.cpp">
       <Filter>Source\My Classes\ForceGenerators</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="StaticSpringScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp">
@@ -90,6 +92,8 @@
     <ClInclude Include="BouyancyForceGenerator.h">
       <Filter>Header\My Classes\ForceGenerators</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="StaticSpringScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">

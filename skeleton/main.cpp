@@ -22,6 +22,10 @@ std::string display_text = "This is a test";
 #include "SpringForceGenerator.h"
 
 
+#include "Scene.h"
+#include "StaticSpringScene.h"
+
+
 using namespace physx;
 
 
@@ -86,6 +90,8 @@ public:
 
 //lista global de todas las particulas de la escena
 std::list<Particle*> allParticles;
+
+Scene* currentScene;
 
 
 //ejes
@@ -226,7 +232,7 @@ void initPhysics(bool interactive)
 
 
 	windGen->setVelocity({ -20,0,0 });
-	windGen->setMinRange({ -50,-0,-50    });
+	windGen->setMinRange({ -50,-0,-50 });
 	windGen->setMaxRange({  50,50, 50 });
 
 	///tornadoGen->setVelocity({ -20,0,0 });
@@ -240,7 +246,9 @@ void initPhysics(bool interactive)
 
 	//createStaticSpring();
 	//createDynamicSpring();
-	createDynamicSpringChain();
+	//createDynamicSpringChain();
+
+	currentScene = new StaticSpringScene();
 }
 
 
@@ -268,7 +276,9 @@ void stepPhysics(bool interactive, double t)
 
 	//updateStaticSpring(t);
 	//updateDynamicSpring(t);
-	updateDynamicSpringChain(t);
+	//updateDynamicSpringChain(t);
+
+	currentScene->update(t);
 		
 
 	for (auto& sys : particlesSystems) sys->update(t);
@@ -291,6 +301,9 @@ void cleanupPhysics(bool interactive)
 	delete p;
 	delete gravityGen;
 	delete explosionGen;
+
+	delete currentScene;
+
 
 	// Rigid Body ++++++++++++++++++++++++++++++++++++++++++
 	gScene->release();
@@ -650,7 +663,7 @@ void createDynamicSpringChain()
 				dynamicSpringParticlesChain[i],
 				dynamicSpringParticlesChain[i+1]));
 
-		dynamicSpringGenChains[i].setK(10); //para diff entre integracion semi/implc, 5000
+		dynamicSpringGenChains[i].setK(5); //para diff entre integracion semi/implc, 5000
 		dynamicSpringGenChains[i].setReposeLenght(5);
 
 	}
