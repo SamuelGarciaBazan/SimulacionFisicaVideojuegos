@@ -5,6 +5,8 @@ using namespace physx;
 
 WindScene::WindScene()
 {
+	gravityGen = new GravityForceGenerator(allParticles);
+
 	windGen = new WindForceGenerator(allParticles);
 
 	windGen->setVelocity({ -20,0,0 });
@@ -21,6 +23,7 @@ WindScene::~WindScene()
 void WindScene::update(double t)
 {
 	windGen->update();
+	gravityGen->update();
 	for (auto e : particlesSystems) e->update(t);
 }
 
@@ -34,8 +37,8 @@ void WindScene::createSnowSystem()
 	particleSystemSnow->acelMinRange = { 0,0,0 };
 	particleSystemSnow->acelMaxRange = { 0,0,0 };
 
-	particleSystemSnow->lifePosMinRange = { -50,0,-50 };
-	particleSystemSnow->lifePosMaxRange = { 50,50,50 };
+	particleSystemSnow->lifePosMinRange = { -500,-500,-5000 };
+	particleSystemSnow->lifePosMaxRange = { 500,500,500 };
 
 	particleSystemSnow->maxParticles = 1000;
 	particleSystemSnow->startLifeTimeMinRange = 5.0f;
@@ -56,7 +59,7 @@ void WindScene::createSnowSystem()
 	particleSystemSnow->maxScale = 5;
 
 	particleSystemSnow->diePos = false;
-	particleSystemSnow->dieTime = true;
+	particleSystemSnow->dieTime = false;
 
 	particleSystemSnow->transform = PxTransform();
 

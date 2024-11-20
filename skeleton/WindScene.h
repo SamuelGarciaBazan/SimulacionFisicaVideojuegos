@@ -2,7 +2,7 @@
 #include "Scene.h"
 
 #include "WindForceGenerator.h"
-
+#include "GravityForceGenerator.h"
 
 
 class WindScene :
@@ -19,6 +19,7 @@ private:
     void createSnowSystem();
 
     WindForceGenerator* windGen = nullptr;
+    GravityForceGenerator* gravityGen = nullptr;
 
 
     ParticleSystem* particleSystemSnow = nullptr;
