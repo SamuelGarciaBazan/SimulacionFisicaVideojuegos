@@ -38,7 +38,6 @@ std::list<Particle*> allParticles;
 
 Scene* currentScene;
 
-
 //ejes
 Axis* axis;
 Particle* p;
