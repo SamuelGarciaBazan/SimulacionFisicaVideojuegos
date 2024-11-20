@@ -12,6 +12,8 @@ public:
 
 	virtual void update(double t);
 
+	virtual void keyPressed(unsigned char key, const physx::PxTransform& camera) ;
+
 private:
 
 	SpringForceGenerator* staticSpringGen = nullptr;

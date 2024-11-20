@@ -126,14 +126,9 @@ ExplosionForceGenerator* explosionGen = nullptr;
 
 
 //muelles y flotadores
-SpringForceGenerator* staticSpringGen = nullptr;
-Particle* staticSpringParticle = nullptr;
 
 
-SpringForceGenerator* dynamicSpringGenA = nullptr;
-SpringForceGenerator* dynamicSpringGenB = nullptr;
-Particle* dynamicSpringParticleA = nullptr;
-Particle* dynamicSpringParticleB = nullptr;
+
 
 std::vector<SpringForceGenerator> dynamicSpringGenChains;
 std::vector<Particle*> dynamicSpringParticlesChain ;
@@ -328,6 +323,9 @@ void keyPress(unsigned char key, const PxTransform& camera)
 {
 	PX_UNUSED(camera);
 
+	currentScene->keyPressed(key, camera);
+
+
 	switch(toupper(key))
 	{
 	//case 'B': break;
@@ -356,25 +354,6 @@ void keyPress(unsigned char key, const PxTransform& camera)
 
 		break;
 	}
-		
-	case '1': {
-	
-		if (staticSpringParticle != nullptr) {
-			staticSpringParticle->addForce({0,70000,0});	
-		}
-
-		break;
-	}
-	case '2': {
-
-		if (staticSpringGen != nullptr) {
-			staticSpringGen->setK(staticSpringGen->getK() + 10);
-		}
-
-		break;
-	}
-
-
 	default:
 		break;
 	}
@@ -569,44 +548,7 @@ void createWaterJetSystem() {
 #pragma region Springs
 
 
-void createDynamicSpring()
-{
-	dynamicSpringParticleA = new Particle(
-		allParticles,
-		{ 0,15,0 }, //pos
-		{ 0,0,0,1 }, //rot
-		{ 0,0,0 }, // vel
-		1, //scale
-		1, //damping
-		1 ,//mass
-		physx::PxGeometryType::eSPHERE,
-		{1,0,0,1} // color
-	);
 
-
-	dynamicSpringParticleB = new Particle(
-		allParticles,
-		{ 0,30,0 }, //pos
-		{ 0,0,0,1 }, //rot
-		{ 0,0,0 }, // vel
-		1, //scale
-		1, //damping
-		1,//mass
-		physx::PxGeometryType::eSPHERE,
-		{ 0,0,1,1 } // color
-	);
-
-	dynamicSpringGenA = new SpringForceGenerator(dynamicSpringParticleA,dynamicSpringParticleB);
-
-	dynamicSpringGenA->setK(5); //para diff entre integracion semi/implc, 5000
-	dynamicSpringGenA->setReposeLenght(10);
-
-	dynamicSpringGenB = new SpringForceGenerator(dynamicSpringParticleB, dynamicSpringParticleA);
-
-	dynamicSpringGenB->setK(5); //para diff entre integracion semi/implc, 5000
-	dynamicSpringGenB->setReposeLenght(10);
-
-}
 
 void createDynamicSpringChain()
 {
@@ -651,14 +593,6 @@ void createDynamicSpringChain()
 
 
 
-void updateDynamicSpring(double t)
-{
-	dynamicSpringGenA->update();
-	dynamicSpringGenB->update();
-
-	dynamicSpringParticleA->integrate(t);
-	dynamicSpringParticleB->integrate(t);
-}
 
 void updateDynamicSpringChain(double t)
 {
