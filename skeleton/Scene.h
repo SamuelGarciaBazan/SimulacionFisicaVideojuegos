@@ -2,7 +2,7 @@
 #include <list>
 
 #include "Particle.h"
-
+#include "ParticleSystem.h"
 
 
 
@@ -18,5 +18,7 @@ public:
 
 protected:
 	std::list<Particle*> allParticles;
+	std::vector<ParticleSystem*> particlesSystems;
+
 };
 

@@ -277,6 +277,7 @@
     <ClCompile Include="WindScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Axis.h" />
     <ClInclude Include="BouyancyForceGenerator.h" />
     <ClInclude Include="callbacks.hpp" />
     <ClInclude Include="core.hpp" />
