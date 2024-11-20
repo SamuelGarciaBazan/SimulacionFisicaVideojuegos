@@ -24,6 +24,7 @@
 #include "DynamicSpringScene.h"
 #include "DynamicSpringChainScene.h"
 #include "ExplosionScene.h"
+#include "WindScene.h"
 
 std::string display_text = "This is a test";
 
@@ -159,7 +160,7 @@ void initPhysics(bool interactive)
 	//createRainSystem();
 	//createWaterJetSystem();
 
-	currentScene = new ExplosionScene();
+	currentScene = new WindScene();
 }
 
 

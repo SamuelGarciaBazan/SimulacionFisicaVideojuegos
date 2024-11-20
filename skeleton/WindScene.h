@@ -1,7 +1,7 @@
 #pragma once
 #include "Scene.h"
 
-
+#include "WindForceGenerator.h"
 
 
 
@@ -15,6 +15,11 @@ public:
     virtual void update(double t);
 
 private:
+
+    void createSnowSystem();
+
+    WindForceGenerator* windGen = nullptr;
+
 
     ParticleSystem* particleSystemSnow = nullptr;
     Particle* snowModel = nullptr;
