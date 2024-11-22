@@ -30,12 +30,12 @@ ElasticBandScene::ElasticBandScene()
 	dynamicSpringGenA = new ElasticBandForceGenerator(dynamicSpringParticleA, dynamicSpringParticleB);
 
 	dynamicSpringGenA->setK(1); //para diff entre integracion semi/implc, 5000
-	dynamicSpringGenA->setReposeLenght(10);
+	dynamicSpringGenA->setReposeLenght(100);
 
 	dynamicSpringGenB = new ElasticBandForceGenerator(dynamicSpringParticleB, dynamicSpringParticleA);
 
 	dynamicSpringGenB->setK(1); //para diff entre integracion semi/implc, 5000
-	dynamicSpringGenB->setReposeLenght(10);
+	dynamicSpringGenB->setReposeLenght(100);
 }
 
 ElasticBandScene::~ElasticBandScene()

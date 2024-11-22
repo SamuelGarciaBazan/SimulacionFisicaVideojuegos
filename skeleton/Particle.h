@@ -20,6 +20,21 @@ public:
 		double mass = 1,
 		physx::PxGeometryType::Enum type = physx::PxGeometryType::Enum::eSPHERE, 
 		physx::PxVec4 color = physx::PxVec4(1,1,1,1));
+
+	Particle(
+		std::list<Particle*>& allParticles,
+		physx::PxVec3 pos,
+		physx::PxQuat quat,
+		physx::PxVec3 vel,
+		physx::PxVec3 scale = physx::PxVec3(1,1,1),
+		double damping = 1.0,
+		double mass = 1,
+		physx::PxGeometryType::Enum type = physx::PxGeometryType::Enum::eSPHERE,
+		physx::PxVec4 color = physx::PxVec4(1, 1, 1, 1));
+
+
+
+
 	~Particle();
 
 	void integrate(double t);

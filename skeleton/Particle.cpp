@@ -74,6 +74,73 @@ Particle::Particle(
 
 
 
+Particle::Particle(
+	std::list<Particle*>& allParticles,
+	physx::PxVec3 pos,
+	physx::PxQuat quat,
+	physx::PxVec3 vel,
+	physx::PxVec3 scale,
+	double damping,
+	double mass,
+	PxGeometryType::Enum type,
+	physx::PxVec4 color)
+
+	:
+	allParticles(allParticles),
+	transform(pos),
+	vel(vel), acel(PxVec3(0, 0, 0)),  //inicializacion de parametros
+	scale(1),
+	damping(damping),
+	mass(mass),
+	geometryType(type),
+	color(color)
+{
+	//geometry y shape
+	PxGeometry* geo;
+	PxShape* shape;
+
+
+	//creacion de la geometria dependiendo del tipo
+	switch (type)
+	{
+	case physx::PxGeometryType::eSPHERE:
+		geo = new PxSphereGeometry(scale.x);
+		break;
+	case physx::PxGeometryType::eCAPSULE:
+		geo = new PxCapsuleGeometry(scale.x, 2 * scale.y);
+		break;
+	case physx::PxGeometryType::eBOX:
+		geo = new PxBoxGeometry(scale.x, scale.y, scale.z);
+		break;
+
+	default:
+		geo = new PxSphereGeometry(1);
+		break;
+	}
+
+	//creacion del shape
+	shape = CreateShape(*geo);
+
+	//transform.q = PxQuat(1, 0, 1, 1);
+
+	//transform.q.rotate(PxVec3(10,90,90));
+	//creacion del renderItem
+	renderItem = new RenderItem(shape, &transform, color);
+
+	transform.q = quat;
+
+	delete geo;
+
+
+	myIt = allParticles.insert(allParticles.end(), this);
+}
+
+
+
+
+
+
+
 Particle::~Particle()
 {
 	allParticles.erase(myIt);
