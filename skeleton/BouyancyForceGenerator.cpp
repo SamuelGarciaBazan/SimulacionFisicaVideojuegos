@@ -4,18 +4,6 @@ BouyancyForceGenerator::BouyancyForceGenerator(Particle* afectedParticle, bool c
 	:ForceGenerator(afectedParticle,check)
 {
 
-	_liquid_particle  = new Particle(
-		allParticles,
-		{ 0,15,0 }, //pos
-		{ 0,0,0,1 }, //rot
-		{ 0,0,0 }, // vel
-		1, //scale
-		1, //damping
-		1,//mass
-		physx::PxGeometryType::eSPHERE,
-		{ 1,0,0,1 } // color
-	);
-
 
 }
 
@@ -43,4 +31,9 @@ physx::PxVec3 BouyancyForceGenerator::forceCalculation(Particle* target)
 	f.y = _liquid_density * _volume * immersed * _gravity;
 
 	return f;
+}
+
+bool BouyancyForceGenerator::afectCondition(Particle* target)
+{
+	return true;
 }

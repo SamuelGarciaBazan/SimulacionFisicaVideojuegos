@@ -59,6 +59,10 @@ public:
 		this->force += force;
 	}
 
+	void setForceIndependent(bool b) {
+		forceIndependent = b;
+	}
+
 	bool getForceIndependent() const noexcept{
 		return forceIndependent;
 	}

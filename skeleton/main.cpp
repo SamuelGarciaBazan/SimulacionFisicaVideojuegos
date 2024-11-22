@@ -26,6 +26,7 @@
 #include "ExplosionScene.h"
 #include "WindScene.h"
 #include "ElasticBandScene.h"
+#include "BouyancyScene.h"
 
 std::string display_text = "This is a test";
 
@@ -161,7 +162,7 @@ void initPhysics(bool interactive)
 	//createRainSystem();
 	//createWaterJetSystem();
 
-	currentScene = new ElasticBandScene();
+	currentScene = new BouyancyScene();
 }
 
 
