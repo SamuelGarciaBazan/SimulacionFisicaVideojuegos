@@ -3,6 +3,7 @@
 
 #include "BouyancyForceGenerator.h"
 #include "GravityForceGenerator.h"
+#include "WindForceGenerator.h"
 
 class BouyancyScene :
     public Scene
@@ -19,8 +20,9 @@ private:
 
     Particle* afectedParticle;
     Particle* liquidParticle;
+
+    WindForceGenerator* windGen;
     BouyancyForceGenerator* bouyancyGenerator;
-    
     GravityForceGenerator* gravityGen;
 };
 

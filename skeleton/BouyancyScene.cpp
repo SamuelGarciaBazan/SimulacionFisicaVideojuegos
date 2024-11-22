@@ -5,7 +5,7 @@ BouyancyScene::BouyancyScene()
 
 	afectedParticle = new Particle(
 		allParticles,
-		{ 0,30,0 }, //pos
+		{10,10,10 }, //pos
 		{ 0,0,0,1 }, //rot
 		{ 0,0,0 }, // vel
 		{ 1,1,1 }, //scale
@@ -22,7 +22,7 @@ BouyancyScene::BouyancyScene()
 		{ 0,0,0 }, //pos
 		{ 0,0,0,1 }, //rot
 		{ 0,0,0 }, // vel
-		{10,0.01,10}, //scale
+		{ 10,0.01,10 }, //scale
 		1, //damping
 		1,//mass
 		physx::PxGeometryType::eBOX,
@@ -41,6 +41,11 @@ BouyancyScene::BouyancyScene()
 
 	gravityGen->setCheckIndependent(true);
 
+
+	windGen = new WindForceGenerator(allParticles, true);
+	windGen->setMinRange({ -1000, -1000, -1000 });
+	windGen->setMaxRange({1000, 1000, 1000});
+
 }
 
 BouyancyScene::~BouyancyScene()
@@ -52,6 +57,7 @@ void BouyancyScene::update(double t)
 	for (auto e : allParticles) e->integrate(t);
 	bouyancyGenerator->update();
 	gravityGen->update();
+	windGen->update();
 }
 
 void BouyancyScene::keyPressed(unsigned char key, const physx::PxTransform& camera)
