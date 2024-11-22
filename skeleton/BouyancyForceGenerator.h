@@ -21,9 +21,9 @@ protected:
 	virtual bool afectCondition(Particle* target);
 
 
-	float _height = 2;
+	float _height = 1;
 	float _volume = 1;
-	float _liquid_density = 1000;
+	float _liquid_density = 1.5;
 	float _gravity = 9.8;
 
 	Particle* _liquid_particle;
