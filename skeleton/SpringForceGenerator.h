@@ -46,7 +46,7 @@ public:
 
 
 
-private:
+protected:
 
     virtual physx::PxVec3 forceCalculation(Particle* target);
     virtual bool afectCondition(Particle* target);

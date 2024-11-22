@@ -62,6 +62,12 @@
     <ClCompile Include="WindScene.cpp">
       <Filter>Source\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="ElasticBandForceGenerator.cpp">
+      <Filter>Source\My Classes\ForceGenerators</Filter>
+    </ClCompile>
+    <ClCompile Include="ElasticBandScene.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp">
@@ -129,6 +135,12 @@
       <Filter>Header\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="WindScene.h">
+      <Filter>Header\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ElasticBandForceGenerator.h">
+      <Filter>Header\My Classes\ForceGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="ElasticBandScene.h">
       <Filter>Header\Scenes</Filter>
     </ClInclude>
   </ItemGroup>

@@ -258,6 +258,8 @@
     <ClCompile Include="callbacks.cpp" />
     <ClCompile Include="DynamicSpringChainScene.cpp" />
     <ClCompile Include="DynamicSpringScene.cpp" />
+    <ClCompile Include="ElasticBandForceGenerator.cpp" />
+    <ClCompile Include="ElasticBandScene.cpp" />
     <ClCompile Include="ExplosionForceGenerator.cpp" />
     <ClCompile Include="ExplosionScene.cpp" />
     <ClCompile Include="ForceGenerator.cpp" />
@@ -283,6 +285,8 @@
     <ClInclude Include="core.hpp" />
     <ClInclude Include="DynamicSpringChainScene.h" />
     <ClInclude Include="DynamicSpringScene.h" />
+    <ClInclude Include="ElasticBandForceGenerator.h" />
+    <ClInclude Include="ElasticBandScene.h" />
     <ClInclude Include="ExplosionForceGenerator.h" />
     <ClInclude Include="ExplosionScene.h" />
     <ClInclude Include="ForceGenerator.h" />
