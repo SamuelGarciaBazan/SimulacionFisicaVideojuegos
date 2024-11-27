@@ -261,6 +261,7 @@
     <ClCompile Include="DynamicSpringScene.cpp" />
     <ClCompile Include="ElasticBandForceGenerator.cpp" />
     <ClCompile Include="ElasticBandScene.cpp" />
+    <ClCompile Include="ExampleSolidRigidScene.cpp" />
     <ClCompile Include="ExplosionForceGenerator.cpp" />
     <ClCompile Include="ExplosionScene.cpp" />
     <ClCompile Include="ForceGenerator.cpp" />
@@ -275,7 +276,6 @@
     <ClCompile Include="SpringForceGenerator.cpp" />
     <ClCompile Include="StaticSpringScene.cpp" />
     <ClCompile Include="TornadoForceGenerator.cpp" />
-    <ClCompile Include="TornadoScene.cpp" />
     <ClCompile Include="WindForceGenerator.cpp" />
     <ClCompile Include="WindScene.cpp" />
   </ItemGroup>
@@ -289,6 +289,7 @@
     <ClInclude Include="DynamicSpringScene.h" />
     <ClInclude Include="ElasticBandForceGenerator.h" />
     <ClInclude Include="ElasticBandScene.h" />
+    <ClInclude Include="ExampleSolidRigidScene.h" />
     <ClInclude Include="ExplosionForceGenerator.h" />
     <ClInclude Include="ExplosionScene.h" />
     <ClInclude Include="ForceGenerator.h" />
@@ -302,7 +303,6 @@
     <ClInclude Include="SpringForceGenerator.h" />
     <ClInclude Include="StaticSpringScene.h" />
     <ClInclude Include="TornadoForceGenerator.h" />
-    <ClInclude Include="TornadoScene.h" />
     <ClInclude Include="Vector3D.h" />
     <ClInclude Include="WindForceGenerator.h" />
     <ClInclude Include="WindScene.h" />

@@ -27,6 +27,8 @@
 #include "WindScene.h"
 #include "ElasticBandScene.h"
 #include "BouyancyScene.h"
+#include "ExampleSolidRigidScene.h"
+
 
 std::string display_text = "This is a test";
 
@@ -113,6 +115,8 @@ void createWaterJetSystem();
 // Initialize physics engine
 void initPhysics(bool interactive)
 {
+	//INICIALIZACION DEL MOTOR
+
 	PX_UNUSED(interactive);
 
 	gFoundation = PxCreateFoundation(PX_FOUNDATION_VERSION, gAllocator, gErrorCallback);
@@ -134,15 +138,17 @@ void initPhysics(bool interactive)
 	sceneDesc.filterShader = contactReportFilterShader;
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 
+	//CREACION DE LA ESCENA
+
 
 	gScene = gPhysics->createScene(sceneDesc);
 
 
 	axis = new Axis(20,2);
+	
 	//p = new Particle(allParticles, PxVec3(0, 50, 0),PxQuat(0,0,0,1), PxVec3(0, 0, 0), 1, PxGeometryType::Enum::eSPHERE);
-
-
 	//p->scaleObject(250, 0.180, 0.1);
+
 
 	gravityGen = new GravityForceGenerator(allParticles); 
 	windGen = new WindForceGenerator(allParticles);
@@ -162,7 +168,7 @@ void initPhysics(bool interactive)
 	//createRainSystem();
 	//createWaterJetSystem();
 
-	currentScene = new BouyancyScene();
+	currentScene = new ExampleSolidRigidScene(gPhysics,gScene);
 }
 
 
@@ -254,6 +260,9 @@ void onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
 {
 	PX_UNUSED(actor1);
 	PX_UNUSED(actor2);
+
+	currentScene->onCollision(actor1, actor2);
+
 }
 
 int main(int, const char*const*)

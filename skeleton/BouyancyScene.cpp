@@ -22,7 +22,7 @@ BouyancyScene::BouyancyScene()
 		{ 0,0,0 }, //pos
 		{ 0,0,0,1 }, //rot
 		{ 0,0,0 }, // vel
-		{ 10,0.01,10 }, //scale
+		{ 20,0.01,20 }, //scale
 		1, //damping
 		1,//mass
 		physx::PxGeometryType::eBOX,

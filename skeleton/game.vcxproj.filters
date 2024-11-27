@@ -43,7 +43,6 @@
     <ClCompile Include="BouyancyForceGenerator.cpp">
       <Filter>Source\My Classes\ForceGenerators</Filter>
     </ClCompile>
-    <ClCompile Include="TornadoScene.cpp" />
     <ClCompile Include="Scene.cpp">
       <Filter>Source\Scenes</Filter>
     </ClCompile>
@@ -68,6 +67,10 @@
     <ClCompile Include="ElasticBandScene.cpp">
       <Filter>Source\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="BouyancyScene.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="ExampleSolidRigidScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp">
@@ -115,7 +118,6 @@
     <ClInclude Include="BouyancyForceGenerator.h">
       <Filter>Header\My Classes\ForceGenerators</Filter>
     </ClInclude>
-    <ClInclude Include="TornadoScene.h" />
     <ClInclude Include="Scene.h">
       <Filter>Header\Scenes</Filter>
     </ClInclude>
@@ -143,6 +145,10 @@
     <ClInclude Include="ElasticBandScene.h">
       <Filter>Header\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="BouyancyScene.h">
+      <Filter>Header\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ExampleSolidRigidScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
