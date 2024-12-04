@@ -5,8 +5,8 @@
 using namespace physx;
 
 
-ExampleSolidRigidScene::ExampleSolidRigidScene(physx::PxPhysics* gPhysics, physx::PxScene* gScene)
-	:gPhysics(gPhysics),gScene(gScene)
+ExampleSolidRigidScene::ExampleSolidRigidScene(physx::PxPhysics* gPhysics, physx::PxScene* gScene, physx::PxCooking* gCooking)
+	:gPhysics(gPhysics),gScene(gScene), gCooking(gCooking)
 {
 
 	//creacion del suelo
@@ -53,6 +53,75 @@ ExampleSolidRigidScene::ExampleSolidRigidScene(physx::PxPhysics* gPhysics, physx
 	gScene->addActor(*cube);
 	cubeRenderItem = new RenderItem(cubeShape, cube, { 0,1,0,1 });
 
+
+
+
+
+
+
+
+	bool success = tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, "prueba.obj");
+
+	if (!success) {
+		throw std::runtime_error("Failed to load OBJ: " + warn + err);
+	}
+
+	std::vector<physx::PxVec3> vertices;
+
+	// Procesar malla (conviértela para PhysX)
+	for (const auto& shape : shapes) {
+		for (size_t i = 0; i < shape.mesh.indices.size(); i += 3) {
+			// Accede a los vértices de cada triángulo
+			const tinyobj::index_t& v0 = shape.mesh.indices[i + 0];
+			const tinyobj::index_t& v1 = shape.mesh.indices[i + 1];
+			const tinyobj::index_t& v2 = shape.mesh.indices[i + 2];
+
+
+			// Carga las posiciones de los vértices
+			PxVec3 p0 = { attrib.vertices[3 * v0.vertex_index + 0],
+						 attrib.vertices[3 * v0.vertex_index + 1],
+						 attrib.vertices[3 * v0.vertex_index + 2] };
+			PxVec3 p1 = { attrib.vertices[3 * v1.vertex_index + 0],
+						 attrib.vertices[3 * v1.vertex_index + 1],
+						 attrib.vertices[3 * v1.vertex_index + 2] };
+			PxVec3 p2 = { attrib.vertices[3 * v2.vertex_index + 0],
+						 attrib.vertices[3 * v2.vertex_index + 1],
+						 attrib.vertices[3 * v2.vertex_index + 2] };
+
+			// Añade los vértices a tu buffer o directamente a PhysX
+			vertices.push_back(p0);
+			vertices.push_back(p1);
+			vertices.push_back(p2);
+		}
+	}
+
+
+
+
+	PxConvexMeshDesc convexDesc;
+	convexDesc.points.count = vertices.size();
+	convexDesc.points.stride = sizeof(PxVec3);
+	convexDesc.points.data = vertices.data(); // array de PxVec3
+
+	convexDesc.flags = PxConvexFlag::eCOMPUTE_CONVEX;
+
+	// Cocina la malla convexa
+	PxDefaultMemoryOutputStream writeBuffer;
+	PxConvexMeshCookingResult::Enum result;
+	bool status = gCooking->cookConvexMesh(convexDesc, writeBuffer, &result);
+
+	PxDefaultMemoryInputData readBuffer(writeBuffer.getData(), writeBuffer.getSize());
+	PxConvexMesh* convexMesh = gPhysics->createConvexMesh(readBuffer);
+
+	// Añadir a la escena
+	PxRigidDynamic* dynamicActor = gPhysics->createRigidDynamic(PxTransform({0,100,0}));
+	//PxShape* shape = dynamicActor->createShape(PxConvexMeshGeometry(convexMesh), *material);
+	PxShape* shape = CreateShape(PxConvexMeshGeometry(convexMesh));
+
+	dynamicActor->attachShape(*shape);
+
+	gScene->addActor(*dynamicActor);
+	balaRenderItem = new RenderItem(shape, dynamicActor, { 0,1,0,1 });
 
 }
 

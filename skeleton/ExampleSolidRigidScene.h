@@ -1,6 +1,6 @@
 #pragma once
 #include "Scene.h"
-
+#include "tiny_obj_loader.h"
 
 
 class ExampleSolidRigidScene :
@@ -8,7 +8,7 @@ class ExampleSolidRigidScene :
 {
 
 public:
-    ExampleSolidRigidScene(physx::PxPhysics* gPhysics,physx::PxScene* gScene);
+    ExampleSolidRigidScene(physx::PxPhysics* gPhysics,physx::PxScene* gScene,physx::PxCooking* gCooking);
     virtual ~ExampleSolidRigidScene();
 
     virtual void update(double t);
@@ -23,10 +23,19 @@ private:
     //gScene para aniadirlo a la escena
     physx::PxPhysics* gPhysics;
     physx::PxScene* gScene;
-
+    physx::PxCooking* gCooking;
 
     RenderItem* floorRenderItem;
     RenderItem* cubeRenderItem;
+    RenderItem* balaRenderItem;
+
+
+
+    tinyobj::attrib_t attrib;
+    std::vector<tinyobj::shape_t> shapes;
+    std::vector<tinyobj::material_t> materials;
+
+    std::string warn, err;
 
 };
 

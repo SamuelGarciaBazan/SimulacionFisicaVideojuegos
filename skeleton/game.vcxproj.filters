@@ -71,6 +71,7 @@
       <Filter>Source\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="ExampleSolidRigidScene.cpp" />
+    <ClCompile Include="tiny_obj_loader.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp">
@@ -149,6 +150,7 @@
       <Filter>Header\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="ExampleSolidRigidScene.h" />
+    <ClInclude Include="tiny_obj_loader.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">

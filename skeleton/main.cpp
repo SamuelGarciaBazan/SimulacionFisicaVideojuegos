@@ -104,6 +104,7 @@ ContactReportCallback gContactReportCallback;
 
 #pragma endregion
 
+PxCooking* gCooking = NULL;
 
 //forward declaration
 
@@ -129,6 +130,11 @@ void initPhysics(bool interactive)
 	gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale(),true,gPvd);
 
 	gMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.6f);
+
+	PxCookingParams cookingParams(gPhysics->getTolerancesScale());
+	gCooking = PxCreateCooking(PX_PHYSICS_VERSION, *gFoundation, cookingParams);
+
+
 
 	// For Solid Rigids +++++++++++++++++++++++++++++++++++++
 	PxSceneDesc sceneDesc(gPhysics->getTolerancesScale());
@@ -168,7 +174,7 @@ void initPhysics(bool interactive)
 	//createRainSystem();
 	//createWaterJetSystem();
 
-	currentScene = new ExampleSolidRigidScene(gPhysics,gScene);
+	currentScene = new ExampleSolidRigidScene(gPhysics,gScene,gCooking);
 }
 
 

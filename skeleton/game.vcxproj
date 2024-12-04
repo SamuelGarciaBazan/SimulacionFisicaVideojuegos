@@ -275,6 +275,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SpringForceGenerator.cpp" />
     <ClCompile Include="StaticSpringScene.cpp" />
+    <ClCompile Include="tiny_obj_loader.cc" />
     <ClCompile Include="TornadoForceGenerator.cpp" />
     <ClCompile Include="WindForceGenerator.cpp" />
     <ClCompile Include="WindScene.cpp" />
@@ -302,6 +303,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SpringForceGenerator.h" />
     <ClInclude Include="StaticSpringScene.h" />
+    <ClInclude Include="tiny_obj_loader.h" />
     <ClInclude Include="TornadoForceGenerator.h" />
     <ClInclude Include="Vector3D.h" />
     <ClInclude Include="WindForceGenerator.h" />
