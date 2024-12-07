@@ -1,0 +1,38 @@
+-Mover el barco
+	-Barco flotando con fuerza de flotacion (ver densidad de floacion)
+	-Fuerza lineal, cambia el cuaternion (mas sencilla)
+	-Fuerza puntual (para generar un torque) (mas realista)
+	-Fuerza lineal que disminuye + pequeño torque para la rotación
+
+-Sistema de marea
+	-Fuerza en una dirección , aplica siempre (mas sencilla)
+	-Tener en cuenta la masa, superficie de contacto, restar masa cuando se dispara?
+-Sistema de viento + vela
+	-Viento aplica entre 0.1 y 1 según vela (extendida/no extendida), multiplicador
+-Sistema de disparo 
+	-Se dispara siempre desde un lado en el barco, y con un angulo concreto
+	-Se dispara una bola negra solido rigido, con cierta masa y velocidad (conversión a unidades reales?)
+	-Si 2 balas chocan se ejercen una fuerza
+	-Si la bala choca con un objetivo, le aplica una fuerza
+-Disparo a objetivo
+	-Objetivo estático (mas sencillo)
+	-Otros barcos, cuando les das se hunden y cuando están por debajo desaparecen (mas complicado)
+	-Los barco también pueden disparar y moverse
+
+-Sistemas de partículas 
+	- Lluvia ligera durante el gameplay(algunas zonas)
+	- Humo en los objetos dañados 
+	- Humo al disparar
+	- Balas salpican agua
+	- Espuma del agua (estela por donde la helice)
+	- Astillas al chocar
+	- Niebla marina
+	- Tormentas con rayos
+	- Intentar combinar algunos juntos para que quede mejor
+
+Opcional
+	- Barriles de polvora en el mar, si bala choca, explosión , daño y fuerza a objetos cercanos
+
+
+
+
