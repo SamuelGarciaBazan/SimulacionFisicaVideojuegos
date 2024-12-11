@@ -274,6 +274,7 @@
     <ClCompile Include="Render\Render.cpp" />
     <ClCompile Include="RigidSolid.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="ShipControlScene.cpp" />
     <ClCompile Include="SpringForceGenerator.cpp" />
     <ClCompile Include="StaticSpringScene.cpp" />
     <ClCompile Include="tiny_obj_loader.cc" />
@@ -303,6 +304,7 @@
     <ClInclude Include="Render\Render.h" />
     <ClInclude Include="RigidSolid.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="ShipControlScene.h" />
     <ClInclude Include="SpringForceGenerator.h" />
     <ClInclude Include="StaticSpringScene.h" />
     <ClInclude Include="tiny_obj_loader.h" />

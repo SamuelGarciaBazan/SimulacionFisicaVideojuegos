@@ -27,7 +27,12 @@
 #include "WindScene.h"
 #include "ElasticBandScene.h"
 #include "BouyancyScene.h"
+
+
 #include "ExampleSolidRigidScene.h"
+
+#include "ShipControlScene.h"
+
 
 
 std::string display_text = "This is a test";

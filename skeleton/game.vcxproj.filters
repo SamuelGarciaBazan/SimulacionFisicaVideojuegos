@@ -75,6 +75,7 @@
       <Filter>Source\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="RigidSolid.cpp" />
+    <ClCompile Include="ShipControlScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp">
@@ -157,6 +158,7 @@
       <Filter>Header\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="RigidSolid.h" />
+    <ClInclude Include="ShipControlScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">

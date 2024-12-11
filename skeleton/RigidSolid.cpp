@@ -8,6 +8,7 @@ RigidSolid::RigidSolid(
 	physx::PxScene* gScene,
 	physx::PxVec3 pos,
 	physx::PxVec3 scale,
+	physx::PxVec4 color,
 	double density,
 	physx::PxGeometryType::Enum type) :
 	gPhysics(gPhysics), gScene(gScene)
@@ -46,7 +47,7 @@ RigidSolid::RigidSolid(
 	PxRigidBodyExt::updateMassAndInertia(*rigidDynamic, density);
 
 	gScene->addActor(*rigidDynamic);
-	renderItem = new RenderItem(shape, rigidDynamic, { 0,1,0,1 });
+	renderItem = new RenderItem(shape, rigidDynamic,color);
 
 	
 }
