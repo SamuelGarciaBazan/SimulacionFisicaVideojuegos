@@ -156,7 +156,7 @@ void initPhysics(bool interactive)
 
 	//axis = new Axis(20,2);
 
-	currentScene = new ExampleSolidRigidScene(gPhysics, gScene, gCooking);
+	currentScene = new ShipControlScene(gPhysics, gScene);
 
 	
 	//p = new Particle(allParticles, PxVec3(0, 50, 0),PxQuat(0,0,0,1), PxVec3(0, 0, 0), 1, PxGeometryType::Enum::eSPHERE);
@@ -201,7 +201,7 @@ void stepPhysics(bool interactive, double t)
 	//tornadoGen->update();
 
 	currentScene->update(t);
-		
+	
 
 	for (auto& sys : particlesSystems) sys->update(t);
 	for (auto& par : particles) par->integrate(t);
@@ -246,6 +246,7 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	PX_UNUSED(camera);
 
 	currentScene->keyPressed(key, camera);
+
 
 
 	switch(toupper(key))
