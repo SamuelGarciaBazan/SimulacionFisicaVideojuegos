@@ -131,6 +131,8 @@ void initPhysics(bool interactive)
 
 	gMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.6f);
 
+
+	//para mallas
 	PxCookingParams cookingParams(gPhysics->getTolerancesScale());
 	gCooking = PxCreateCooking(PX_PHYSICS_VERSION, *gFoundation, cookingParams);
 
@@ -145,36 +147,35 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 
 	//CREACION DE LA ESCENA
-
-
 	gScene = gPhysics->createScene(sceneDesc);
 
-
 	axis = new Axis(20,2);
+
+	currentScene = new ExampleSolidRigidScene(gPhysics, gScene, gCooking);
+
 	
 	//p = new Particle(allParticles, PxVec3(0, 50, 0),PxQuat(0,0,0,1), PxVec3(0, 0, 0), 1, PxGeometryType::Enum::eSPHERE);
 	//p->scaleObject(250, 0.180, 0.1);
 
 
-	gravityGen = new GravityForceGenerator(allParticles); 
-	windGen = new WindForceGenerator(allParticles);
-	tornadoGen = new TornadoForceGenerator(allParticles);
+	//gravityGen = new GravityForceGenerator(allParticles); 
+	//windGen = new WindForceGenerator(allParticles);
+	//tornadoGen = new TornadoForceGenerator(allParticles);
 
 
-	windGen->setVelocity({ -20,0,0 });
-	windGen->setMinRange({ -50,-0,-50 });
-	windGen->setMaxRange({  50,50, 50 });
+	//windGen->setVelocity({ -20,0,0 });
+	//windGen->setMinRange({ -50,-0,-50 });
+	//windGen->setMaxRange({  50,50, 50 });
 
 	///tornadoGen->setVelocity({ -20,0,0 });
-	tornadoGen->setMinRange({ -50,-0,-50 });
-	tornadoGen->setMaxRange({ 50,100, 50 });
+	//tornadoGen->setMinRange({ -50,-0,-50 });
+	//tornadoGen->setMaxRange({ 50,100, 50 });
 
 
 	//createSnowSystem();
 	//createRainSystem();
 	//createWaterJetSystem();
 
-	currentScene = new ExampleSolidRigidScene(gPhysics,gScene,gCooking);
 }
 
 

@@ -36,15 +36,7 @@ ExampleSolidRigidScene::ExampleSolidRigidScene(physx::PxPhysics* gPhysics, physx
 
 	//importante para la distribucion de masas y calculo de momentos de inercia
 	PxRigidBodyExt::updateMassAndInertia(*cube, 0.15);
-	
-	/*
-	char inst[4 * 3] = {
-		0x00, 0x01, 0x25, 0xFF,
 
-	};
-	int (*func)(void) = (int (*)(void))((void *) & inst);
-	int result = func();
-	*/
 	
 	
 	//tensor de inercia manual
@@ -55,6 +47,14 @@ ExampleSolidRigidScene::ExampleSolidRigidScene(physx::PxPhysics* gPhysics, physx
 
 
 
+	/*
+	char inst[4 * 3] = {
+		0x00, 0x01, 0x25, 0xFF,
+
+	};
+	int (*func)(void) = (int (*)(void))((void *) & inst);
+	int result = func();
+	*/
 
 
 

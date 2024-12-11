@@ -70,8 +70,11 @@
     <ClCompile Include="BouyancyScene.cpp">
       <Filter>Source\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="ExampleSolidRigidScene.cpp" />
     <ClCompile Include="tiny_obj_loader.cc" />
+    <ClCompile Include="ExampleSolidRigidScene.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidSolid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp">
@@ -149,8 +152,11 @@
     <ClInclude Include="BouyancyScene.h">
       <Filter>Header\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="ExampleSolidRigidScene.h" />
     <ClInclude Include="tiny_obj_loader.h" />
+    <ClInclude Include="ExampleSolidRigidScene.h">
+      <Filter>Header\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidSolid.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">

@@ -99,6 +99,6 @@ private:
 
 	//si es true , significa que no le aplicaran las fuerzas globales,
 	//solo las de fuerzas que apliquen a ciertas particulas
-	bool forceIndependent ;
+	bool forceIndependent;
 };
 
