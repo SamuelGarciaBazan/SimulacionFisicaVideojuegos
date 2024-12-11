@@ -2,6 +2,11 @@
 #include <iostream>
 #include <setjmp.h>
 
+#include "RigidSolid.h"
+
+#include<cmath>
+
+
 using namespace physx;
 
 
@@ -37,7 +42,14 @@ ExampleSolidRigidScene::ExampleSolidRigidScene(physx::PxPhysics* gPhysics, physx
 	//importante para la distribucion de masas y calculo de momentos de inercia
 	PxRigidBodyExt::updateMassAndInertia(*cube, 0.15);
 
+	float mass = 150;
 	
+	cube->setMass(150);
+	
+	//TESTING TENSORES DE INCERCIA
+	float d = (2.0/3.0)*cube->getMass()* std::pow(5, 2);
+
+	//cube->setMassSpaceInertiaTensor({ d,d,d });
 	
 	//tensor de inercia manual
 	//cube->setMassSpaceInertiaTensor({size.y * size.z,size.x * size.z,size.x*size.y});
@@ -45,6 +57,7 @@ ExampleSolidRigidScene::ExampleSolidRigidScene(physx::PxPhysics* gPhysics, physx
 	gScene->addActor(*cube);
 	cubeRenderItem = new RenderItem(cubeShape, cube, { 0,1,0,1 });
 
+	//RigidSolid* solid = new RigidSolid(gPhysics, gScene, { 0,20,0 });
 
 
 	/*
@@ -56,8 +69,8 @@ ExampleSolidRigidScene::ExampleSolidRigidScene(physx::PxPhysics* gPhysics, physx
 	int result = func();
 	*/
 
-
-
+	//solid->getPxRigidDynamic()->getMass();
+	//solid->getPxRigidDynamic().getr
 
 
 	bool success = tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, "prueba.obj");

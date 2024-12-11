@@ -47,6 +47,8 @@ RigidSolid::RigidSolid(
 
 	gScene->addActor(*rigidDynamic);
 	renderItem = new RenderItem(shape, rigidDynamic, { 0,1,0,1 });
+
+	
 }
 
 RigidSolid::~RigidSolid()

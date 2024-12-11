@@ -149,7 +149,7 @@ void initPhysics(bool interactive)
 	//CREACION DE LA ESCENA
 	gScene = gPhysics->createScene(sceneDesc);
 
-	axis = new Axis(20,2);
+	//axis = new Axis(20,2);
 
 	currentScene = new ExampleSolidRigidScene(gPhysics, gScene, gCooking);
 
