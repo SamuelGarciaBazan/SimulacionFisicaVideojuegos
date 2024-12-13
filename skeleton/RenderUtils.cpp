@@ -12,6 +12,13 @@ extern void initPhysics(bool interactive);
 extern void stepPhysics(bool interactive, double t);	
 extern void cleanupPhysics(bool interactive);
 extern void keyPress(unsigned char key, const PxTransform& camera);
+extern void keyboardUp(unsigned char key, const PxTransform& camera);
+extern void specialKeyDown(int key, const PxTransform& camera);
+extern void specialKeyUp(int key, const PxTransform& camera);
+
+extern void joystickInput(unsigned int buttonMask, int x, int y, int z);
+
+
 extern PxPhysics* gPhysics;
 extern PxMaterial* gMaterial;
 
@@ -58,9 +65,32 @@ void keyboardCallback(unsigned char key, int x, int y)
 		exit(0);
 
 
-	if(!sCamera->handleKey(key, x, y))
-		keyPress(key, sCamera->getTransform());
+	//if(!sCamera->handleKey(key, x, y))
+		//keyPress(key, sCamera->getTransform());
+
+	//lo ejecutamos siempre
+	sCamera->handleKey(key, x, y);
+	keyPress(key, sCamera->getTransform()); 
 }
+
+void keyboardUpCallback(unsigned char key, int x, int y) {
+	
+	keyboardUp(key, sCamera->getTransform());
+}
+
+void specialKeyDownCallback(int key, int x, int y) {
+
+	specialKeyDown(key, sCamera->getTransform());
+}
+void specialKeyUpCallback(int key, int x, int y) {
+	specialKeyUp(key, sCamera->getTransform());
+}
+
+void joystickCallback(unsigned int buttonMask, int x, int y, int z) {
+	joystickInput(buttonMask, x, y, z);
+}
+
+
 
 void mouseCallback(int button, int state, int x, int y)
 {
@@ -145,7 +175,15 @@ void renderLoop()
 
 	glutIdleFunc(idleCallback);
 	glutDisplayFunc(renderCallback);
+
 	glutKeyboardFunc(keyboardCallback);
+	glutKeyboardUpFunc(keyboardUpCallback);
+	glutSpecialFunc(specialKeyDownCallback);
+	glutSpecialUpFunc(specialKeyUpCallback);
+
+	glutJoystickFunc(joystickCallback,1);
+	
+
 	glutMouseFunc(mouseCallback);
 	glutMotionFunc(motionCallback);
 	motionCallback(0,0);

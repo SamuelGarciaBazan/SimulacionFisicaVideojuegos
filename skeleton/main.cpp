@@ -245,6 +245,9 @@ void keyPress(unsigned char key, const PxTransform& camera)
 {
 	PX_UNUSED(camera);
 
+	std::cout << "KeyDown: " << key << std::endl;
+
+
 	currentScene->keyPressed(key, camera);
 
 
@@ -269,6 +272,25 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	}
 }
 
+void keyboardUp(unsigned char key, const PxTransform& camera) {
+	std::cout << "KeyUp: " << key << std::endl;
+}
+void specialKeyDown(int key, const PxTransform& camera) {
+	std::cout << "SpecialDown: " << key << std::endl;
+}
+void specialKeyUp(int key, const PxTransform& camera) {
+	std::cout << "SpecialUp: " << key << std::endl;
+}
+
+void joystickInput(unsigned int buttonMask, int x, int y, int z) {
+	//std::cout << "Joystick: " << buttonMask << std::endl;
+
+
+	std::cout << "x: " << x << "y: "<< y << "z: " <<  buttonMask << std::endl;
+	
+}
+
+
 void onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
 {
 	PX_UNUSED(actor1);
@@ -292,6 +314,7 @@ int main(int, const char*const*)
 #endif
 
 	return 0;
+
 }
 
 
