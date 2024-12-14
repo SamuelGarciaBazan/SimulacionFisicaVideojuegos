@@ -18,8 +18,7 @@ public:
 
 private:
 
-    void updateMoveForward(double t);
-    void updateMoveLeftRight(double t);
+    void updateMove(double t);
 
 
 
