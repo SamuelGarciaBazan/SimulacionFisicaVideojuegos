@@ -21,7 +21,7 @@ ShipControlScene::ShipControlScene(
 
 
 	//creacion del barco
-	ship = new RigidSolid(gPhysics, gScene, { 0,10,0 }, { 3,3,8 }, { 0,1,0,1 },0.15,PxGeometryType::eBOX);
+	ship = new RigidSolid(allRigidSolids, gPhysics, gScene, { 0,10,0 }, { 3,3,8 }, { 0,1,0,1 },0.15,PxGeometryType::eBOX);
 
 }
 

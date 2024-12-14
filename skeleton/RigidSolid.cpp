@@ -4,6 +4,7 @@
 using namespace physx;
 
 RigidSolid::RigidSolid(
+	std::list<RigidSolid*>& allRigidSolids,
 	physx::PxPhysics* gPhysics, 
 	physx::PxScene* gScene,
 	physx::PxVec3 pos,
@@ -11,7 +12,7 @@ RigidSolid::RigidSolid(
 	physx::PxVec4 color,
 	double density,
 	physx::PxGeometryType::Enum type) :
-	gPhysics(gPhysics), gScene(gScene)
+	allRigidSolids(allRigidSolids), gPhysics(gPhysics), gScene(gScene)
 {
 	//geometry y shape
 	PxGeometry* geo;
@@ -38,22 +39,26 @@ RigidSolid::RigidSolid(
 	//creacion del shape
 	shape = CreateShape(*geo);
 
-
+	//crear el rigid
 	rigidDynamic = gPhysics->createRigidDynamic({PxTransform{pos.x,pos.y,pos.z}});
 
+	//attachShape
 	rigidDynamic->attachShape(*shape);
 
 	//importante para la distribucion de masas y calculo de momentos de inercia
 	PxRigidBodyExt::updateMassAndInertia(*rigidDynamic, density);
 
+	//añadir a la escena y crear render item
 	gScene->addActor(*rigidDynamic);
 	renderItem = new RenderItem(shape, rigidDynamic,color);
 
-	
+
+	//asignar el iterador de la lista
+	myIt = allRigidSolids.insert(allRigidSolids.end(), this);	
 }
 
 RigidSolid::~RigidSolid()
 {
-
+	allRigidSolids.erase(myIt);
 	DeregisterRenderItem(renderItem);
 }

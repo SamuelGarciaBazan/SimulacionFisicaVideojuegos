@@ -4,6 +4,7 @@
 #include "Particle.h"
 #include "ParticleSystem.h"
 
+#include "RigidSolid.h"
 
 
 class Scene
@@ -33,5 +34,7 @@ protected:
 	std::list<Particle*> allParticles;
 	std::vector<ParticleSystem*> particlesSystems;
 
+
+	std::list<RigidSolid*> allRigidSolids;
 };
 

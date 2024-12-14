@@ -2,7 +2,7 @@
 
 #include <PxPhysicsAPI.h>
 #include "RenderUtils.hpp"
-
+#include <list>
 
 
 class RigidSolid
@@ -10,6 +10,7 @@ class RigidSolid
 public:
 
 	RigidSolid(
+		std::list<RigidSolid*>& allRigidSolids, //lista de solidos rigidos
 		physx::PxPhysics* gPhysics,						//physics
 		physx::PxScene* gScene,							//scene
 		physx::PxVec3 pos = physx::PxVec3(0,0,0),		//posicion inicial
@@ -25,6 +26,13 @@ public:
 		return rigidDynamic;
 	}
 
+	void setForceIndependent(bool b) {
+		forceIndependent = b;
+	}
+
+	bool getForceIndependent() const noexcept {
+		return forceIndependent;
+	}
 
 private:
 
@@ -35,5 +43,9 @@ private:
 
 	physx::PxRigidDynamic* rigidDynamic = nullptr;
 	
+	std::list<RigidSolid*>& allRigidSolids;
+	std::list<RigidSolid*>::iterator myIt;
+
+	bool forceIndependent = false;
 };
 
