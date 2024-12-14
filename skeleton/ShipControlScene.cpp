@@ -30,24 +30,10 @@ ShipControlScene::~ShipControlScene()
 
 void ShipControlScene::update(double t)
 {
-	double forwardForce = 0;
-	double torqueForce = 0;
+	updateMoveForward(t);
+	updateMoveLeftRight(t);
 
-	if (moveForward) forwardForce += forwardForcePerSecond * t;
-	if (moveRight) torqueForce += torqueForcePerSecond * t;
-	if (moveLeft) torqueForce -= torqueForcePerSecond * t;
 	
-	//obtener el transform del barco
-	PxTransform shipTransform = ship->getPxRigidDynamic()->getGlobalPose();
-	
-	PxVec3 shipForwardVector = shipTransform.q.rotate(PxVec3(0, 0, -1)); // Eje Z en espacio local
-
-	PxVec3 forwardForceVector = shipForwardVector * forwardForce;
-
-	// Aplicar la fuerza al centro de masa
-	ship->getPxRigidDynamic()->addForce(forwardForceVector);
-
-	std::cout << "se ha aplicado una fuerza forward de :" << forwardForce << std::endl;
 
 
 
@@ -90,6 +76,50 @@ void ShipControlScene::specialKeyUp(int key, const physx::PxTransform& camera)
 	default:
 		break;
 	}
+}
+
+void ShipControlScene::updateMoveForward(double t)
+{
+	double forwardForce = 0;
+
+	if (moveForward) forwardForce += forwardForcePerSecond * t;
+
+	//obtener el transform del barco
+	PxTransform shipTransform = ship->getPxRigidDynamic()->getGlobalPose();
+
+	PxVec3 shipForwardVector = shipTransform.q.rotate(PxVec3(0, 0, -1)); // Eje Z en espacio local
+
+	PxVec3 forwardForceVector = shipForwardVector * forwardForce;
+
+	// Aplicar la fuerza al centro de masa
+	ship->getPxRigidDynamic()->addForce(forwardForceVector);
+
+	
+	//std::cout << "se ha aplicado una fuerza forward de :" << forwardForce << std::endl;
+}
+
+void ShipControlScene::updateMoveLeftRight(double t)
+{
+	double torqueForce = 0;
+
+	if (moveRight) torqueForce += torqueForcePerSecond * t;
+	if (moveLeft) torqueForce -= torqueForcePerSecond * t;
+
+	//obtener el transform del barco
+	PxTransform shipTransform = ship->getPxRigidDynamic()->getGlobalPose();
+
+	PxVec3 shipTorqueVector = shipTransform.q.rotate(PxVec3(0, 1, 0));
+	
+	PxVec3 shipTorqueForce = shipTorqueVector * torqueForce ;
+	
+	ship->getPxRigidDynamic()->addTorque(shipTorqueForce);
+
+	//std::cout << "se ha aplicado una fuerza torque de :" << torqueForce << std::endl;
+
+	auto v = ship->getPxRigidDynamic()->getLinearVelocity();
+
+	std::cout << "Linear Velocity [ x:" << v.x << " y: " << v.y << " z: " << v.z << " ]" << std::endl;
+
 }
 
 

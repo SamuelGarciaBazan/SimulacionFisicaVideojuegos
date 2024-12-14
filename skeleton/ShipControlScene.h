@@ -18,6 +18,11 @@ public:
 
 private:
 
+    void updateMoveForward(double t);
+    void updateMoveLeftRight(double t);
+
+
+
     physx::PxPhysics* gPhysics;
     physx::PxScene* gScene;
 
@@ -33,7 +38,7 @@ private:
     bool moveLeft = false;
 
     double forwardForcePerSecond = 2000000;
-    double torqueForcePerSecond = 20000;
+    double torqueForcePerSecond =  20000000;
 
 
 };
