@@ -1,6 +1,6 @@
 #include "ShipControlScene.h"
 #include <iostream>
-
+#include "algorithm"
 
 using namespace physx;
 
@@ -30,12 +30,38 @@ ShipControlScene::~ShipControlScene()
 
 void ShipControlScene::update(double t)
 {
-	updateMoveForward(t);
-	updateMoveLeftRight(t);
+	//updateMoveForward(t);
+	//updateMoveLeftRight(t);
 
+
+	if (moveRight) angle += anglePerSecond * t;
+	if (moveLeft) angle -= anglePerSecond * t;
 	
+	angle = std::clamp(angle, minAngle, maxAngle);
+
+	double forwardForce = 0;
+
+	if (moveForward) forwardForce += forwardForcePerSecond * t;
+
+	//obtener el transform del barco
+	PxTransform shipTransform = ship->getPxRigidDynamic()->getGlobalPose();
+
+	PxVec3 shipForwardVector = shipTransform.q.rotate(PxVec3(0, 0, -1)); // Eje Z en espacio local
+
+	PxVec3 shipTorqueVector = shipTransform.q.rotate(PxVec3(0, 1, 0));
 
 
+	PxVec3 forwardForceVector = shipForwardVector * forwardForce * cos(angle *std::_Pi_val/180.0);
+	PxVec3 torqueForceVector = shipTorqueVector * forwardForce *3 * sin(angle* std::_Pi_val / 180.0);
+
+	// Aplicar la fuerza al centro de masa
+	ship->getPxRigidDynamic()->addForce(forwardForceVector);
+	ship->getPxRigidDynamic()->addTorque(torqueForceVector);
+
+	std::cout << "Angle: " << angle << std::endl;
+	std::cout << "forwardForce [ x:" << forwardForceVector.x << " y: " << forwardForceVector.y << " z: " << forwardForceVector.z << " ]" << std::endl;
+	std::cout << "torqueForce [ x:" << torqueForceVector.x << " y: " << torqueForceVector.y << " z: " << torqueForceVector.z << " ]" << std::endl;
+	//std::cout << torqueForceVector.x << "  " << torqueForceVector.z  << std::endl;
 
 }
 
