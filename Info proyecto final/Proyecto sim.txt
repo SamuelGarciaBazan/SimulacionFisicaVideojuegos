@@ -36,3 +36,33 @@ Opcional
 
 
 
+REQUISITOS PROYECTO:
+Al menos debe tener: 
+	-Dos generadores de partículas distintos.  ---> lluvia y humo
+
+	-Partículas con distinta masa.  --->lluvia con masa variable/ humo distinta masa
+
+	-Dos generadores de fuerzas diferentes (sin contar muelles), cada uno con su fórmula y  ---> viento y tornado
+	sus restricciones de aplicación. 
+
+DONE	-Un ejemplo de muelle o de flotación. 
+
+	-Un sistema de sólidos rígidos. ---> colision bala con objeto para puntos 
+
+	-Sólidos rígidos con distinto tamaño, forma, masa y tensor de inercia.  ---> 2 tipos de balas de cañon, esferas y cuadrados
+
+	-Gestión de creación y destrucción de instancias (las partículas no pueden estar ---> hecho indirectamente
+	indefinidamente en escena, teniendo límites espaciotemporales de existencia) y 
+	destrucción de todos los elementos al salir de la escena. 
+
+DONE	-Interacción con el usuario a través del teclado y/o ratón. 
+
+
+
+
+
+
+
+
+
+
