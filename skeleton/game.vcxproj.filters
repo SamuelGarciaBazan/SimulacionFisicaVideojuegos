@@ -76,6 +76,7 @@
     </ClCompile>
     <ClCompile Include="RigidSolid.cpp" />
     <ClCompile Include="ShipControlScene.cpp" />
+    <ClCompile Include="ForceGeneratorRS.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp">
@@ -159,6 +160,7 @@
     </ClInclude>
     <ClInclude Include="RigidSolid.h" />
     <ClInclude Include="ShipControlScene.h" />
+    <ClInclude Include="ForceGeneratorRS.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
