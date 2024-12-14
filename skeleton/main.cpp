@@ -244,50 +244,39 @@ void cleanupPhysics(bool interactive)
 void keyPress(unsigned char key, const PxTransform& camera)
 {
 	PX_UNUSED(camera);
-
-	std::cout << "KeyDown: " << key << std::endl;
-
+	//std::cout << "KeyDown: " << key << std::endl;
 
 	currentScene->keyPressed(key, camera);
-
-
-
-	switch(toupper(key))
-	{
-	//case 'B': break;
-	//case ' ':	break;
-	case 'C':
-	{
-		auto a = new Particle(allParticles, PxVec3(0, 10, 0),PxQuat(), PxVec3(250, 0, 0), 1, PxGeometryType::Enum::eSPHERE);
-
-		a->scaleObject(250, 0.180, 0.1);
-		a->setFromCamera();
-
-		particles.push_back(a);
-
-		break;
-	}
-	default:
-		break;
-	}
 }
 
 void keyboardUp(unsigned char key, const PxTransform& camera) {
-	std::cout << "KeyUp: " << key << std::endl;
+	PX_UNUSED(camera);
+	//std::cout << "KeyUp: " << key << std::endl;
+
+	currentScene->keyboardUp(key, camera);
 }
 void specialKeyDown(int key, const PxTransform& camera) {
-	std::cout << "SpecialDown: " << key << std::endl;
+	PX_UNUSED(camera);	
+	//std::cout << "SpecialDown: " << key << std::endl;
+
+	currentScene->specialKeyDown(key, camera);
 }
 void specialKeyUp(int key, const PxTransform& camera) {
-	std::cout << "SpecialUp: " << key << std::endl;
+	PX_UNUSED(camera);
+	//std::cout << "SpecialUp: " << key << std::endl;
+
+	currentScene->specialKeyUp(key, camera);
 }
 
-void joystickInput(unsigned int buttonMask, int x, int y, int z) {
+void joystickInput(unsigned int buttonMask, int x, int y, int z, const PxTransform& camera) {
+	PX_UNUSED(camera);
+
+
 	//std::cout << "Joystick: " << buttonMask << std::endl;
+	//std::cout << "x: " << x << "y: "<< y << "z: " <<  buttonMask << std::endl;
 
 
-	std::cout << "x: " << x << "y: "<< y << "z: " <<  buttonMask << std::endl;
-	
+	currentScene->joystickInput(buttonMask,x,y,z,camera);
 }
 
 

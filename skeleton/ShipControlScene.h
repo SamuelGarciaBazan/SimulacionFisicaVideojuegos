@@ -13,8 +13,8 @@ public:
 
     virtual void update(double t);
 
-    virtual void keyPressed(unsigned char key, const physx::PxTransform& camera);
-
+    virtual void specialKeyDown(int key, const physx::PxTransform& camera);
+    virtual void specialKeyUp(int key, const physx::PxTransform& camera);
 
 private:
 
@@ -25,6 +25,16 @@ private:
 
     physx::PxRigidStatic* floor;
     RenderItem* floorRenderItem;
+
+
+
+    bool moveForward = false;
+    bool moveRight = false;
+    bool moveLeft = false;
+
+    double forwardForcePerSecond = 2000000;
+    double torqueForcePerSecond = 20000;
+
 
 };
 

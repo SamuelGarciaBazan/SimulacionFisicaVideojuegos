@@ -16,7 +16,7 @@ extern void keyboardUp(unsigned char key, const PxTransform& camera);
 extern void specialKeyDown(int key, const PxTransform& camera);
 extern void specialKeyUp(int key, const PxTransform& camera);
 
-extern void joystickInput(unsigned int buttonMask, int x, int y, int z);
+extern void joystickInput(unsigned int buttonMask, int x, int y, int z, const PxTransform& camera);
 
 
 extern PxPhysics* gPhysics;
@@ -87,7 +87,7 @@ void specialKeyUpCallback(int key, int x, int y) {
 }
 
 void joystickCallback(unsigned int buttonMask, int x, int y, int z) {
-	joystickInput(buttonMask, x, y, z);
+	joystickInput(buttonMask, x, y, z,sCamera->getTransform());
 }
 
 

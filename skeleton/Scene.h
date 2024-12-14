@@ -12,10 +12,21 @@ public:
 	Scene() {};
 	virtual ~Scene() {};
 
+
+	
 	virtual void update(double t) = 0;
 
+
+	//manejo de input
 	virtual void keyPressed(unsigned char key, const physx::PxTransform& camera) {};
 
+	virtual void keyboardUp(unsigned char key, const physx::PxTransform& camera) {};
+	virtual void specialKeyDown(int key, const physx::PxTransform& camera) {};
+	virtual void specialKeyUp(int key, const physx::PxTransform& camera) {};
+
+	virtual void joystickInput(unsigned int buttonMask, int x, int y, int z, const physx::PxTransform& camera) {};
+
+	//colisiones
 	virtual void onCollision(physx::PxActor* actor1, physx::PxActor* actor2) {};
 
 protected:

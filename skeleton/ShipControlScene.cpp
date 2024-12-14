@@ -1,5 +1,7 @@
 #include "ShipControlScene.h"
 #include <iostream>
+
+
 using namespace physx;
 
 ShipControlScene::ShipControlScene(
@@ -28,21 +30,66 @@ ShipControlScene::~ShipControlScene()
 
 void ShipControlScene::update(double t)
 {
+	double forwardForce = 0;
+	double torqueForce = 0;
+
+	if (moveForward) forwardForce += forwardForcePerSecond * t;
+	if (moveRight) torqueForce += torqueForcePerSecond * t;
+	if (moveLeft) torqueForce -= torqueForcePerSecond * t;
+	
+	//obtener el transform del barco
+	PxTransform shipTransform = ship->getPxRigidDynamic()->getGlobalPose();
+	
+	PxVec3 shipForwardVector = shipTransform.q.rotate(PxVec3(0, 0, -1)); // Eje Z en espacio local
+
+	PxVec3 forwardForceVector = shipForwardVector * forwardForce;
+
+	// Aplicar la fuerza al centro de masa
+	ship->getPxRigidDynamic()->addForce(forwardForceVector);
+
+	std::cout << "se ha aplicado una fuerza forward de :" << forwardForce << std::endl;
+
+
 
 }
 
-void ShipControlScene::keyPressed(unsigned char key, const physx::PxTransform& camera)
+void ShipControlScene::specialKeyDown(int key, const physx::PxTransform& camera)
 {
-	switch (toupper(key))
-	{
-	case '1':
-	{
-		//ship->getPxRigidDynamic()->addForce({ 0,1000,0 });
-		//std::cout << "aaa" << std::endl;
 
+	
+	switch (key)
+	{
+	case GLUT_KEY_UP: 
+		moveForward = true;
+		break;	
+	case GLUT_KEY_RIGHT: 
+		moveRight = true;
+		break;
+	case GLUT_KEY_LEFT: 
+		moveLeft = true;
+		break;	
+	default:
 		break;
 	}
+
+}
+
+void ShipControlScene::specialKeyUp(int key, const physx::PxTransform& camera)
+{
+	switch (key)
+	{
+	case GLUT_KEY_UP:
+		moveForward = false;
+		break;
+	case GLUT_KEY_RIGHT:
+		moveRight = false;
+		break;
+	case GLUT_KEY_LEFT:
+		moveLeft = false;
+		break;
 	default:
 		break;
 	}
 }
+
+
