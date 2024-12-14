@@ -77,6 +77,7 @@
     <ClCompile Include="RigidSolid.cpp" />
     <ClCompile Include="ShipControlScene.cpp" />
     <ClCompile Include="ForceGeneratorRS.cpp" />
+    <ClCompile Include="BouyancyForceGeneratorRS.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp">
@@ -161,6 +162,7 @@
     <ClInclude Include="RigidSolid.h" />
     <ClInclude Include="ShipControlScene.h" />
     <ClInclude Include="ForceGeneratorRS.h" />
+    <ClInclude Include="BouyancyForceGeneratorRS.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">

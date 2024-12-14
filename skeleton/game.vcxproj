@@ -255,6 +255,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BouyancyForceGenerator.cpp" />
+    <ClCompile Include="BouyancyForceGeneratorRS.cpp" />
     <ClCompile Include="BouyancyScene.cpp" />
     <ClCompile Include="callbacks.cpp" />
     <ClCompile Include="DynamicSpringChainScene.cpp" />
@@ -286,6 +287,7 @@
   <ItemGroup>
     <ClInclude Include="Axis.h" />
     <ClInclude Include="BouyancyForceGenerator.h" />
+    <ClInclude Include="BouyancyForceGeneratorRS.h" />
     <ClInclude Include="BouyancyScene.h" />
     <ClInclude Include="callbacks.hpp" />
     <ClInclude Include="core.hpp" />

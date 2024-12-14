@@ -2,6 +2,7 @@
 #include <iostream>
 #include "algorithm"
 
+
 using namespace physx;
 
 ShipControlScene::ShipControlScene(
@@ -17,11 +18,19 @@ ShipControlScene::ShipControlScene(
 	floor->attachShape(*floorShape);
 
 	floorRenderItem = new RenderItem(floorShape, floor, { 0,0.15,0.7,1 });
-	gScene->addActor(*floor);
+	//gScene->addActor(*floor);
 
 
 	//creacion del barco
-	ship = new RigidSolid(allRigidSolids, gPhysics, gScene, { 0,10,0 }, { 3,3,8 }, { 0,1,0,1 },0.15,PxGeometryType::eBOX);
+	ship = new RigidSolid(allRigidSolids, gPhysics, gScene, { 0,0,0 }, { 3,3,8 }, { 0,1,0,1 },0.15,PxGeometryType::eBOX);
+
+	//ship->getPxRigidDynamic()->setMaxAngularVelocity(1);
+	//ship->getPxRigidDynamic()->setLinearDamping(0.9);
+	//ship->getPxRigidDynamic()->setAngularDamping(0.6);
+
+
+	//creacion del sistema de flotacion
+	bouyancyFGRS = new BouyancyForceGeneratorRS(ship);
 
 }
 
@@ -34,6 +43,7 @@ ShipControlScene::~ShipControlScene()
 void ShipControlScene::update(double t)
 {
 	updateMove(t);
+	bouyancyFGRS->update();
 
 }
 
@@ -102,7 +112,7 @@ void ShipControlScene::updateMove(double t)
 
 	//vectores de fuerza (dir * fuerza * sin||cos)
 	PxVec3 forwardForceVector = shipForwardVector * forwardForce * cos(angleRadians);
-	PxVec3 torqueForceVector = shipTorqueVector * forwardForce * sin(angleRadians) *3; //provisional por rozamiento
+	PxVec3 torqueForceVector = shipTorqueVector * forwardForce * sin(angleRadians) ; //provisional por rozamiento
 
 	// Aplicar la fuerza al centro de masa
 	ship->getPxRigidDynamic()->addForce(forwardForceVector);

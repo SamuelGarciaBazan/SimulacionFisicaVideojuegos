@@ -3,6 +3,9 @@
 
 #include "RigidSolid.h"
 
+#include "BouyancyForceGeneratorRS.h"
+
+
 class ShipControlScene :
     public Scene
 {
@@ -29,6 +32,9 @@ private:
 
     physx::PxRigidStatic* floor;
     RenderItem* floorRenderItem;
+
+
+    BouyancyForceGeneratorRS* bouyancyFGRS;
 
 
 
