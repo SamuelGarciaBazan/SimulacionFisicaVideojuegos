@@ -24,7 +24,7 @@ ShipControlScene::ShipControlScene(
 	//creacion del barco
 	ship = new RigidSolid(allRigidSolids, gPhysics, gScene, { 0,0,0 }, { 3,3,8 }, { 0,1,0,1 },0.15,PxGeometryType::eBOX);
 
-	//ship->getPxRigidDynamic()->setMaxAngularVelocity(1);
+	ship->getPxRigidDynamic()->setMaxAngularVelocity(0.7);
 	//ship->getPxRigidDynamic()->setLinearDamping(0.9);
 	//ship->getPxRigidDynamic()->setAngularDamping(0.6);
 
@@ -32,18 +32,31 @@ ShipControlScene::ShipControlScene(
 	//creacion del sistema de flotacion
 	bouyancyFGRS = new BouyancyForceGeneratorRS(ship);
 
+	//creacion del viento
+	windFGRS = new WindForceGeneratorRS(allRigidSolids);
+
+	windFGRS->setMinRange({ -100000,-100000,-100000 });
+	windFGRS->setMaxRange({ 100000,100000,100000 });
+	windFGRS->setK1(60);
 }
 
 ShipControlScene::~ShipControlScene()
 {
 	delete ship;
 	DeregisterRenderItem(floorRenderItem);
+
+	delete bouyancyFGRS;
+	delete windFGRS;
 }
 
 void ShipControlScene::update(double t)
 {
 	updateMove(t);
 	bouyancyFGRS->update();
+	windFGRS->update();
+
+	auto v = ship->getPxRigidDynamic()->getLinearVelocity();
+	std::cout << "linVelocity [ x:" << v.x << " y: " << v.y << " z: " << v.z << " ]" << std::endl;
 
 }
 
@@ -119,9 +132,9 @@ void ShipControlScene::updateMove(double t)
 	ship->getPxRigidDynamic()->addTorque(torqueForceVector);
 
 	//debug
-	std::cout << "Angle: " << angle << std::endl;
-	std::cout << "forwardForce [ x:" << forwardForceVector.x << " y: " << forwardForceVector.y << " z: " << forwardForceVector.z << " ]" << std::endl;
-	std::cout << "torqueForce [ x:" << torqueForceVector.x << " y: " << torqueForceVector.y << " z: " << torqueForceVector.z << " ]" << std::endl;
+	//std::cout << "Angle: " << angle << std::endl;
+	//std::cout << "forwardForce [ x:" << forwardForceVector.x << " y: " << forwardForceVector.y << " z: " << forwardForceVector.z << " ]" << std::endl;
+	//std::cout << "torqueForce [ x:" << torqueForceVector.x << " y: " << torqueForceVector.y << " z: " << torqueForceVector.z << " ]" << std::endl;
 }
 
 

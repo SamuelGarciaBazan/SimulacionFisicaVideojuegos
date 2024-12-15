@@ -4,7 +4,7 @@
 #include "RigidSolid.h"
 
 #include "BouyancyForceGeneratorRS.h"
-
+#include "WindForceGeneratorRS.h"
 
 class ShipControlScene :
     public Scene
@@ -25,16 +25,17 @@ private:
 
 
 
-    physx::PxPhysics* gPhysics;
-    physx::PxScene* gScene;
+    physx::PxPhysics* gPhysics = nullptr;
+    physx::PxScene* gScene = nullptr;
 
-    RigidSolid* ship;
+    RigidSolid* ship = nullptr;
 
-    physx::PxRigidStatic* floor;
-    RenderItem* floorRenderItem;
+    physx::PxRigidStatic* floor = nullptr;
+    RenderItem* floorRenderItem = nullptr;
 
 
-    BouyancyForceGeneratorRS* bouyancyFGRS;
+    BouyancyForceGeneratorRS* bouyancyFGRS = nullptr;
+    WindForceGeneratorRS* windFGRS = nullptr;
 
 
 

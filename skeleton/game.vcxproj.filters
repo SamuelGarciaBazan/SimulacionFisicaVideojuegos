@@ -70,14 +70,25 @@
     <ClCompile Include="BouyancyScene.cpp">
       <Filter>Source\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="tiny_obj_loader.cc" />
     <ClCompile Include="ExampleSolidRigidScene.cpp">
       <Filter>Source\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="RigidSolid.cpp" />
-    <ClCompile Include="ShipControlScene.cpp" />
-    <ClCompile Include="ForceGeneratorRS.cpp" />
-    <ClCompile Include="BouyancyForceGeneratorRS.cpp" />
+    <ClCompile Include="BouyancyForceGeneratorRS.cpp">
+      <Filter>Proyecto final</Filter>
+    </ClCompile>
+    <ClCompile Include="ForceGeneratorRS.cpp">
+      <Filter>Proyecto final</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidSolid.cpp">
+      <Filter>Proyecto final</Filter>
+    </ClCompile>
+    <ClCompile Include="ShipControlScene.cpp">
+      <Filter>Proyecto final</Filter>
+    </ClCompile>
+    <ClCompile Include="tiny_obj_loader.cc">
+      <Filter>Proyecto final</Filter>
+    </ClCompile>
+    <ClCompile Include="WindForceGeneratorRS.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp">
@@ -155,14 +166,25 @@
     <ClInclude Include="BouyancyScene.h">
       <Filter>Header\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="tiny_obj_loader.h" />
     <ClInclude Include="ExampleSolidRigidScene.h">
       <Filter>Header\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="RigidSolid.h" />
-    <ClInclude Include="ShipControlScene.h" />
-    <ClInclude Include="ForceGeneratorRS.h" />
-    <ClInclude Include="BouyancyForceGeneratorRS.h" />
+    <ClInclude Include="BouyancyForceGeneratorRS.h">
+      <Filter>Proyecto final</Filter>
+    </ClInclude>
+    <ClInclude Include="ForceGeneratorRS.h">
+      <Filter>Proyecto final</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidSolid.h">
+      <Filter>Proyecto final</Filter>
+    </ClInclude>
+    <ClInclude Include="ShipControlScene.h">
+      <Filter>Proyecto final</Filter>
+    </ClInclude>
+    <ClInclude Include="tiny_obj_loader.h">
+      <Filter>Proyecto final</Filter>
+    </ClInclude>
+    <ClInclude Include="WindForceGeneratorRS.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
@@ -212,6 +234,9 @@
     </Filter>
     <Filter Include="Source\Scenes">
       <UniqueIdentifier>{2ba20046-6453-4e23-99c2-7a5a6238ffea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Proyecto final">
+      <UniqueIdentifier>{b87a4ee3-319a-4342-b535-e9c5245ed904}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -282,6 +282,7 @@
     <ClCompile Include="tiny_obj_loader.cc" />
     <ClCompile Include="TornadoForceGenerator.cpp" />
     <ClCompile Include="WindForceGenerator.cpp" />
+    <ClCompile Include="WindForceGeneratorRS.cpp" />
     <ClCompile Include="WindScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -315,6 +316,7 @@
     <ClInclude Include="TornadoForceGenerator.h" />
     <ClInclude Include="Vector3D.h" />
     <ClInclude Include="WindForceGenerator.h" />
+    <ClInclude Include="WindForceGeneratorRS.h" />
     <ClInclude Include="WindScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
