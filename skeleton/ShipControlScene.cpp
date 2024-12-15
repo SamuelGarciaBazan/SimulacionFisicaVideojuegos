@@ -24,9 +24,9 @@ ShipControlScene::ShipControlScene(
 	//creacion del barco
 	ship = new RigidSolid(allRigidSolids, gPhysics, gScene, { 0,0,0 }, { 3,3,8 }, { 0,1,0,1 },0.15,PxGeometryType::eBOX);
 
-	ship->getPxRigidDynamic()->setMaxAngularVelocity(0.7);
-	//ship->getPxRigidDynamic()->setLinearDamping(0.9);
-	//ship->getPxRigidDynamic()->setAngularDamping(0.6);
+	ship->getPxRigidDynamic()->setMaxAngularVelocity(0.6);
+	ship->getPxRigidDynamic()->setLinearDamping(0.75);
+	ship->getPxRigidDynamic()->setAngularDamping(0.6);
 
 
 	//creacion del sistema de flotacion
@@ -38,6 +38,7 @@ ShipControlScene::ShipControlScene(
 	windFGRS->setMinRange({ -100000,-100000,-100000 });
 	windFGRS->setMaxRange({ 100000,100000,100000 });
 	windFGRS->setK1(60);
+	//windFGRS->setVelocity({10,0,0});
 }
 
 ShipControlScene::~ShipControlScene()
@@ -53,10 +54,10 @@ void ShipControlScene::update(double t)
 {
 	updateMove(t);
 	bouyancyFGRS->update();
-	windFGRS->update();
+	//windFGRS->update();
 
-	auto v = ship->getPxRigidDynamic()->getLinearVelocity();
-	std::cout << "linVelocity [ x:" << v.x << " y: " << v.y << " z: " << v.z << " ]" << std::endl;
+	//auto v = ship->getPxRigidDynamic()->getAngularVelocity();
+	//std::cout << "angVelocity [ x:" << v.x << " y: " << v.y << " z: " << v.z << " ]" << std::endl;
 
 }
 

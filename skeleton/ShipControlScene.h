@@ -48,8 +48,8 @@ private:
 
     double angle = 0;
     double anglePerSecond = 100;
-    double minAngle = -60;
-    double maxAngle = 60;
+    double minAngle = -45;
+    double maxAngle = 45;
 
 
 };
