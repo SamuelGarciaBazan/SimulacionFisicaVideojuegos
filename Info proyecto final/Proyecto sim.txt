@@ -34,6 +34,9 @@ Opcional
 	- Barriles de polvora en el mar, si bala choca, explosión , daño y fuerza a objetos cercanos
 
 
+IMPORTANTE!!
+-Generador de solidos rigidos -> meteoritos que caen?
+
 
 
 REQUISITOS PROYECTO:
