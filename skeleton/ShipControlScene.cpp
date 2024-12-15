@@ -29,6 +29,10 @@ ShipControlScene::ShipControlScene(
 	ship->getPxRigidDynamic()->setAngularDamping(0.6);
 
 
+	ship->getPxRigidDynamic()->setRigidDynamicLockFlag(PxRigidDynamicLockFlag::eLOCK_ANGULAR_X, true);
+	ship->getPxRigidDynamic()->setRigidDynamicLockFlag(PxRigidDynamicLockFlag::eLOCK_ANGULAR_Z, true);
+
+
 	//creacion del sistema de flotacion
 	bouyancyFGRS = new BouyancyForceGeneratorRS(allRigidSolids);
 
@@ -57,15 +61,26 @@ ShipControlScene::ShipControlScene(
 	tornadoGen = new TornadoForceGenerator(particleSystemSnow);
 	tornadoGen->setMinRange({ -250,-50,-250 });
 	tornadoGen->setMaxRange({ -150,100,-150 });
+
+
+
+	islote = new RigidSolid(allRigidSolids, gPhysics, gScene, { 50,0,-50 }, { 8,8,8 }, { 1,0,0,1 }, 0.15, PxGeometryType::eSPHERE);
+
 }
 
 ShipControlScene::~ShipControlScene()
 {
 	delete ship;
+	delete islote;
 	DeregisterRenderItem(floorRenderItem);
 
 	delete bouyancyFGRS;
 	delete windFGRS;
+
+	delete windForceGenerator;
+	delete gravityForceGenerator;
+	delete tornadoGen;
+
 }
 
 void ShipControlScene::update(double t)

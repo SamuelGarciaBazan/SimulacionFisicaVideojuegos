@@ -55,6 +55,7 @@ private:
     physx::PxScene* gScene = nullptr;
 
     RigidSolid* ship = nullptr;
+    RigidSolid* islote = nullptr;
 
     physx::PxRigidStatic* floor = nullptr;
     RenderItem* floorRenderItem = nullptr;
@@ -89,7 +90,7 @@ private:
         double aliveTime = 0.0f;
     };
 
-    double bulletMaxTime = 70.0f;
+    double bulletMaxTime = 7.0f;
 
     std::list<BulletInfo*> bullets;
     
