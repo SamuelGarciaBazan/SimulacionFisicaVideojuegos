@@ -24,9 +24,16 @@ public:
 
 private:
 
+    enum Side {
+        LEFT,
+        RIGHT
+    };
+
     void updateMove(double t);
 
     void updateShooting(double t);
+
+    void shootBullet(Side side);
 
 
     physx::PxPhysics* gPhysics = nullptr;
@@ -68,6 +75,8 @@ private:
 
     int ammoType = 0; //0 bola cañon , 1 astilla grande cuadrada
 
+    double bulletSpawnPointOffset = 10;
+    double bulletImpulseForce = 1000;
 
 };
 

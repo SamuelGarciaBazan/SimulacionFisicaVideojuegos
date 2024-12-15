@@ -180,32 +180,46 @@ void ShipControlScene::updateShooting(double t)
 	fireCounterRight += t;
 
 	if (shootingLeft && fireCounterLeft > fireRate) {
+
 		fireCounterLeft = 0;
+		shootBullet(Side::LEFT);
+	}
+	if (shootingRight && fireCounterRight > fireRate) {
 
-		//shoot
-		std::cout << "shoot" << std::endl;
-
-		PxTransform shipTransform = ship->getPxRigidDynamic()->getGlobalPose();
-
-		PxVec3 startPoint = shipTransform.p;
-
-		PxVec3 direction = shipTransform.q.rotate(PxVec3(2,1,0)).getNormalized();
-
-		startPoint += direction*10;
-
-		RigidSolid* newBullet = new RigidSolid(allRigidSolids, gPhysics, gScene, startPoint,{3,3,3}, { 0.4,0.4,0.4,1 },0.4);
-		
-		
-		PxVec3 force = direction * 1000;
-		std::cout << "force [ x:" << force.x << " y: " << force.y << " z: " << force.z << " ]" << std::endl;
-
-		std::cout << newBullet->getPxRigidDynamic()->getMass() << std::endl;
-		newBullet->getPxRigidDynamic()->addForce(force,PxForceMode::eIMPULSE);
-
+		fireCounterRight = 0;
+		shootBullet(Side::RIGHT);
 	}
 
 
+}
 
+void ShipControlScene::shootBullet(Side side)
+{
+
+	PxTransform shipTransform = ship->getPxRigidDynamic()->getGlobalPose();
+
+	PxVec3 startPoint = shipTransform.p;
+
+	PxVec3 localDir = side == Side::LEFT ? PxVec3(2, 1, 0) : PxVec3(-2, 1, 0); //direccion inicial bala
+
+	PxVec3 direction = shipTransform.q.rotate(localDir).getNormalized();
+
+	startPoint += direction * bulletSpawnPointOffset;
+
+	RigidSolid* newBullet = new RigidSolid(allRigidSolids, gPhysics, gScene,
+		startPoint,
+		{ 3,3,3 },//scale
+		{ 0.4,0.4,0.4,1 }, //color
+		0.4); //desity
+
+
+	PxVec3 force = direction * bulletImpulseForce;
+	newBullet->getPxRigidDynamic()->addForce(force, PxForceMode::eIMPULSE);
+
+	//debug
+	//std::cout << "shoot" << std::endl;
+	//std::cout << "force [ x:" << force.x << " y: " << force.y << " z: " << force.z << " ]" << std::endl;
+	//std::cout << "Mass: " << newBullet->getPxRigidDynamic()->getMass() << std::endl;
 }
 
 
