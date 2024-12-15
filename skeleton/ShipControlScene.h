@@ -16,6 +16,9 @@ public:
 
     virtual void update(double t);
 
+    virtual void keyPressed(unsigned char key, const physx::PxTransform& camera);
+    virtual void keyboardUp(unsigned char key, const physx::PxTransform& camera) ;
+
     virtual void specialKeyDown(int key, const physx::PxTransform& camera);
     virtual void specialKeyUp(int key, const physx::PxTransform& camera);
 
@@ -23,6 +26,7 @@ private:
 
     void updateMove(double t);
 
+    void updateShooting(double t);
 
 
     physx::PxPhysics* gPhysics = nullptr;
@@ -50,6 +54,19 @@ private:
     double anglePerSecond = 100;
     double minAngle = -45;
     double maxAngle = 45;
+
+
+    //variables para disparo de proyectiles
+    
+    double fireRate = 1.5f; //varios fire rates(por ammo?)
+
+    bool shootingLeft = false;
+    bool shootingRight = false;
+
+    double fireCounterLeft = 0.0f;
+    double fireCounterRight = 0.0f;
+
+    int ammoType = 0; //0 bola cañon , 1 astilla grande cuadrada
 
 
 };

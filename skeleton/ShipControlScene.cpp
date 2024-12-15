@@ -53,6 +53,9 @@ ShipControlScene::~ShipControlScene()
 void ShipControlScene::update(double t)
 {
 	updateMove(t);
+	updateShooting(t);
+
+
 	bouyancyFGRS->update();
 	//windFGRS->update();
 
@@ -60,6 +63,39 @@ void ShipControlScene::update(double t)
 	//std::cout << "angVelocity [ x:" << v.x << " y: " << v.y << " z: " << v.z << " ]" << std::endl;
 
 }
+
+void ShipControlScene::keyPressed(unsigned char key, const physx::PxTransform& camera)
+{
+	switch (key)
+	{
+	case '1':
+		shootingLeft = true;
+		break;
+	case '2':
+		shootingRight = true;
+		break;
+	default:
+		break;
+	}
+
+}
+
+void ShipControlScene::keyboardUp(unsigned char key, const physx::PxTransform& camera)
+{
+	switch (key)
+	{
+	case '1':
+		shootingLeft = false;
+		break;
+	case '2':
+		shootingRight = false;
+		break;
+	default:
+		break;
+	}
+}
+
+
 
 void ShipControlScene::specialKeyDown(int key, const physx::PxTransform& camera)
 {
@@ -136,6 +172,40 @@ void ShipControlScene::updateMove(double t)
 	//std::cout << "Angle: " << angle << std::endl;
 	//std::cout << "forwardForce [ x:" << forwardForceVector.x << " y: " << forwardForceVector.y << " z: " << forwardForceVector.z << " ]" << std::endl;
 	//std::cout << "torqueForce [ x:" << torqueForceVector.x << " y: " << torqueForceVector.y << " z: " << torqueForceVector.z << " ]" << std::endl;
+}
+
+void ShipControlScene::updateShooting(double t)
+{
+	fireCounterLeft += t;
+	fireCounterRight += t;
+
+	if (shootingLeft && fireCounterLeft > fireRate) {
+		fireCounterLeft = 0;
+
+		//shoot
+		std::cout << "shoot" << std::endl;
+
+		PxTransform shipTransform = ship->getPxRigidDynamic()->getGlobalPose();
+
+		PxVec3 startPoint = shipTransform.p;
+
+		PxVec3 direction = shipTransform.q.rotate(PxVec3(2,1,0)).getNormalized();
+
+		startPoint += direction*10;
+
+		RigidSolid* newBullet = new RigidSolid(allRigidSolids, gPhysics, gScene, startPoint,{3,3,3}, { 0.4,0.4,0.4,1 },0.4);
+		
+		
+		PxVec3 force = direction * 1000;
+		std::cout << "force [ x:" << force.x << " y: " << force.y << " z: " << force.z << " ]" << std::endl;
+
+		std::cout << newBullet->getPxRigidDynamic()->getMass() << std::endl;
+		newBullet->getPxRigidDynamic()->addForce(force,PxForceMode::eIMPULSE);
+
+	}
+
+
+
 }
 
 
