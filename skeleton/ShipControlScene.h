@@ -6,6 +6,9 @@
 #include "BouyancyForceGeneratorRS.h"
 #include "WindForceGeneratorRS.h"
 
+#include "WindForceGenerator.h"
+#include "GravityForceGenerator.h"
+
 class ShipControlScene :
     public Scene
 {
@@ -43,6 +46,10 @@ private:
     void rotateBullet(RigidSolid* newBullet, physx::PxVec3 direction);
 
 
+    void createRainSystem();
+
+
+
     physx::PxPhysics* gPhysics = nullptr;
     physx::PxScene* gScene = nullptr;
 
@@ -55,7 +62,8 @@ private:
     BouyancyForceGeneratorRS* bouyancyFGRS = nullptr;
     WindForceGeneratorRS* windFGRS = nullptr;
 
-
+    WindForceGenerator* windForceGenerator = nullptr;
+    GravityForceGenerator* gravityForceGenerator = nullptr;
 
     bool moveForward = false;
     bool moveRight = false;
@@ -95,6 +103,12 @@ private:
     double bulletSpawnPointOffset = 10;
     double bulletImpulseForceType0 = 1000;
     double bulletImpulseForceType1 = 300;
+
+
+    //para sistema de particulas
+
+    ParticleSystem* particleSystemRain;
+    Particle* rainModel;
 
 };
 

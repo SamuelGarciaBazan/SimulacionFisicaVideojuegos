@@ -14,7 +14,7 @@ ShipControlScene::ShipControlScene(
 	//creacion del suelo
 	floor = gPhysics->createRigidStatic({ PxTransform{0,0,0} });
 
-	PxShape* floorShape = CreateShape(PxBoxGeometry(100, 0.1, 100));
+	PxShape* floorShape = CreateShape(PxBoxGeometry(10000, 0.1, 10000));
 	floor->attachShape(*floorShape);
 
 	floorRenderItem = new RenderItem(floorShape, floor, { 0,0.15,0.7,1 });
@@ -39,6 +39,20 @@ ShipControlScene::ShipControlScene(
 	windFGRS->setMaxRange({ 100000,100000,100000 });
 	windFGRS->setK1(60);
 	//windFGRS->setVelocity({10,0,0});
+
+
+	windForceGenerator = new WindForceGenerator(allParticles);
+
+	windForceGenerator->setMinRange({ -100000,-100000,-100000 });
+	windForceGenerator->setMaxRange({ 100000,100000,100000 });
+	windForceGenerator->setVelocity({ 50,0,0 });
+	//creacion de la lluvia
+
+	createRainSystem();
+
+
+	//gravedad
+	gravityForceGenerator = new GravityForceGenerator(allParticles);
 }
 
 ShipControlScene::~ShipControlScene()
@@ -52,6 +66,7 @@ ShipControlScene::~ShipControlScene()
 
 void ShipControlScene::update(double t)
 {
+	std::cout << t << std::endl;
 	updateMove(t);
 	updateShooting(t);
 
@@ -59,6 +74,12 @@ void ShipControlScene::update(double t)
 
 	bouyancyFGRS->update();
 	//windFGRS->update();
+
+	gravityForceGenerator->update();
+	windForceGenerator->update();
+
+	particleSystemRain->update(t);
+
 
 	//auto v = ship->getPxRigidDynamic()->getAngularVelocity();
 	//std::cout << "angVelocity [ x:" << v.x << " y: " << v.y << " z: " << v.z << " ]" << std::endl;
@@ -322,6 +343,63 @@ void ShipControlScene::rotateBullet(RigidSolid* newBullet, PxVec3 direction)
 	PxTransform currentPose = newBullet->getPxRigidDynamic()->getGlobalPose();
 	currentPose.q = rotation * currentPose.q; // Combina con la rotación actual
 	newBullet->getPxRigidDynamic()->setGlobalPose(currentPose);
+}
+
+void ShipControlScene::createRainSystem()
+{
+	particleSystemRain = new ParticleSystem(allParticles, MyRandom::RandomMode::UNIFORM);
+
+	particleSystemRain->currentCreationTimer = 0;
+	particleSystemRain->creationRate = 0.05f;
+	particleSystemRain->acelMinRange = { 0,0,0 };
+	particleSystemRain->acelMaxRange = { 0,0,0 };
+
+	particleSystemRain->lifePosMinRange = { -50,0,-50 };
+	particleSystemRain->lifePosMaxRange = { 50,50,50 };
+
+	particleSystemRain->maxParticles = 50;
+	particleSystemRain->startLifeTimeMinRange = 4.0f;
+	particleSystemRain->startLifeTimeMaxRange = 6.0f;
+
+	particleSystemRain->startPosMinRange = { -300,100,-300 };
+	particleSystemRain->startPosMaxRange = {300,100,300 };
+
+	particleSystemRain->velMinRange = { 0,-30,-0 };
+	particleSystemRain->velMaxRange = { 0,-80,-0 };
+
+	particleSystemRain->minScale = 1;
+	particleSystemRain->maxScale = 2.5;
+
+	particleSystemRain->diePos = false;
+	particleSystemRain->dieTime = true;
+
+	particleSystemRain->transform = PxTransform();
+
+	particleSystemRain->transform.p = physx::PxVec3(0, 0, 0);
+	particleSystemRain->transform.q = physx::PxQuat(0, 0, 0, 1);
+
+	PxQuat quat = PxQuat(0, 0, 0, 1);
+
+
+	float angleRadians = -PxPiDivTwo;
+	PxVec3 rotationAxis(0.0f, 0.0f, 1.0f);
+
+	// Crear cuaternión a partir del ángulo y el eje
+	PxQuat rotationQuat(angleRadians, rotationAxis);
+
+	quat = quat * rotationQuat;
+
+
+	rainModel = new Particle(allParticles, PxVec3(0, 30000, 0), quat, PxVec3(250, 0, 0),
+		1, 1, 4, PxGeometryType::Enum::eCAPSULE, PxVec4(0, 0, 1, 1));
+
+
+
+	particleSystemRain->model = rainModel;
+
+
+
+	particlesSystems.push_back(particleSystemRain);
 }
 
 

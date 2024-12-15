@@ -167,7 +167,7 @@ void Particle::integrate(double t)
 	vel *= damping;
 	transform.p += vel * t;
 
-	std::cout << "acelY:" << acel.y << std::endl;
+	//std::cout << "acelY:" << acel.y << std::endl;
 	//std::cout << "vel:" << vel.y << std::endl;
 	//std::cout << "desplazamiento :"<<vel.y * t << std::endl;
 

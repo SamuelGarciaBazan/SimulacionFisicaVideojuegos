@@ -158,7 +158,9 @@ void initPhysics(bool interactive)
 
 	currentScene = new ShipControlScene(gPhysics, gScene);
 	//currentScene = new BouyancyScene();
-	
+	//currentScene = new WindScene();
+
+
 	//p = new Particle(allParticles, PxVec3(0, 50, 0),PxQuat(0,0,0,1), PxVec3(0, 0, 0), 1, PxGeometryType::Enum::eSPHERE);
 	//p->scaleObject(250, 0.180, 0.1);
 
