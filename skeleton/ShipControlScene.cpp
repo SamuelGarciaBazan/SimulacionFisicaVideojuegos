@@ -30,7 +30,7 @@ ShipControlScene::ShipControlScene(
 
 
 	//creacion del sistema de flotacion
-	bouyancyFGRS = new BouyancyForceGeneratorRS(ship);
+	bouyancyFGRS = new BouyancyForceGeneratorRS(allRigidSolids);
 
 	//creacion del viento
 	windFGRS = new WindForceGeneratorRS(allRigidSolids);

@@ -9,6 +9,7 @@ public:
 
 	BouyancyForceGeneratorRS(RigidSolid* afectedParticle, bool check = false);
 
+	BouyancyForceGeneratorRS(std::list<RigidSolid*>& afectedRigidSolids, bool check = false);
 
 	//void setLiquidParticle(RigidSolid* p) {
 	//	_liquid_particle = p;

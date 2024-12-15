@@ -34,6 +34,12 @@ public:
 		return forceIndependent;
 	}
 
+	struct MyData {
+		double height;
+		double volume;
+	};
+
+
 private:
 
 	physx::PxPhysics* gPhysics = nullptr;

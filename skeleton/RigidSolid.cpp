@@ -55,10 +55,17 @@ RigidSolid::RigidSolid(
 
 	//asignar el iterador de la lista
 	myIt = allRigidSolids.insert(allRigidSolids.end(), this);	
+
+	MyData* data = new MyData{scale.y,scale.x*scale.y*scale.z};
+
+	rigidDynamic->userData = data;
+
+
 }
 
 RigidSolid::~RigidSolid()
 {
+	delete rigidDynamic->userData;
 	allRigidSolids.erase(myIt);
 	DeregisterRenderItem(renderItem);
 }

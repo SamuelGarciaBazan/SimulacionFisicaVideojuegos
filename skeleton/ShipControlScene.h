@@ -89,7 +89,7 @@ private:
         double aliveTime = 0.0f;
     };
 
-    double bulletMaxTime = 7.0f;
+    double bulletMaxTime = 70.0f;
 
     std::list<BulletInfo*> bullets;
     

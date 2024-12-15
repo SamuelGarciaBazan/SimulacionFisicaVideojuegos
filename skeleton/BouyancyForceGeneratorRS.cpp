@@ -8,6 +8,11 @@ BouyancyForceGeneratorRS::BouyancyForceGeneratorRS(RigidSolid* afectedParticle, 
 
 }
 
+BouyancyForceGeneratorRS::BouyancyForceGeneratorRS(std::list<RigidSolid*>& afectedRigidSolids, bool check)
+	:ForceGeneratorRS(afectedRigidSolids,check)
+{
+}
+
 
 
 physx::PxVec3 BouyancyForceGeneratorRS::forceCalculation(RigidSolid* target)
@@ -15,6 +20,10 @@ physx::PxVec3 BouyancyForceGeneratorRS::forceCalculation(RigidSolid* target)
 
 	float h = target->getPxRigidDynamic()->getGlobalPose().p.y;
 	
+	RigidSolid::MyData* data =  (RigidSolid::MyData*)(target->getPxRigidDynamic()->userData);
+
+	_height = data->height;
+	_volume = data->volume;
 
 	//float h0 = _liquid_particle->getPos().y;
 
