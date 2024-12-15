@@ -211,14 +211,18 @@ void ShipControlScene::shootBullet(Side side)
 
 	startPoint += direction * bulletSpawnPointOffset;
 
-	RigidSolid* newBullet = new RigidSolid(allRigidSolids, gPhysics, gScene,
-		startPoint,
-		{ 3,3,3 },//scale
-		{ 0.4,0.4,0.4,1 }, //color
-		0.4); //desity
+	RigidSolid* newBullet = createBullet(ammoType, startPoint);
 
 
-	PxVec3 force = direction * bulletImpulseForce;
+
+	//para que apunten bien
+	rotateBullet(newBullet, direction);
+
+
+
+
+	PxVec3 force = direction * (ammoType == 0 ? bulletImpulseForceType0 : bulletImpulseForceType1);
+
 	newBullet->getPxRigidDynamic()->addForce(force, PxForceMode::eIMPULSE);
 
 	bullets.push_back(new BulletInfo{ newBullet,0 });
@@ -228,6 +232,39 @@ void ShipControlScene::shootBullet(Side side)
 	//std::cout << "shoot" << std::endl;
 	//std::cout << "force [ x:" << force.x << " y: " << force.y << " z: " << force.z << " ]" << std::endl;
 	//std::cout << "Mass: " << newBullet->getPxRigidDynamic()->getMass() << std::endl;
+}
+
+RigidSolid* ShipControlScene::createBullet(int type, physx::PxVec3 startPoint)
+{
+	RigidSolid* newBullet;
+	
+	switch (type)
+	{
+	case 0: {
+		newBullet = new RigidSolid(allRigidSolids, gPhysics, gScene,
+			startPoint,
+			{ 3,3,3 },//scale
+			{ 0.4,0.4,0.4,1 }, //color
+			0.4); //desity
+
+		break;
+	}
+	case 1: {
+
+		newBullet = new RigidSolid(allRigidSolids, gPhysics, gScene,
+			startPoint,
+			{ 3,1,1 },//scale
+			{ 1,0,0,1 }, //color
+			0.4,physx::PxGeometryType::eBOX); //desity
+
+		break;
+	}
+	default:
+		break;
+	}
+
+
+	return newBullet;
 }
 
 void ShipControlScene::deleteBullets(double t)
@@ -250,6 +287,25 @@ void ShipControlScene::deleteBullets(double t)
 		else ++it;
 	}
 
+}
+
+void ShipControlScene::rotateBullet(RigidSolid* newBullet, PxVec3 direction)
+{
+	PxVec3 forwardVector(1, 0, 0);
+
+	// Calcula el eje de rotación usando el producto cruzado
+	PxVec3 rotationAxis = forwardVector.cross(direction).getNormalized();
+
+	// Calcula el ángulo entre los vectores usando el producto escalar
+	float dotProduct = forwardVector.dot(direction);
+	float angle = std::acos(dotProduct); // Ángulo en radianes
+	// Construye el quaternion
+	PxQuat rotation(angle, rotationAxis);
+
+	// Aplica la rotación al cuerpo rígido
+	PxTransform currentPose = newBullet->getPxRigidDynamic()->getGlobalPose();
+	currentPose.q = rotation * currentPose.q; // Combina con la rotación actual
+	newBullet->getPxRigidDynamic()->setGlobalPose(currentPose);
 }
 
 

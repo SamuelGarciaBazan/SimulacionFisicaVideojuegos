@@ -36,7 +36,11 @@ private:
 
     void shootBullet(Side side);
 
+    RigidSolid* createBullet(int type,physx::PxVec3 startPoint);
+
     void deleteBullets(double t);
+
+    void rotateBullet(RigidSolid* newBullet, physx::PxVec3 direction);
 
 
     physx::PxPhysics* gPhysics = nullptr;
@@ -89,7 +93,8 @@ private:
     int ammoType = 0; //0 bola cañon , 1 astilla grande cuadrada
 
     double bulletSpawnPointOffset = 10;
-    double bulletImpulseForce = 1000;
+    double bulletImpulseForceType0 = 1000;
+    double bulletImpulseForceType1 = 300;
 
 };
 
