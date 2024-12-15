@@ -216,7 +216,23 @@ void ShipControlScene::shootBullet(Side side)
 
 
 	//para que apunten bien
-	rotateBullet(newBullet, direction);
+
+	if (ammoType == 1) {
+
+		rotateBullet(newBullet, direction);
+
+		if (side == Side::LEFT) {
+			auto v = newBullet->getPxRigidDynamic()->getGlobalPose().q.rotate(PxVec3{ 0,0,-1 }).getNormalized();
+			//newBullet->getPxRigidDynamic()->addTorque(v*20,PxForceMode::eIMPULSE);
+		}
+		else {
+			auto v = newBullet->getPxRigidDynamic()->getGlobalPose().q.rotate(PxVec3{ 0,0,1 }).getNormalized();
+
+			//newBullet->getPxRigidDynamic()->addTorque(v * 20, PxForceMode::eIMPULSE);
+		}
+
+
+	}
 
 
 

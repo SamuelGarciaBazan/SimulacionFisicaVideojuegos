@@ -82,7 +82,7 @@ private:
 
     std::list<BulletInfo*> bullets;
     
-    double fireRate = 1.5f; //varios fire rates(por ammo?)
+    double fireRate = .5f; //varios fire rates(por ammo?)
 
     bool shootingLeft = false;
     bool shootingRight = false;
