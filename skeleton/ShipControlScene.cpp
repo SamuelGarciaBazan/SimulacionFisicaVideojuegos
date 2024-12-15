@@ -55,6 +55,7 @@ void ShipControlScene::update(double t)
 	updateMove(t);
 	updateShooting(t);
 
+	deleteBullets(t);
 
 	bouyancyFGRS->update();
 	//windFGRS->update();
@@ -74,6 +75,9 @@ void ShipControlScene::keyPressed(unsigned char key, const physx::PxTransform& c
 	case '2':
 		shootingRight = true;
 		break;
+	case '3':
+		ammoType = (ammoType + 1) % 2; //swap entre tipos de municion
+		break;
 	default:
 		break;
 	}
@@ -90,6 +94,7 @@ void ShipControlScene::keyboardUp(unsigned char key, const physx::PxTransform& c
 	case '2':
 		shootingRight = false;
 		break;
+	
 	default:
 		break;
 	}
@@ -216,10 +221,35 @@ void ShipControlScene::shootBullet(Side side)
 	PxVec3 force = direction * bulletImpulseForce;
 	newBullet->getPxRigidDynamic()->addForce(force, PxForceMode::eIMPULSE);
 
+	bullets.push_back(new BulletInfo{ newBullet,0 });
+
+
 	//debug
 	//std::cout << "shoot" << std::endl;
 	//std::cout << "force [ x:" << force.x << " y: " << force.y << " z: " << force.z << " ]" << std::endl;
 	//std::cout << "Mass: " << newBullet->getPxRigidDynamic()->getMass() << std::endl;
+}
+
+void ShipControlScene::deleteBullets(double t)
+{
+	auto it = bullets.begin();
+
+	//recorrido de particulas
+	while (it != bullets.end()) {
+
+		auto& p = (*it);
+
+		//actualizamos el tiempo de vida
+		p->aliveTime += t;
+
+		//si debe morir, la eliminamos
+		if (p->aliveTime > bulletMaxTime) {
+			delete p->bullet;
+			it = bullets.erase(it);
+		}
+		else ++it;
+	}
+
 }
 
 

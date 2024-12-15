@@ -29,11 +29,14 @@ private:
         RIGHT
     };
 
+
     void updateMove(double t);
 
     void updateShooting(double t);
 
     void shootBullet(Side side);
+
+    void deleteBullets(double t);
 
 
     physx::PxPhysics* gPhysics = nullptr;
@@ -64,6 +67,16 @@ private:
 
 
     //variables para disparo de proyectiles
+
+    struct BulletInfo {
+
+        RigidSolid* bullet;
+        double aliveTime = 0.0f;
+    };
+
+    double bulletMaxTime = 7.0f;
+
+    std::list<BulletInfo*> bullets;
     
     double fireRate = 1.5f; //varios fire rates(por ammo?)
 
