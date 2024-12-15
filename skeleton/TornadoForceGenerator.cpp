@@ -5,6 +5,11 @@ TornadoForceGenerator::TornadoForceGenerator(std::list<Particle*>& particlesList
 {
 }
 
+TornadoForceGenerator::TornadoForceGenerator(ParticleSystem* particleSystem, bool check)
+	:WindForceGenerator( particleSystem,check)
+{
+}
+
 TornadoForceGenerator::~TornadoForceGenerator()
 {
 }

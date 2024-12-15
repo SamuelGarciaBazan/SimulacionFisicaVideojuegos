@@ -41,7 +41,7 @@ ShipControlScene::ShipControlScene(
 	//windFGRS->setVelocity({10,0,0});
 
 
-	windForceGenerator = new WindForceGenerator(allParticles);
+	windForceGenerator = new WindForceGenerator(allParticles,true);
 
 	windForceGenerator->setMinRange({ -100000,-100000,-100000 });
 	windForceGenerator->setMaxRange({ 100000,100000,100000 });
@@ -50,9 +50,13 @@ ShipControlScene::ShipControlScene(
 
 	createRainSystem();
 
-
+	createSnowSystem();
 	//gravedad
-	gravityForceGenerator = new GravityForceGenerator(allParticles);
+	gravityForceGenerator = new GravityForceGenerator(allParticles,true);
+
+	tornadoGen = new TornadoForceGenerator(particleSystemSnow);
+	tornadoGen->setMinRange({ -250,-50,-250 });
+	tornadoGen->setMaxRange({ -150,100,-150 });
 }
 
 ShipControlScene::~ShipControlScene()
@@ -79,6 +83,9 @@ void ShipControlScene::update(double t)
 	windForceGenerator->update();
 
 	particleSystemRain->update(t);
+
+	particleSystemSnow->update(t);
+	tornadoGen->update();
 
 
 	//auto v = ship->getPxRigidDynamic()->getAngularVelocity();
@@ -281,7 +288,7 @@ RigidSolid* ShipControlScene::createBullet(int type, physx::PxVec3 startPoint)
 		newBullet = new RigidSolid(allRigidSolids, gPhysics, gScene,
 			startPoint,
 			{ 3,3,3 },//scale
-			{ 0.4,0.4,0.4,1 }, //color
+			{ 0.3,0.3,0.3,1 }, //color
 			0.4); //desity
 
 		break;
@@ -400,6 +407,54 @@ void ShipControlScene::createRainSystem()
 
 
 	particlesSystems.push_back(particleSystemRain);
+}
+
+void ShipControlScene::createSnowSystem()
+{
+	particleSystemSnow = new ParticleSystem(allParticles, MyRandom::RandomMode::UNIFORM);
+
+	particleSystemSnow->currentCreationTimer = 0;
+	particleSystemSnow->creationRate = 0.1f;
+	particleSystemSnow->acelMinRange = { 0,0,0 };
+	particleSystemSnow->acelMaxRange = { 0,0,0 };
+
+	//particleSystemSnow->lifePosMinRange = { -50,0,-50 };
+	//particleSystemSnow->lifePosMaxRange = { 50,50,50 };
+
+	particleSystemSnow->maxParticles = 1000;
+	particleSystemSnow->startLifeTimeMinRange = 5.0f;
+	particleSystemSnow->startLifeTimeMaxRange = 10.0f;
+
+	particleSystemSnow->startPosMinRange = { -250,0,-250 };
+	particleSystemSnow->startPosMaxRange = { -150,0,-150 };
+
+	//particleSystemSnow->velMinRange = { -1,-10,-1 };
+	//particleSystemSnow->velMaxRange = { 1,-10,1 };
+
+	particleSystemSnow->velMinRange = { 0,0,0 };
+	particleSystemSnow->velMaxRange = { 0,0,0 };
+
+
+
+	particleSystemSnow->minScale = 5;
+	particleSystemSnow->maxScale = 9;
+
+	particleSystemSnow->diePos = false;
+	particleSystemSnow->dieTime = true;
+
+	particleSystemSnow->transform = PxTransform();
+
+	particleSystemSnow->transform.p = physx::PxVec3(0, 0, 0);
+	particleSystemSnow->transform.q = physx::PxQuat(0, 0, 0, 1);
+
+	PxQuat quat = PxQuat(0, 0, 0, 1);
+
+	snowModel = new Particle(allParticles, PxVec3(0, 30, 0), quat, PxVec3(250, 0, 0), 1, 1, 1, PxGeometryType::Enum::eSPHERE,{0.4,0.4,0.4,1});
+	snowModel->setForceIndependent(true);
+
+	particleSystemSnow->model = snowModel;
+
+	particlesSystems.push_back(particleSystemSnow);
 }
 
 

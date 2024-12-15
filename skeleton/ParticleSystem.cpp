@@ -104,18 +104,18 @@ void ParticleSystem::createParticle()
 	PxGeometryType::Enum type = model->getGeometryType();
 	PxVec4 color = model->getColor();
 	PxQuat quat = model->getQuat();
-
+	bool forceIndependent = model->getForceIndependent();
 	//aplicar el transform del particle system a la nueva particula
 	pos += transform.p;
 	vel = transform.q.rotate(vel);
 	acel = transform.q.rotate(acel);
 
 	Particle* newParticle = new Particle(allParticles,pos,quat,vel,scale,damping,mass,type,color);
+	newParticle->setForceIndependent(forceIndependent);
 
 	ParticleData data;
 	data.particle = newParticle;
 	data.currentLifeTime = startLifetime;
-
 
 	particles.push_back(data);
 }

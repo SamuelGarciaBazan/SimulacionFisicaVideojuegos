@@ -7,6 +7,11 @@ WindForceGenerator::WindForceGenerator(std::list<Particle*>& particlesList, bool
 {
 }
 
+WindForceGenerator::WindForceGenerator(ParticleSystem* particleSystem, bool check)
+	:ForceGenerator(particleSystem, check)
+{
+}
+
 WindForceGenerator::~WindForceGenerator()
 {
 }

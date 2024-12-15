@@ -8,6 +8,7 @@ class TornadoForceGenerator :
 public:
 
     TornadoForceGenerator(std::list<Particle*>& particlesList, bool check = false);
+    TornadoForceGenerator(ParticleSystem* particleSystem, bool check = false);
 
     virtual ~TornadoForceGenerator();
 

@@ -8,6 +8,8 @@ class WindForceGenerator :
 public:
     WindForceGenerator(std::list<Particle*>& particlesList, bool check = false);
 
+    WindForceGenerator(ParticleSystem* particleSystem, bool check = false);
+
     virtual ~WindForceGenerator();
 
 #pragma region Getters y setters

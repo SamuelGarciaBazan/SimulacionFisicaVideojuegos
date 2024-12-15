@@ -7,6 +7,7 @@
 #include "WindForceGeneratorRS.h"
 
 #include "WindForceGenerator.h"
+#include "TornadoForceGenerator.h"
 #include "GravityForceGenerator.h"
 
 class ShipControlScene :
@@ -48,7 +49,7 @@ private:
 
     void createRainSystem();
 
-
+    void createSnowSystem();
 
     physx::PxPhysics* gPhysics = nullptr;
     physx::PxScene* gScene = nullptr;
@@ -64,6 +65,8 @@ private:
 
     WindForceGenerator* windForceGenerator = nullptr;
     GravityForceGenerator* gravityForceGenerator = nullptr;
+
+    TornadoForceGenerator* tornadoGen = nullptr;
 
     bool moveForward = false;
     bool moveRight = false;
@@ -110,5 +113,9 @@ private:
     ParticleSystem* particleSystemRain;
     Particle* rainModel;
 
+
+
+    ParticleSystem* particleSystemSnow;
+    Particle* snowModel;
 };
 
