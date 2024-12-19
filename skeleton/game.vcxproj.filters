@@ -89,6 +89,7 @@
       <Filter>Proyecto final</Filter>
     </ClCompile>
     <ClCompile Include="WindForceGeneratorRS.cpp" />
+    <ClCompile Include="ParticleSystemRB.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp">
@@ -185,6 +186,7 @@
       <Filter>Proyecto final</Filter>
     </ClInclude>
     <ClInclude Include="WindForceGeneratorRS.h" />
+    <ClInclude Include="ParticleSystemRB.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header">
