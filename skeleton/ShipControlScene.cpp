@@ -149,7 +149,7 @@ ShipControlScene::ShipControlScene(
 	meteoritosSystem->startPosMinRange = {-100,20,-100};
 	meteoritosSystem->startPosMaxRange = {100,20,100};
 		
-	meteoritosSystem->creationRate = 5.f;
+	meteoritosSystem->creationRate = 3.f;
 	meteoritosSystem->startLifeTimeMinRange = 20.f;
 	meteoritosSystem->startLifeTimeMaxRange = 40.f;
 	meteoritosSystem->diePos = false;
@@ -189,6 +189,9 @@ ShipControlScene::~ShipControlScene()
 	DeregisterRenderItem(cubo2RenderItem);
 	DeregisterRenderItem(cubo3RenderItem);
 	DeregisterRenderItem(cubo4RenderItem);
+
+	delete meteoritosSystem->model;
+	delete meteoritosSystem;
 
 }
 
@@ -323,7 +326,7 @@ void ShipControlScene::updateMove(double t)
 
 	//vectores de fuerza (dir * fuerza * sin||cos)
 	PxVec3 forwardForceVector = shipForwardVector * forwardForce * cos(angleRadians);
-	PxVec3 torqueForceVector = shipTorqueVector * forwardForce * sin(angleRadians) ; //provisional por rozamiento
+	PxVec3 torqueForceVector = shipTorqueVector * forwardForce * sin(angleRadians) ;
 
 	// Aplicar la fuerza al centro de masa
 	ship->getPxRigidDynamic()->addForce(forwardForceVector);
