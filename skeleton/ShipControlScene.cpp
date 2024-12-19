@@ -13,14 +13,63 @@ ShipControlScene::ShipControlScene(
 
 	//creacion del suelo
 	floor = gPhysics->createRigidStatic({ PxTransform{0,0,0} });
-
 	PxShape* floorShape = CreateShape(PxBoxGeometry(10000, 0.1, 10000));
 	floor->attachShape(*floorShape);
 
 	floorRenderItem = new RenderItem(floorShape, floor, { 0,0.15,0.7,1 });
+
+	//no lo añadimos a la escena para que no colisione
 	//gScene->addActor(*floor);
 
+	float boxSize = 600;
 
+	//----------------------------------------------------
+
+	cubo1 = gPhysics->createRigidStatic({ PxTransform{0,0,-boxSize} });
+	PxShape* cubo1shape = CreateShape(PxBoxGeometry(boxSize, 10, 10));
+	cubo1->attachShape(*cubo1shape);
+
+	cubo1RenderItem = new RenderItem(cubo1shape, cubo1, { 1,0,0,1 });
+	gScene->addActor(*cubo1);
+
+	//----------------------------------------------------
+
+	cubo2 = gPhysics->createRigidStatic({ PxTransform{0,0,boxSize} });
+	PxShape* cubo2shape = CreateShape(PxBoxGeometry(boxSize, 10, 10));
+	cubo2->attachShape(*cubo2shape);
+
+	cubo2RenderItem = new RenderItem(cubo2shape, cubo2, { 1,0,0,1 });
+	gScene->addActor(*cubo2);
+
+	//----------------------------------------------------
+
+
+	cubo3 = gPhysics->createRigidStatic({ PxTransform{boxSize,0,0} });
+	PxShape* cubo3shape = CreateShape(PxBoxGeometry(10, 10, boxSize));
+	cubo3->attachShape(*cubo3shape);
+
+	cubo3RenderItem = new RenderItem(cubo3shape, cubo3, { 1,0,0,1 });
+	gScene->addActor(*cubo3);
+
+
+	//----------------------------------------------------
+
+
+	cubo4 = gPhysics->createRigidStatic({ PxTransform{-boxSize,0,0} });
+	PxShape* cubo4shape = CreateShape(PxBoxGeometry(10, 10, boxSize));
+	cubo4->attachShape(*cubo4shape);
+
+	cubo4RenderItem = new RenderItem(cubo4shape, cubo4, { 1,0,0,1 });
+	gScene->addActor(*cubo4);
+
+
+	//----------------------------------------------------
+
+
+
+
+
+	//----------------------------------------------------
 	//creacion del barco
 	ship = new RigidSolid(allRigidSolids, gPhysics, gScene, { 0,0,0 }, { 4,12,10 }, { 0,1,0,1 },0.15,PxGeometryType::eBOX);
 
@@ -31,18 +80,27 @@ ShipControlScene::ShipControlScene(
 
 	ship->getPxRigidDynamic()->setRigidDynamicLockFlag(PxRigidDynamicLockFlag::eLOCK_ANGULAR_X, true);
 	ship->getPxRigidDynamic()->setRigidDynamicLockFlag(PxRigidDynamicLockFlag::eLOCK_ANGULAR_Z, true);
+	
+	//----------------------------------------------------
 
+
+	//----------------------------------------------------
 
 	//creacion del sistema de flotacion
 	bouyancyFGRS = new BouyancyForceGeneratorRS(allRigidSolids);
 
-	//creacion del viento
-	windFGRS = new WindForceGeneratorRS(allRigidSolids);
+	////creacion del viento
+	//windFGRS = new WindForceGeneratorRS(allRigidSolids);
 
-	windFGRS->setMinRange({ -100000,-100000,-100000 });
-	windFGRS->setMaxRange({ 100000,100000,100000 });
-	windFGRS->setK1(60);
+	//windFGRS->setMinRange({ -100000,-100000,-100000 });
+	//windFGRS->setMaxRange({ 100000,100000,100000 });
+	//windFGRS->setK1(60);
 	//windFGRS->setVelocity({10,0,0});
+
+	//----------------------------------------------------
+
+
+	//----------------------------------------------------
 
 
 	windForceGenerator = new WindForceGenerator(allParticles,true);
@@ -51,6 +109,9 @@ ShipControlScene::ShipControlScene(
 	windForceGenerator->setMaxRange({ 100000,100000,100000 });
 	windForceGenerator->setVelocity({ 50,0,0 });
 	//creacion de la lluvia
+
+
+	//----------------------------------------------------
 
 	createRainSystem();
 
@@ -80,6 +141,12 @@ ShipControlScene::~ShipControlScene()
 	delete windForceGenerator;
 	delete gravityForceGenerator;
 	delete tornadoGen;
+
+
+	DeregisterRenderItem(cubo1RenderItem);
+	DeregisterRenderItem(cubo2RenderItem);
+	DeregisterRenderItem(cubo3RenderItem);
+	DeregisterRenderItem(cubo4RenderItem);
 
 }
 

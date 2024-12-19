@@ -66,7 +66,19 @@ private:
     RigidSolid* islote = nullptr;
 
     physx::PxRigidStatic* floor = nullptr;
+
+    physx::PxRigidStatic* cubo1 = nullptr;
+    physx::PxRigidStatic* cubo2 = nullptr;
+    physx::PxRigidStatic* cubo3 = nullptr;
+    physx::PxRigidStatic* cubo4 = nullptr;
+
+
     RenderItem* floorRenderItem = nullptr;
+
+    RenderItem* cubo1RenderItem = nullptr;
+    RenderItem* cubo2RenderItem = nullptr;
+    RenderItem* cubo3RenderItem = nullptr;
+    RenderItem* cubo4RenderItem = nullptr;
 
 
     BouyancyForceGeneratorRS* bouyancyFGRS = nullptr;

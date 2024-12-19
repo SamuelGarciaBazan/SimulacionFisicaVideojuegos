@@ -63,6 +63,9 @@ bool Camera::handleKey(unsigned char key, int x, int y, float speed)
 	PX_UNUSED(y);
 
 	PxVec3 viewY = mDir.cross(PxVec3(0,1,0)).getNormalized();
+	PxVec3 viewX = mDir.cross(PxVec3(1,0,0)).getNormalized();
+	PxVec3 viewZ = mDir.cross(PxVec3(0,0,1)).getNormalized();
+
 	switch(toupper(key))
 	{
 	case 'W':	mEye += mDir*2.0f*speed;		break;

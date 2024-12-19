@@ -169,9 +169,14 @@ void renderLoop()
 {
 	StartCounter();
 
+	//[x:-48.3832 y : 944.253 z : 548.267]
+	//[x:0.00276794 y : -0.900432 z : -0.434988]
 
 	PxVec3 cameraInitialEye{ 64.6405,157.43,140.838 };
 	PxVec3 cameraInitialDir{ -0.389087 , -0.590726,-0.706862 };
+
+	//PxVec3 cameraInitialEye{ -48.3832,944.253,548.267 };
+	//PxVec3 cameraInitialDir{ 0.00276794 , -0.900432,-0.434988 };
 
 	//sCamera = new Camera(PxVec3(50.0f, 50.0f, 50.0f), PxVec3(-0.6f,-0.2f,-0.7f));
 	sCamera = new Camera(cameraInitialEye, cameraInitialDir);
