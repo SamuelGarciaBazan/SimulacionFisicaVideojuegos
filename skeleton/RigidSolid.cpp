@@ -66,6 +66,11 @@ RigidSolid::RigidSolid(
 RigidSolid::~RigidSolid()
 {
 	delete rigidDynamic->userData;
+
+	gScene->removeActor(*rigidDynamic);
+	rigidDynamic->release();
+
+
 	allRigidSolids.erase(myIt);
 	DeregisterRenderItem(renderItem);
 }

@@ -67,7 +67,7 @@ IMPORTANTE!!
 MAPA GRANDE CUADRADO
 - cubos, esferas , capsulas por el mapa(obstáculos)
 - cada X tiempo van cayendo mas objetos
-- limites de cosas, (paredes estáticas)
+- limites de cosas, (paredes estáticas) DONE
 - hay objetos aleatorios en el mapa
 - destruir todos los objetos en el menor tiempo posible
 - si te chocas con un objeto mueres

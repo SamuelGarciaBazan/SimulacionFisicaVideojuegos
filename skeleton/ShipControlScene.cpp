@@ -142,6 +142,15 @@ ShipControlScene::~ShipControlScene()
 	delete gravityForceGenerator;
 	delete tornadoGen;
 
+	gScene->removeActor(*cubo1);
+	gScene->removeActor(*cubo2);
+	gScene->removeActor(*cubo3);
+	gScene->removeActor(*cubo4);
+	cubo1->release();
+	cubo2->release();
+	cubo3->release();
+	cubo4->release();
+
 
 	DeregisterRenderItem(cubo1RenderItem);
 	DeregisterRenderItem(cubo2RenderItem);
