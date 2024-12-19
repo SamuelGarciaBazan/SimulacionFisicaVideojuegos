@@ -33,6 +33,9 @@
 #include <ctype.h>
 #include "foundation/PxMat33.h"
 
+#include <iostream>
+#include <cstdio>
+
 using namespace physx;
 
 namespace Snippets
@@ -68,6 +71,11 @@ bool Camera::handleKey(unsigned char key, int x, int y, float speed)
 	case 'D':	mEye += viewY*2.0f*speed;		break;
 	default:							return false;
 	}
+
+	std::cout << "mEye [ x:" << mEye.x << " y: " << mEye.y << " z: " << mEye.z << " ]" << std::endl;
+	std::cout << "mDir [ x:" << mDir.x << " y: " << mDir.y << " z: " << mDir.z << " ]" << std::endl;
+
+
 	return true;
 }
 
@@ -94,6 +102,7 @@ void Camera::handleMotion(int x, int y)
 
 	mMouseX = x;
 	mMouseY = y;
+
 }
 
 PxTransform Camera::getTransform() const

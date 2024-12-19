@@ -290,6 +290,11 @@ void startRender(const PxVec3& cameraEye, const PxVec3& cameraDir, PxReal clipNe
 	glColor4f(1.0f, 0.2f, 0.2f, 1.0f);
 	drawText(display_text, 0, 0);
 
+	drawText(timon_text,0,470);
+
+	drawText("", 100, 100);
+
+
 	// Setup camera
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -395,10 +400,16 @@ void drawText(const std::string& text, int x, int y)
 	//glLoadIdentity();
 	glRasterPos2i(x, y);
 
+	//float anchoTexto = 1 * 10; // Aproximación para GLUT_BITMAP_TIMES_ROMAN_24
+	//float alturaTexto = 24; // Tamaño aproximado
+	//glColor4f(0, 0, 0,1);
+	//glRectf(x, y - alturaTexto, x + anchoTexto, y);
+
+
 	int length = text.length();
 
 	for (int i = 0; i < length; i++) {
-		glutBitmapCharacter(GLUT_BITMAP_9_BY_15, (int)text[i]);
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, (int)text[i]);
 	}
 	glPopMatrix();
 	glMatrixMode(GL_PROJECTION);

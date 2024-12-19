@@ -22,9 +22,9 @@ ShipControlScene::ShipControlScene(
 
 
 	//creacion del barco
-	ship = new RigidSolid(allRigidSolids, gPhysics, gScene, { 0,0,0 }, { 3,3,8 }, { 0,1,0,1 },0.15,PxGeometryType::eBOX);
+	ship = new RigidSolid(allRigidSolids, gPhysics, gScene, { 0,0,0 }, { 4,12,10 }, { 0,1,0,1 },0.15,PxGeometryType::eBOX);
 
-	ship->getPxRigidDynamic()->setMaxAngularVelocity(0.6);
+	ship->getPxRigidDynamic()->setMaxAngularVelocity(0.7);
 	ship->getPxRigidDynamic()->setLinearDamping(0.75);
 	ship->getPxRigidDynamic()->setAngularDamping(0.6);
 
@@ -85,7 +85,9 @@ ShipControlScene::~ShipControlScene()
 
 void ShipControlScene::update(double t)
 {
-	std::cout << t << std::endl;
+	//std::cout << t << std::endl;
+	
+	
 	updateMove(t);
 	updateShooting(t);
 
@@ -101,6 +103,7 @@ void ShipControlScene::update(double t)
 
 	particleSystemSnow->update(t);
 	tornadoGen->update();
+
 
 
 	//auto v = ship->getPxRigidDynamic()->getAngularVelocity();
@@ -464,7 +467,7 @@ void ShipControlScene::createSnowSystem()
 
 	PxQuat quat = PxQuat(0, 0, 0, 1);
 
-	snowModel = new Particle(allParticles, PxVec3(0, 30, 0), quat, PxVec3(250, 0, 0), 1, 1, 1, PxGeometryType::Enum::eSPHERE,{0.4,0.4,0.4,1});
+	snowModel = new Particle(allParticles, PxVec3(0, 30000, 0), quat, PxVec3(250, 0, 0), 1, 1, 1, PxGeometryType::Enum::eSPHERE,{0.4,0.4,0.4,1});
 	snowModel->setForceIndependent(true);
 
 	particleSystemSnow->model = snowModel;

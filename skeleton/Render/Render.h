@@ -48,6 +48,8 @@
 #include <string>
 
 extern std::string display_text;
+extern std::string timon_text;
+
 
 namespace Snippets
 {

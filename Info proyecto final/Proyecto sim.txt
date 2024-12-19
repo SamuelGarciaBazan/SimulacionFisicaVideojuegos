@@ -34,8 +34,6 @@ Opcional
 	- Barriles de polvora en el mar, si bala choca, explosión , daño y fuerza a objetos cercanos
 
 
-IMPORTANTE!!
--Generador de solidos rigidos -> meteoritos que caen?
 
 
 
@@ -43,12 +41,12 @@ REQUISITOS PROYECTO:
 Al menos debe tener: 
 DONE	-Dos generadores de partículas distintos.  ---> lluvia y tornado gris
 
-DONE	-Partículas con distinta masa.  --->lluvia con masa variable/ humo distinta masa
+DONE	-Partículas con distinta masa.  --->lluvia con masa variable/ tornado distinta masa
 
-DONE	-Dos generadores de fuerzas diferentes (sin contar muelles), cada uno con su fórmula y  ---> viento y tornado
+DONE	-Dos generadores de fuerzas diferentes (sin contar muelles), cada uno con su fórmula y  ---> viento y tornado y gravedad
 	sus restricciones de aplicación. 
 
-DONE	-Un ejemplo de muelle o de flotación. 
+DONE	-Un ejemplo de muelle o de flotación. ---> toda la escena
 
 DONE	-Un sistema de sólidos rígidos. ---> colision bala con bola (de momento no hace nada)
 
@@ -62,6 +60,20 @@ DONE	-Interacción con el usuario a través del teclado y/o ratón.
 
 
 
+
+IMPORTANTE!!
+-Generador de solidos rigidos -> meteoritos que caen?
+
+MAPA GRANDE CUADRADO
+- cubos, esferas , capsulas por el mapa(obstáculos)
+- cada X tiempo van cayendo mas objetos
+- limites de cosas, (paredes estáticas)
+- hay objetos aleatorios en el mapa
+- destruir todos los objetos en el menor tiempo posible
+- si te chocas con un objeto mueres
+
+
+cámara te sigue?
 
 
 

@@ -37,6 +37,9 @@
 
 std::string display_text = "This is a test";
 
+std::string basicTimonText = "Rotacion timon: ";
+std::string timon_text = "";
+
 using namespace physx;
 
 
@@ -204,6 +207,12 @@ void stepPhysics(bool interactive, double t)
 
 	currentScene->update(t);
 	
+
+	auto scenePtr = (ShipControlScene*)currentScene;
+	
+	if (scenePtr != nullptr) {
+		timon_text = basicTimonText + scenePtr->getTimonValue();
+	}
 
 	for (auto& sys : particlesSystems) sys->update(t);
 	for (auto& par : particles) par->integrate(t);

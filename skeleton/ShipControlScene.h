@@ -26,6 +26,14 @@ public:
     virtual void specialKeyDown(int key, const physx::PxTransform& camera);
     virtual void specialKeyUp(int key, const physx::PxTransform& camera);
 
+
+    std::string getTimonValue() {
+        char buffer[32]; // Búfer temporal
+        sprintf(buffer, "%.2f", angle); // Escribe el resultado
+        std::string text(buffer); // Asigna al string
+        return text;
+    }
+
 private:
 
     enum Side {
@@ -73,11 +81,11 @@ private:
     bool moveRight = false;
     bool moveLeft = false;
 
-    double forwardForcePerSecond = 2000000;
+    double forwardForcePerSecond = 15000000;
     double torqueForcePerSecond =  20000000;
 
     double angle = 0;
-    double anglePerSecond = 100;
+    double anglePerSecond = 30;
     double minAngle = -45;
     double maxAngle = 45;
 
