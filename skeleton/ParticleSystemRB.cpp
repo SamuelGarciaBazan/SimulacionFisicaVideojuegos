@@ -1,4 +1,5 @@
 #include "ParticleSystemRB.h"
+#include <iostream>
 
 
 using namespace std;
@@ -118,7 +119,11 @@ void ParticleSystemRB::createParticle()
 		model->type);
 
 	newParticle->setForceIndependent(forceIndependent);
+	
+	newParticle->getPxRigidDynamic()->setLinearDamping(model->linearDamping);
+	newParticle->getPxRigidDynamic()->setAngularDamping(model->angularDamping);
 
+	//std::cout << "aaaa" << std::endl;
 	RigidSolidData data;
 	data.particle = newParticle;
 	data.currentLifeTime = startLifetime;

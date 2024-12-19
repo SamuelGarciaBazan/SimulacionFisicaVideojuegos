@@ -70,6 +70,8 @@ public:
 		double density;
 		physx::PxGeometryType::Enum type;
 		bool forceIndependent;
+		double linearDamping;
+		double angularDamping;
 	};
 
 
@@ -94,7 +96,7 @@ public:
 	int maxParticles;
 
 	double creationRate;
-	double currentCreationTimer;
+	double currentCreationTimer = 0;
 
 	double startLifeTimeMinRange;
 	double startLifeTimeMaxRange;

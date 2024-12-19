@@ -10,6 +10,9 @@
 #include "TornadoForceGenerator.h"
 #include "GravityForceGenerator.h"
 
+#include "ParticleSystemRB.h"
+
+
 class ShipControlScene :
     public Scene
 {
@@ -138,5 +141,10 @@ private:
 
     ParticleSystem* particleSystemSnow;
     Particle* snowModel;
+
+
+
+    ParticleSystemRB* meteoritosSystem;
+
 };
 

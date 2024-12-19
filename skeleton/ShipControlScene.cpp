@@ -127,6 +127,39 @@ ShipControlScene::ShipControlScene(
 
 	islote = new RigidSolid(allRigidSolids, gPhysics, gScene, { 50,0,-50 }, { 8,8,8 }, { 1,0,0,1 }, 0.15, PxGeometryType::eSPHERE);
 
+
+	//creacion del sistema de meteoritos
+
+	meteoritosSystem = new ParticleSystemRB(allRigidSolids, gPhysics, gScene, MyRandom::RandomMode::UNIFORM);
+
+	ParticleSystemRB::RigidSolidModelData* model = new ParticleSystemRB::RigidSolidModelData();
+
+	model->color = { 1,0,0,1 };
+	model->density = 0.15;
+	model->forceIndependent = false;
+	model->scale = { 5,5,5 };
+	model->type = physx::PxGeometryType::Enum::eSPHERE;
+	model->linearDamping = 0.7;
+	model->angularDamping = 0.0;
+
+
+
+	meteoritosSystem->model = model;
+
+	meteoritosSystem->startPosMinRange = {-100,20,-100};
+	meteoritosSystem->startPosMaxRange = {100,20,100};
+		
+	meteoritosSystem->creationRate = 5.f;
+	meteoritosSystem->startLifeTimeMinRange = 20.f;
+	meteoritosSystem->startLifeTimeMaxRange = 40.f;
+	meteoritosSystem->diePos = false;
+	meteoritosSystem->dieTime = true;
+
+	meteoritosSystem->transform = PxTransform();
+
+	meteoritosSystem->transform.p = physx::PxVec3(0, 0, 0);
+	meteoritosSystem->transform.q = physx::PxQuat(0, 0, 0, 1);
+
 }
 
 ShipControlScene::~ShipControlScene()
@@ -180,6 +213,7 @@ void ShipControlScene::update(double t)
 	particleSystemSnow->update(t);
 	tornadoGen->update();
 
+	meteoritosSystem->update(t);
 
 
 	//auto v = ship->getPxRigidDynamic()->getAngularVelocity();
